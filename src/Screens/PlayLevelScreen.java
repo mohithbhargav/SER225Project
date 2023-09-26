@@ -10,6 +10,13 @@ import Level.PlayerListener;
 import Maps.TestMap;
 import Players.Cat;
 import Utils.Point;
+import javax.swing.JLabel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.awt.Color;
+import java.awt.Font;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
@@ -17,7 +24,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
+    protected JLabel countLabel;
     protected int screenTimer;
+    protected Timer timer;
+    protected boolean isRunning;
+    protected int minutes, seconds;
+    protected Font font = new Font("Arial", Font.PLAIN, 50);
+    protected String minute, second;
+    protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
@@ -41,6 +55,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
+        this.countLabel = new JLabel("");
+        // this.countLabel.setBounds(500, 402, 100, 0);
+        this.countLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.countLabel.setFont(font);
+        
+        countLabel.setText("0:00");
+        seconds = 0;
+        minutes = 1;
+        second = dec.format(seconds);
+        isRunning = true;
+        
+
+        Timer();
+        timer.start();
     }
 
     public void update() {
@@ -77,6 +106,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+                graphicsHandler.drawString(minutes + ":" + second, 350, 50, font, Color.BLACK);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
@@ -86,6 +116,32 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
         }
     }
+
+
+    public void Timer() {
+        
+    	timer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seconds--;
+				second = dec.format(seconds);
+				countLabel.setText(minutes + ":" + second);
+				
+				if (seconds == -1) {
+					seconds = 59;
+					minutes--;
+					second = dec.format(seconds);
+					countLabel.setText(minutes + ":" + second);
+				}
+				if (minutes == 0 && seconds == 0) {
+					timer.stop();
+					isRunning = false;
+				}
+				
+            }
+        });
+    }
+	
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
