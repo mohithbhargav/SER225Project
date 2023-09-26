@@ -10,3 +10,7 @@ TestResources/
 _site
 .DS_Store
 todo.txt
+.metals/metals.log
+.metals/metals.lock.db
+.metals/metals.mv.db
+.vscode/settings.json
