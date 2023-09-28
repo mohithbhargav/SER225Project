@@ -33,6 +33,7 @@ public class CreditsScreen extends Screen {
         keyLocker.lockKey(Key.SPACE);
     }
 
+    
     public void update() {
         background.update(null);
 
