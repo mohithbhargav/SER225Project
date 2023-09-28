@@ -28,8 +28,8 @@ public class OnlyGitMap extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
-        enemies.add(dinosaurEnemy);
+       /*  DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy);*/
 
         return enemies;
     }
@@ -59,7 +59,7 @@ public class OnlyGitMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
+        Walrus walrus = new Walrus(getMapTile(15, 9).getLocation().subtractY(13));
         npcs.add(walrus);
 
         return npcs;
