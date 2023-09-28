@@ -1,5 +1,9 @@
 package Screens;
-
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
+import java.awt.FontFormatException;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -27,13 +31,23 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("PLAY GAME", 200, 119, "Comic Sans", 30, new Color(49, 207, 240));
+        Font customFont;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("/Users/carmineandranovich/Library/Fonts/DePixelBreit.otf")).deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            customFont = new Font("Comic Sans", Font.PLAIN, 30); // fallback to Comic Sans if custom font loading fails
+        }
+    
+        playGame = new SpriteFont("PLAY GAME", 200, 119, customFont.getFontName(), 30, new Color(165, 42, 42)); // Brown color
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 200, 219, "Comic Sans", 30, new Color(49, 207, 240));
+        credits = new SpriteFont("CREDITS", 200, 219, customFont.getFontName(), 30, new Color(165, 42, 42)); // Brown color
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
-        instructions = new SpriteFont("INSTRUCTIONS", 200, 319, "Comic Sans", 30, new Color(49, 207, 240));
+        instructions = new SpriteFont("INSTRUCTIONS", 200, 319, customFont.getFontName(), 30, new Color(165, 42, 42)); // Brown color
         instructions.setOutlineColor(Color.black);
         instructions.setOutlineThickness(3);
         background = new TitleScreenMap();
@@ -42,6 +56,7 @@ public class MenuScreen extends Screen {
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
     }
+    
 
     public void update() {
         background.update(null);
