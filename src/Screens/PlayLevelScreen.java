@@ -56,16 +56,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
+<<<<<<< HEAD
         this.tLabel = new JLabel("");
         this.tLabel.setHorizontalAlignment(JLabel.CENTER);
         this.tLabel.setFont(font);
         
         tLabel.setText("0:00");
+=======
+        this.countLabel = new JLabel("");
+        // this.countLabel.setBounds(500, 402, 100, 0);
+        this.countLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.countLabel.setFont(font);
+
+        countLabel.setText("0:00");
+>>>>>>> e7e9af8e239de705ab28a85a8795e5e0dd93b391
         seconds = 0;
         minutes = 1;
         second = dec.format(seconds);
         isRunning = true;
-        
 
         Timer();
         timer.start();
@@ -74,7 +82,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
-            // if level is "running" update player and map to keep game logic for the platformer level going
+            // if level is "running" update player and map to keep game logic for the
+            // platformer level going
             case RUNNING:
                 player.update();
                 map.update(player);
@@ -94,7 +103,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     }
                 }
                 break;
-            // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
+            // wait on level lose screen to make a decision (either resets level or sends
+            // player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
 
@@ -119,8 +129,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-
     public void Timer() {
+<<<<<<< HEAD
         
     	timer = new Timer(1000, new ActionListener() {
 			@Override
@@ -140,10 +150,30 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 					isRunning = false;
 				}
 				
+=======
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seconds--;
+                second = dec.format(seconds);
+                countLabel.setText(minutes + ":" + second);
+
+                if (seconds == -1) {
+                    seconds = 59;
+                    minutes--;
+                    second = dec.format(seconds);
+                    countLabel.setText(minutes + ":" + second);
+                }
+                if (minutes == 0 && seconds == 0) {
+                    timer.stop();
+                    isRunning = false;
+                }
+
+>>>>>>> e7e9af8e239de705ab28a85a8795e5e0dd93b391
             }
         });
     }
-	
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
