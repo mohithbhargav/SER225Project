@@ -24,12 +24,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
-    protected JLabel countLabel;
+    protected JLabel tLabel;
     protected int screenTimer;
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
-    protected Font font = new Font("Arial", Font.PLAIN, 50);
+    protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
@@ -56,12 +56,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        this.countLabel = new JLabel("");
-        // this.countLabel.setBounds(500, 402, 100, 0);
-        this.countLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.countLabel.setFont(font);
+        this.tLabel = new JLabel("");
+        this.tLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.tLabel.setFont(font);
         
-        countLabel.setText("0:00");
+        tLabel.setText("0:00");
         seconds = 0;
         minutes = 1;
         second = dec.format(seconds);
@@ -79,6 +78,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 player.update();
                 map.update(player);
+                Timer();
+                timer.start();
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -96,6 +97,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
+
                 break;
         }
     }
@@ -125,13 +127,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			public void actionPerformed(ActionEvent e) {
 				seconds--;
 				second = dec.format(seconds);
-				countLabel.setText(minutes + ":" + second);
+				tLabel.setText(minutes + ":" + second);
 				
 				if (seconds == -1) {
 					seconds = 59;
 					minutes--;
 					second = dec.format(seconds);
-					countLabel.setText(minutes + ":" + second);
+					tLabel.setText(minutes + ":" + second);
 				}
 				if (minutes == 0 && seconds == 0) {
 					timer.stop();
