@@ -1,5 +1,10 @@
 package Screens;
-
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
+import java.awt.FontFormatException;
+import java.awt.Color;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -30,15 +35,27 @@ public class Instruction extends Screen {
         // setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
-        instructionLabel = new SpriteFont("Instructions", 15, 7, "Times New Roman", 30, Color.white);
-        moveLeftLabel = new SpriteFont("Left arrow key to move left", 20, 50, "Times New Roman", 20, Color.white);
-        moveRightLabel = new SpriteFont("Right arrow key to move right", 20, 80, "Times New Roman", 20, Color.white);
-        jumpLabel = new SpriteFont("Up arrow key to jump", 20, 110, "Times New Roman", 20, Color.white);
-        crouchLabel = new SpriteFont("Down arrow key to crouch", 20, 140, "Times New Roman", 20, Color.white);
-        returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 170, "Times New Roman", 30, Color.white);
+        
+        Font customFont;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("/Users/carmineandranovich/Library/Fonts/DePixelBreit.otf")).deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font loading fails
+        }
+    
+        instructionLabel = new SpriteFont("Instructions", 15, 7, customFont.getFontName(), 30, new Color(165, 42, 42)); // Brown color
+        moveLeftLabel = new SpriteFont("Left arrow key to move left", 20, 50, customFont.getFontName(), 20, new Color(165, 42, 42)); // Brown color
+        moveRightLabel = new SpriteFont("Right arrow key to move right", 20, 80, customFont.getFontName(), 20, new Color(165, 42, 42)); // Brown color
+        jumpLabel = new SpriteFont("Up arrow key to jump", 20, 110, customFont.getFontName(), 20, new Color(165, 42, 42)); // Brown color
+        crouchLabel = new SpriteFont("Down arrow key to crouch", 20, 140, customFont.getFontName(), 20, new Color(165, 42, 42)); // Brown color
+        returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 170, customFont.getFontName(), 30, new Color(165, 42, 42)); // Brown color
+        
         keyLocker.lockKey(Key.SPACE);
     }
-
+    
     public void update() {
         background.update(null);
 
