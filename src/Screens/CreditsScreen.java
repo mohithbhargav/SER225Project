@@ -1,18 +1,22 @@
 package Screens;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
-import java.awt.FontFormatException;
-import java.awt.Color;
-import Engine.*;
+
+import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.KeyLocker;
+import Engine.Keyboard;
+import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
+
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
-import java.awt.*;
 
 // This class is for the credits screen
 public class CreditsScreen extends Screen {
@@ -35,7 +39,8 @@ public class CreditsScreen extends Screen {
         
         Font customFont;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("/Users/carmineandranovich/Library/Fonts/DePixelBreit.otf")).deriveFont(30f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(String fontFilePath = "/Users/carmineandranovich/VSCODEjava/SER225Project/Resources/DePixel.pdf";
+            )).deriveFont(30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
