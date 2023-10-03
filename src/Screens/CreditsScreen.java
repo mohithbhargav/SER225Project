@@ -39,7 +39,7 @@ public class CreditsScreen extends Screen {
             
             Font customFont;
             try {
-                String fontFilePath = "/Resources/DePixelKlein.ttf";
+                String fontFilePath = "Resources/DePixelBreit.otf";
                 customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(30f);
                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 ge.registerFont(customFont);

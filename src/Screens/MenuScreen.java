@@ -33,7 +33,7 @@ public class MenuScreen extends Screen {
     public void initialize() {
         Font customFont;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("/Users/carmineandranovich/Library/Fonts/DePixelBreit.otf")).deriveFont(30f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Resources/DePixelBreit.otf")).deriveFont(30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
