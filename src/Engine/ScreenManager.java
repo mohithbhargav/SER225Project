@@ -24,12 +24,18 @@ public class ScreenManager {
     }
 
     public void update() {
-        currentScreen.update();
+        if (currentScreen != null) {
+            currentScreen.update();
+        }
     }
+    
 
     public void draw(GraphicsHandler graphicsHandler) {
-        currentScreen.draw(graphicsHandler);
+        if (currentScreen != null) {
+            currentScreen.draw(graphicsHandler);
+        }
     }
+    
 
     // gets width of currentScreen -- can be called from anywhere in an application
     public static int getScreenWidth() {

@@ -1,9 +1,7 @@
 package Screens;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
-import java.awt.FontFormatException;
+
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -114,10 +112,15 @@ public class MenuScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
+
+        if (background != null) {
+
+        background.draw(graphicsHandler);
         background.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         instructions.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
+}
 }
