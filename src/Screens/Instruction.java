@@ -10,8 +10,10 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
+import Maps.OnlyGitMap;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import Maps.OnlyGitMap;
 
 import java.awt.*;
 
@@ -39,7 +41,7 @@ public class Instruction extends Screen {
         
         Font customFont;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/Resources/DePixelKlein.ttf")).deriveFont(30f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Resources/DePixelBreit.otf")).deriveFont(30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {

@@ -19,11 +19,10 @@ public class Walrus extends NPC {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
         isInteractable = true;
         talkedToTime = 200;
-        textbox.setText("Only Git!");
+        textbox.setText("I heard security talk about the security key. It's 641........");
         textboxOffsetX = -4;
         textboxOffsetY = -34;
     }
-
     public void update(Player player) {
         // while npc is being talked to, it raises its tail up (in excitement?)
         if (talkedTo) {

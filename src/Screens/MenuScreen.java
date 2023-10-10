@@ -1,15 +1,14 @@
 package Screens;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
-import java.awt.FontFormatException;
+
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import Maps.OnlyGitMap;
 
 import java.awt.*;
 
@@ -33,7 +32,7 @@ public class MenuScreen extends Screen {
     public void initialize() {
         Font customFont;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("/Users/carmineandranovich/Library/Fonts/DePixelBreit.otf")).deriveFont(30f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Resources/DePixelBreit.otf")).deriveFont(30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
@@ -114,10 +113,15 @@ public class MenuScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
+
+        if (background != null) {
+
+        background.draw(graphicsHandler);
         background.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         instructions.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
+}
 }
