@@ -10,8 +10,10 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
+import Maps.OnlyGitMap;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import Maps.OnlyGitMap;
 
 import java.awt.*;
 
