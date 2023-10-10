@@ -19,8 +19,10 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Font;
-import Maps.OnlyGitMap;
-import java.util.Scanner;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
 
 
 // This class is for when the platformer game is actually being played
@@ -35,12 +37,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected boolean isRunning;
     protected int minutes, seconds;
     static int secLog, minLog;
-    protected Font font = new Font("Black Letter", Font.PLAIN, 50);
+   // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    Font customFont;
    
     
     
@@ -65,9 +68,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
+        
+        try {
+            String fontFilePath = "Resources/DePixelBreit.otf";
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(55f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font loading fails
+        }
+
         this.tLabel = new JLabel("");
         this.tLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.tLabel.setFont(font);
+        this.tLabel.setFont(customFont);
+
         
         tLabel.setText("0:00");
         seconds = 0;
@@ -127,7 +142,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
-                graphicsHandler.drawString(minutes + ":" + second, 350, 50, font, Color.BLACK);
+                graphicsHandler.drawString(minutes + ":" + second, 350, 50, customFont, Color.BLACK);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
