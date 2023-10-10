@@ -16,9 +16,11 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Font;
 import Maps.OnlyGitMap;
+import java.util.Scanner;
 
 
 // This class is for when the platformer game is actually being played
@@ -32,12 +34,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
+    static int secLog, minLog;
     protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+   
+    
+    
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -69,9 +75,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         second = dec.format(seconds);
         isRunning = true;
 
+
+
         Timer();
         timer.start();
+
+
+       // System.out.println("LEFT: " + this.secLog);
+
+        
     }
+
+   
+
+    
 
     public void update() {
         // based on screen state, perform specific actions
@@ -114,6 +131,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
+                isRunning = false;
+                System.out.println("Time Left: " + minLog + ":" + secLog );
+
                 break;
             case LEVEL_LOSE:
                 levelLoseScreen.draw(graphicsHandler);
@@ -124,7 +144,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void Timer() {
         
     	timer = new Timer(1000, new ActionListener() {
-			@Override
+
+            @Override
 			public void actionPerformed(ActionEvent e) {
 				seconds--;
 				second = dec.format(seconds);
@@ -139,11 +160,28 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				if (minutes == 0 && seconds == 0) {
 					timer.stop();
 					isRunning = false;
+                    playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+                    
 				}
+                if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED)
+            
+                   timer.stop();
+                   isRunning = false;
+                    minLog = minutes;
+                    secLog = seconds;
+                  // System.out.println("Time Left: " + minLog + ":" + secLog );
+
+                   
+                   
+
+
+                
 				
             }
         });
     }
+
+   
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
@@ -154,6 +192,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
+            
+
         }
     }
 
