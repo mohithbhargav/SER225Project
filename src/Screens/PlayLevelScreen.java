@@ -142,7 +142,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
-                graphicsHandler.drawString(minutes + ":" + second, 350, 50, customFont, Color.BLACK);
+                graphicsHandler.drawString(minutes + ":" + second, 350, 50, customFont, Color.LIGHT_GRAY);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
