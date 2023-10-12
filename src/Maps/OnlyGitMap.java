@@ -59,7 +59,7 @@ public class OnlyGitMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(18, 16).getLocation().subtractY(13));
+        Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
         npcs.add(walrus);
 
         return npcs;
