@@ -62,6 +62,8 @@ public abstract class Map {
     // map tiles in map that are animated
     protected ArrayList<MapTile> animatedMapTiles;
 
+    
+
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;
         this.tileset = tileset;
@@ -216,6 +218,8 @@ public abstract class Map {
             return null;
         }
     }
+
+    
 
     // set specific map tile from tile map to a new map tile
     public void setMapTile(int x, int y, MapTile tile) {

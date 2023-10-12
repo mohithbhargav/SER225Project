@@ -7,8 +7,14 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Maps.OnlyGitMap;
 import Utils.Point;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
+
+import java.io.IOException;
 import java.util.HashMap;
 
 // This class is for the key 
@@ -21,15 +27,27 @@ public class KeyL1 extends EnhancedMapTile {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("key.png"), 16, 16), TileType.PASSABLE);
     }
 
-    @Override
-    public void update(Player player) {
-        super.update(player);
-        if (!isKeyPickedUp && intersects(player)) {
-            // Log the interaction
-            System.out.println("Player picked up the key!");
-            isKeyPickedUp = true; // Mark the key as picked up
+@Override
+public void update(Player player) {
+    super.update(player);
+    if (!isKeyPickedUp && intersects(player)) {
+        // Log the interaction
+        System.out.println("Player picked up the key!");
+        isKeyPickedUp = true; // Mark the key as picked up
+
+        replaceWallWithPassableTile();
         }
     }
+
+    private void replaceWallWithPassableTile() {
+    try {
+        OnlyGitMap.replaceAllWallTilesInFile();
+    } catch (IOException e) {
+        e.printStackTrace();
+        // Handle the exception, perhaps show an error message
+     }
+    }
+
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

@@ -12,7 +12,11 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 // Represents a test map to be used in a level
 public class OnlyGitMap extends Map {
@@ -35,6 +39,25 @@ public class OnlyGitMap extends Map {
         return enemies;
     }
 
+    public static void replaceAllWallTilesInFile() throws IOException {
+        // Try using the relative path first
+        String path = "MapFiles/only_git_map.txt";
+    
+        // Read the map file using the updated path
+        List<String> lines = Files.readAllLines(Paths.get(path));
+    
+        // Modify the lines by replacing all 15 tiles with 7
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            line = line.replaceAll(" 17 ", " 7 ");  // Replace all 17 tiles with 7
+            lines.set(i, line);
+        }
+    
+        // Write the modified map back to the file
+        Files.write(Paths.get(path), lines);
+    }
+    
+    
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
