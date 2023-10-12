@@ -53,7 +53,7 @@ public abstract class Player extends GameObject {
     protected Key CROUCH_KEY = Key.DOWN;
 
     // flags
-    protected boolean isInvincible = false;  // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -64,34 +64,29 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
 
-     String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
-try {
-    backgroundMusic = new PlayMusic(backgroundMusicPath);
-} catch (Exception e) {
-    e.printStackTrace();
-}
+        String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
+        try {
+            backgroundMusic = new PlayMusic(backgroundMusicPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private Level1 currentLevel;  // assuming you have access to your current level in the Player class
+    private Level1 currentLevel; // assuming you have access to your current level in the Player class
 
-public void pauseMusic() {
-    currentLevel.getAudioManager().stopSound();
-}
+    public void pauseMusic() {
+        currentLevel.getAudioManager().stopSound();
+    }
 
-public void resumeMusic() {
-    currentLevel.getAudioManager().playSound();
-}
+    public void resumeMusic() {
+        currentLevel.getAudioManager().playSound();
+    }
 
-public void stopMusic() {
-    currentLevel.getAudioManager().stopSound();
-}
-
-    
+    public void stopMusic() {
+        currentLevel.getAudioManager().stopSound();
+    }
 
     // ... Rest of your Player class methods ...
-
-
-
 
     public void update() {
         moveAmountX = 0;
@@ -101,7 +96,8 @@ public void stopMusic() {
         if (levelState == LevelState.RUNNING) {
             applyGravity();
 
-            // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
+            // update player's state and current actions, which includes things like
+            // determining how much it should move each frame and if its walking or jumping
             do {
                 previousPlayerState = playerState;
                 handlePlayerState();
@@ -109,7 +105,8 @@ public void stopMusic() {
 
             previousAirGroundState = airGroundState;
 
-            // move player with respect to map collisions based on how much player needs to move this frame
+            // move player with respect to map collisions based on how much player needs to
+            // move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
 
@@ -137,7 +134,8 @@ public void stopMusic() {
         moveAmountY += gravity + momentumY;
     }
 
-    // based on player's current state, call appropriate player state handling method
+    // based on player's current state, call appropriate player state handling
+    // method
     protected void handlePlayerState() {
         switch (playerState) {
             case STANDING:
@@ -218,7 +216,8 @@ public void stopMusic() {
 
     // player JUMPING state logic
     protected void playerJumping() {
-        // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
+        // if last frame player was on ground and this frame player is still on ground,
+        // the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
             // sets animation to a JUMP animation based on which way player is facing
@@ -236,7 +235,8 @@ public void stopMusic() {
             }
         }
 
-        // if player is in air (currently in a jump) and has more jumpForce, continue sending player upwards
+        // if player is in air (currently in a jump) and has more jumpForce, continue
+        // sending player upwards
         else if (airGroundState == AirGroundState.AIR) {
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
@@ -253,19 +253,22 @@ public void stopMusic() {
                 moveAmountX += walkSpeed;
             }
 
-            // if player is falling, increases momentum as player falls so it falls faster over time
+            // if player is falling, increases momentum as player falls so it falls faster
+            // over time
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
         }
 
-        // if player last frame was in air and this frame is now on ground, player enters STANDING state
+        // if player last frame was in air and this frame is now on ground, player
+        // enters STANDING state
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
 
-    // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
+    // while player is in air, this is called, and will increase momentumY by a set
+    // amount until player reaches terminal velocity
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
         if (momentumY > terminalVelocityY) {
@@ -293,17 +296,15 @@ public void stopMusic() {
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
             }
-        }
-        else if (playerState == PlayerState.WALKING) {
+        } else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
-        }
-        else if (playerState == PlayerState.CROUCHING) {
+        } else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
-        }
-        else if (playerState == PlayerState.JUMPING) {
-            // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
+        } else if (playerState == PlayerState.JUMPING) {
+            // if player is moving upwards, set player's animation to jump. if player moving
+            // downwards, set player's animation to fall
             if (lastAmountMovedY <= 0) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
             } else {
@@ -313,7 +314,8 @@ public void stopMusic() {
     }
 
     @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) { }
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+    }
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
@@ -329,7 +331,8 @@ public void stopMusic() {
             }
         }
 
-        // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
+        // if player collides with map tile upwards, it means it was jumping and then
+        // hit into a ceiling -- immediately stop upwards jump velocity
         else if (direction == Direction.UP) {
             if (hasCollided) {
                 jumpForce = 0;
@@ -352,12 +355,12 @@ public void stopMusic() {
         levelState = LevelState.LEVEL_COMPLETED;
     }
 
-   // if player has beaten level, this will be the update cycle
+    // if player has beaten level, this will be the update cycle
     public void updateLevelCompleted() {
         try {
             // Stop the background music
             backgroundMusic.stop();
-    
+
             // if player is not on ground, player should fall until it touches the ground
             if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
                 currentAnimationName = "FALL_RIGHT";
@@ -384,62 +387,63 @@ public void stopMusic() {
     }
 
     private void fadeOutMusic() {
-    if (backgroundMusic != null && backgroundMusic.getClip() != null) {
-        Clip clip = backgroundMusic.getClip();
-        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        float range = volumeControl.getMaximum() - volumeControl.getMinimum();
-        float targetVolume = volumeControl.getMinimum();
-        long fadeDuration = 5000; // 5 seconds
+        if (backgroundMusic != null && backgroundMusic.getClip() != null) {
+            Clip clip = backgroundMusic.getClip();
+            FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float range = volumeControl.getMaximum() - volumeControl.getMinimum();
+            float targetVolume = volumeControl.getMinimum();
+            long fadeDuration = 5000; // 5 seconds
 
-        new Thread(() -> {
-            for (float v = volumeControl.getValue(); v > targetVolume; v -= range / (fadeDuration / 100)) {
-                volumeControl.setValue(v);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            new Thread(() -> {
+                for (float v = volumeControl.getValue(); v > targetVolume; v -= range / (fadeDuration / 100)) {
+                    volumeControl.setValue(v);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                clip.stop();
+            }).start();
+        }
+    }
+
+    public void updatePlayerDead() {
+        try {
+            // Stop the background music
+            backgroundMusic.stop();
+
+            // change player animation to DEATH
+            if (!currentAnimationName.startsWith("DEATH")) {
+                if (facingDirection == Direction.RIGHT) {
+                    currentAnimationName = "DEATH_RIGHT";
+                } else {
+                    currentAnimationName = "DEATH_LEFT";
+                }
+                super.update();
+            }
+            // if death animation not on last frame yet, continue to play out death
+            // animation
+            else if (currentFrameIndex != getCurrentAnimation().length - 1) {
+                super.update();
+            }
+            // if death animation on last frame (it is set up not to loop back to start),
+            // player should continually fall until it goes off screen
+            else if (currentFrameIndex == getCurrentAnimation().length - 1) {
+                if (map.getCamera().containsDraw(this)) {
+                    moveY(3);
+                } else {
+                    // tell all player listeners that the player has died in the level
+                    for (PlayerListener listener : listeners) {
+                        listener.onDeath();
+                    }
                 }
             }
-            clip.stop();
-        }).start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            // Optionally, you can log the error or handle it in some other way.
+        }
     }
-}
-
-    
- public void updatePlayerDead() {
-    try {
-        // Stop the background music
-        backgroundMusic.stop();
-
-        // change player animation to DEATH
-        if (!currentAnimationName.startsWith("DEATH")) {
-            if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "DEATH_RIGHT";
-            } else {
-                currentAnimationName = "DEATH_LEFT";
-            }
-            super.update();
-        }
-        // if death animation not on last frame yet, continue to play out death animation
-        else if (currentFrameIndex != getCurrentAnimation().length - 1) {
-            super.update();
-        }
-        // if death animation on last frame (it is set up not to loop back to start), player should continually fall until it goes off screen
-        else if (currentFrameIndex == getCurrentAnimation().length - 1) {
-            if (map.getCamera().containsDraw(this)) {
-                moveY(3);
-            } else {
-                // tell all player listeners that the player has died in the level
-                for (PlayerListener listener : listeners) {
-                    listener.onDeath();
-                }
-            }
-        }
-    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-        e.printStackTrace();
-        // Optionally, you can log the error or handle it in some other way.
-    }
-}
 
     public PlayerState getPlayerState() {
         return playerState;
