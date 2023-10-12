@@ -388,7 +388,7 @@ public abstract class Player extends GameObject {
 
     private void fadeOutMusic() {
         if (backgroundMusic != null && backgroundMusic.getClip() != null) {
-            Clip clip = (Clip) backgroundMusic.getClip();
+            Clip clip = backgroundMusic.getClip();
             FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             float range = volumeControl.getMaximum() - volumeControl.getMinimum();
             float targetVolume = volumeControl.getMinimum();
