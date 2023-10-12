@@ -591,6 +591,16 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(Block52Tile); 
 
+        //block54
+        Frame Block54Frame = new FrameBuilder(getSubImage(9,0))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder Block54Tile = new MapTileBuilder(Block54Frame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Block54Tile); 
+
 
 
 

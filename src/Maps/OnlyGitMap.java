@@ -40,21 +40,23 @@ public class OnlyGitMap extends Map {
     }
 
     public static void replaceAllWallTilesInFile() throws IOException {
-        // Try using the relative path first
+        // path
         String path = "MapFiles/only_git_map.txt";
     
         // Read the map file using the updated path
         List<String> lines = Files.readAllLines(Paths.get(path));
     
-        // Modify the lines by replacing all 15 tiles with 7
+        // Modify the lines by replacing all 17 tiles with 7
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
-            line = line.replaceAll(" 17 ", " 7 ");  // Replace all 17 tiles with 7
+            line = line.replaceAll(" 54 ", " 7 ");  // Replace all 54 tiles with 7
             lines.set(i, line);
         }
     
         // Write the modified map back to the file
         Files.write(Paths.get(path), lines);
+
+        
     }
     
     

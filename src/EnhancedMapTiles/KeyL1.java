@@ -48,6 +48,8 @@ public void update(Player player) {
      }
     }
 
+    
+
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
