@@ -4,6 +4,7 @@ import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
@@ -52,7 +53,11 @@ public class OnlyGitMap extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(42, 12).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
+        KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
+        enhancedMapTiles.add(keyL1);
+
         return enhancedMapTiles;
+
     }
 
     @Override
