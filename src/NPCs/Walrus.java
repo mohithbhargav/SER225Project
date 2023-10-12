@@ -19,7 +19,7 @@ public class Walrus extends NPC {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
         isInteractable = true;
         talkedToTime = 200;
-        textbox.setText("I heard security talk about the security key to unlock the door.");
+        textbox.setText("I heard security talk about a key to disable the lasers!!.");
         textboxOffsetX = -4;
         textboxOffsetY = -34;
     }
