@@ -102,8 +102,8 @@ public class CommonTileset extends Tileset {
         .withScale(tileScale)
         .build();
 
-        MapTileBuilder BlockNew1Tile = new MapTileBuilder(BlockNew1Frame)
-        .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder BlockNew1Tile = new MapTileBuilder(BlockNew1Frame);
+        //.withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(BlockNew1Tile);  
         
