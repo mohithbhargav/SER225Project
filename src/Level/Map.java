@@ -104,7 +104,7 @@ public abstract class Map {
     }
 
     // reads in a map file to create the map's tilemap
-    private void loadMapFile() {
+    protected void loadMapFile() {
         Scanner fileInput;
         try {
             // open map file that is located in the MAP_FILES_PATH directory

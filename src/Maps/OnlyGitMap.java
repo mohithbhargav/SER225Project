@@ -26,6 +26,11 @@ public class OnlyGitMap extends Map {
         this.playerStartPosition = getMapTile(2, 11).getLocation();
     }
 
+    public void reloadMapFromFile() {
+        loadMapFile();
+    }
+    
+
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
@@ -58,7 +63,8 @@ public class OnlyGitMap extends Map {
 
         
     }
-    
+
+
     
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -79,12 +85,15 @@ public class OnlyGitMap extends Map {
         enhancedMapTiles.add(endLevelBox);
 
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
+        keyL1.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(keyL1);
-
+        
         return enhancedMapTiles;
 
     }
 
+
+    
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
