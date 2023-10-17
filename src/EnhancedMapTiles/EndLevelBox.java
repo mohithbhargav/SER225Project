@@ -7,8 +7,10 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Maps.OnlyGitMap;
 import Utils.Point;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 // This class is for the end level gold box tile
@@ -20,10 +22,16 @@ public class EndLevelBox extends EnhancedMapTile {
 
     @Override
     public void update(Player player) {
-        super.update(player);
-        if (intersects(player)) {
-            player.completeLevel();
+    super.update(player);
+    if (intersects(player)) {
+        player.completeLevel();
+        try {
+            OnlyGitMap.resetMapToFile();  // Reset the map after the level is completed
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception, perhaps log an error or display a message to the player
         }
+    }
     }
 
     @Override

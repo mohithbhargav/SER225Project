@@ -64,6 +64,19 @@ public class OnlyGitMap extends Map {
         
     }
 
+    public static void resetMapToFile() throws IOException {
+        // Path to the backup map
+        String backupPath = "MapFiles/only_git_map_backup.txt";
+        String targetPath = "MapFiles/only_git_map.txt";
+    
+        // Read the backup map
+        List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
+    
+        // Overwrite the target map with the backup map's content
+        Files.write(Paths.get(targetPath), backupLines);
+    }
+    
+
 
     
     @Override
