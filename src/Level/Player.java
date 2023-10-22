@@ -27,6 +27,9 @@ public abstract class Player extends GameObject {
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
     protected PlayMusic backgroundMusic;
+    protected float sprintSpeedMultiplier = 2.0f; 
+    protected boolean isSprinting = false;
+    protected long sprintEndTime = 0;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -89,6 +92,8 @@ public abstract class Player extends GameObject {
     // ... Rest of your Player class methods ...
 
     public void update() {
+
+    
         moveAmountX = 0;
         moveAmountY = 0;
 
@@ -116,6 +121,8 @@ public abstract class Player extends GameObject {
 
             // update player's animation
             super.update();
+
+            
         }
 
         // if player has beaten level
@@ -175,11 +182,18 @@ public abstract class Player extends GameObject {
     // player WALKING state logic
     protected void playerWalking() {
         // if walk left key is pressed, move player to the left
+        float speed = isSprinting ? walkSpeed * sprintSpeedMultiplier : walkSpeed;
+
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-            moveAmountX -= walkSpeed;
+            moveAmountX -= speed;
             facingDirection = Direction.LEFT;
         }
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            moveAmountX += speed;
+            facingDirection = Direction.RIGHT;
+        } 
 
+        
         // if walk right key is pressed, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX += walkSpeed;
@@ -199,6 +213,12 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.CROUCHING;
         }
     }
+
+    public void activateSprint(int duration) {
+        isSprinting = true;
+        sprintEndTime = System.currentTimeMillis() + duration;
+    }
+    
 
     // player CROUCHING state logic
     protected void playerCrouching() {
