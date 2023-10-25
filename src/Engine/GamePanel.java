@@ -1,8 +1,10 @@
 package Engine;
 
 import GameObject.Rectangle;
+import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
+
 
 
 import javax.swing.*;
@@ -20,11 +22,12 @@ public class GamePanel extends JPanel {
 	// used to draw graphics to the panel
 	private GraphicsHandler graphicsHandler;
 
-	private boolean isGamePaused = false;
+	public boolean isGamePaused = false;
 	private SpriteFont pauseLabel;
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.P;
 	private Thread gameLoopProcess;
+	
 
 	private Key showFPSKey = Key.G;
 	private SpriteFont fpsDisplayLabel;

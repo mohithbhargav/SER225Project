@@ -3,6 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.DoubleJump;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -10,8 +11,8 @@ import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
-import Tilesets.Level2Tiles;
 import Utils.Direction;
+import EnhancedMapTiles.Sprint1;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,12 +20,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
 // Represents a test map to be used in a level
 public class Level2 extends Map {
 
     public Level2() {
-        super("Level2.txt", new Level2Tiles());
+        super("only_git_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation();
     }
 
@@ -46,37 +46,37 @@ public class Level2 extends Map {
         return enemies;
     }
 
-    // public static void replaceAllWallTilesInFile() throws IOException {
-    //     // path
-    //     String path = "MapFiles/only_git_map.txt";
+    public static void replaceAllWallTilesInFile() throws IOException {
+        // path
+        String path = "MapFiles/only_git_map.txt";
     
-    //     // Read the map file using the updated path
-    //     List<String> lines = Files.readAllLines(Paths.get(path));
+        // Read the map file using the updated path
+        List<String> lines = Files.readAllLines(Paths.get(path));
     
-    //     // Modify the lines by replacing all 17 tiles with 7
-    //     for (int i = 0; i < lines.size(); i++) {
-    //         String line = lines.get(i);
-    //         line = line.replaceAll(" 54 ", " 7 ");  // Replace all 54 tiles with 7
-    //         lines.set(i, line);
-    //     }
+        // Modify the lines by replacing all 17 tiles with 7
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            line = line.replaceAll(" 54 ", " 7 ");  // Replace all 54 tiles with 7
+            lines.set(i, line);
+        }
     
-    //     // Write the modified map back to the file
-    //     Files.write(Paths.get(path), lines);
+        // Write the modified map back to the file
+        Files.write(Paths.get(path), lines);
 
         
-    // }
+    }
 
-    // public static void resetMapToFile() throws IOException {
-    //     // Path to the backup map
-    //     String backupPath = "MapFiles/only_git_map_backup.txt";
-    //     String targetPath = "MapFiles/only_git_map.txt";
+    public static void resetMapToFile() throws IOException {
+        // Path to the backup map
+        String backupPath = "MapFiles/only_git_map_backup.txt";
+        String targetPath = "MapFiles/only_git_map.txt";
     
-    //     // Read the backup map
-    //     List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
+        // Read the backup map
+        List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
     
-    //     // Overwrite the target map with the backup map's content
-    //     Files.write(Paths.get(targetPath), backupLines);
-    // }
+        // Overwrite the target map with the backup map's content
+        Files.write(Paths.get(targetPath), backupLines);
+    }
     
 
 
@@ -102,6 +102,15 @@ public class Level2 extends Map {
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
         keyL1.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(keyL1);
+
+        Sprint1 key2L1 = new Sprint1(getMapTile(27, 13).getLocation());
+        key2L1.setMapReference(this);  // Set the reference to this map
+        enhancedMapTiles.add(key2L1);
+
+        DoubleJump key3L1 = new DoubleJump(getMapTile(14, 16).getLocation());
+        key2L1.setMapReference(this);  // Set the reference to this map
+        enhancedMapTiles.add(key2L1);
+
         
         return enhancedMapTiles;
 
