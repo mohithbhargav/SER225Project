@@ -17,7 +17,7 @@ public class DoubleJump extends EnhancedMapTile {
     private boolean isKeyPickedUp = false;
 
     public DoubleJump(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("key.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sprinting.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override

@@ -109,7 +109,7 @@ public class OnlyGitMap extends Map {
 
         DoubleJump key3L1 = new DoubleJump(getMapTile(14, 16).getLocation());
         key2L1.setMapReference(this);  // Set the reference to this map
-        enhancedMapTiles.add(key2L1);
+        enhancedMapTiles.add(key3L1);
 
         
         return enhancedMapTiles;

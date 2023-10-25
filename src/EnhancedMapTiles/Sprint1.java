@@ -17,7 +17,7 @@ public class Sprint1 extends EnhancedMapTile {
     private boolean isKeyPickedUp = false;
 
     public Sprint1(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("key.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sprinting.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override

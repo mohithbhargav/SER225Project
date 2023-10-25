@@ -24,7 +24,7 @@ import java.util.List;
 public class Level2 extends Map {
 
     public Level2() {
-        super("only_git_map.txt", new CommonTileset());
+        super("Level2.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation();
     }
 
@@ -48,7 +48,7 @@ public class Level2 extends Map {
 
     public static void replaceAllWallTilesInFile() throws IOException {
         // path
-        String path = "MapFiles/only_git_map.txt";
+        String path = "MapFiles/Level2.txt";
     
         // Read the map file using the updated path
         List<String> lines = Files.readAllLines(Paths.get(path));
@@ -68,8 +68,8 @@ public class Level2 extends Map {
 
     public static void resetMapToFile() throws IOException {
         // Path to the backup map
-        String backupPath = "MapFiles/only_git_map_backup.txt";
-        String targetPath = "MapFiles/only_git_map.txt";
+        String backupPath = "MapFiles/Level2.txt";
+        String targetPath = "MapFiles/Level2backup.txt";
     
         // Read the backup map
         List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
@@ -87,14 +87,26 @@ public class Level2 extends Map {
 
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(24, 6).getLocation(),
-                getMapTile(27, 6).getLocation(),
+                getMapTile(23, 10).getLocation(),
+                getMapTile(26, 10).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6,16,4),
                 Direction.RIGHT
         );
         enhancedMapTiles.add(hmp);
+
+        
+        HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(25, 4).getLocation(),
+                getMapTile(27, 4).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        );
+        enhancedMapTiles.add(hmp1);
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(42, 12).getLocation());
         enhancedMapTiles.add(endLevelBox);
@@ -103,13 +115,13 @@ public class Level2 extends Map {
         keyL1.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(keyL1);
 
-        Sprint1 key2L1 = new Sprint1(getMapTile(27, 13).getLocation());
+        Sprint1 key2L1 = new Sprint1(getMapTile(12, 17).getLocation());
         key2L1.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(key2L1);
 
-        DoubleJump key3L1 = new DoubleJump(getMapTile(14, 16).getLocation());
-        key2L1.setMapReference(this);  // Set the reference to this map
-        enhancedMapTiles.add(key2L1);
+        // DoubleJump key3L1 = new DoubleJump(getMapTile(12, 17).getLocation());
+        // key3L1.setMapReference(this);  // Set the reference to this map
+        // enhancedMapTiles.add(key3L1);
 
         
         return enhancedMapTiles;

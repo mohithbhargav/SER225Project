@@ -601,6 +601,16 @@ public class Level2Tiles extends Tileset {
 
         mapTiles.add(Block54Tile); 
 
+        //block55
+        Frame Block55Frame = new FrameBuilder(getSubImage(9,1))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder Block55Tile = new MapTileBuilder(Block55Frame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Block55Tile); 
+
 
 
 
