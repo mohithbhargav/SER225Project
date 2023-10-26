@@ -18,13 +18,14 @@ import Engine.ScreenManager;
 import GameObject.Rectangle;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
+
+//import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Keypad extends EnhancedMapTile {
     private ScreenManager screenManager;
@@ -109,27 +110,33 @@ public class Keypad extends EnhancedMapTile {
     }
 
 
-    public void passKey(){
-        if (isInteractedWith) {
-            Scanner passKey = new Scanner(System.in);
-            
-            while (!correctPassKey) {
-                System.out.println("Enter a 4-digit Passkey: ");
-                int passCode = passKey.nextInt();
+public void passKey(){
+    if (isInteractedWith) {
+        while (!correctPassKey) {
+            String passCodeString = JOptionPane.showInputDialog(null, "Enter a 4-digit Passkey:", "Passkey Input", JOptionPane.QUESTION_MESSAGE);
 
-                oneKey();
-        
+            // handle if the user cancels the dialog
+            if (passCodeString == null) {
+                return; // or handle differently if you wish
+            }
+
+            try {
+                int passCode = Integer.parseInt(passCodeString);
+
                 if (passCode == 4269) {
                     replaceWallWithPassableTile();
-                    System.out.println("Correct passcode entered. Access granted!");
+                    JOptionPane.showMessageDialog(null, "Correct passcode entered. Access granted!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     correctPassKey = true; // Set the flag to exit the loop
                 } else {
-                    System.out.println("Incorrect passcode. Try again.");
+                    JOptionPane.showMessageDialog(null, "Incorrect passcode. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid 4-digit passcode.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             }
         }
-
+    }
 }
+
 
     public void showKeypad() {
         keypadContainer.setVisible(true);

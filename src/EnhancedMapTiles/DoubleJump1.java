@@ -16,13 +16,8 @@ public class DoubleJump1 extends EnhancedMapTile {
     private Map mapReference;
     private boolean isKeyPickedUp = false;
 
-<<<<<<< HEAD:src/EnhancedMapTiles/DoubleJump1.java
     public DoubleJump1(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpingIcon.png"), 16, 16), TileType.PASSABLE);
-=======
-    public DoubleJump(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sprinting.png"), 16, 16), TileType.PASSABLE);
->>>>>>> b93e7a3971ded200c9b8dd80c83091f2752ad1af:src/EnhancedMapTiles/DoubleJump.java
     }
 
     @Override
