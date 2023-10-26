@@ -12,27 +12,27 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-public class DoubleJump extends EnhancedMapTile {
+public class DoubleJump1 extends EnhancedMapTile {
     private Map mapReference;
     private boolean isKeyPickedUp = false;
 
-    public DoubleJump(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("key.png"), 16, 16), TileType.PASSABLE);
+    public DoubleJump1(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpingIcon.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
         if (!isKeyPickedUp && intersects(player)) {
-            System.out.println("Player picked up the sprint key!");
+            System.out.println("Player picked up the Double Jump key!");
             isKeyPickedUp = true;
-            activateSprintForPlayer(player);
+            activateDoubleJumpForPlayer(player);
         }
     }
 
-    private void activateSprintForPlayer(Player player) {
-        // Assuming you have a method in the Player class to activate sprinting
-        player.activateSprint(15000); // 15000ms or 15 seconds
+    private void activateDoubleJumpForPlayer(Player player) {
+        // Assuming you have a method in the Player class to activate double jumping
+        player.updateDoubleJump();
     }
 
     @Override

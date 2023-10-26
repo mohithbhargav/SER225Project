@@ -30,6 +30,8 @@ public abstract class Player extends GameObject {
     protected float sprintSpeedMultiplier = 2.0f; 
     protected boolean isSprinting = false;
     protected long sprintEndTime = 0;
+    private boolean canDoubleJump = false; // indicates if the player has the ability to double jump
+    private boolean hasDoubleJumped = false; // indicates if the player has already double jumped
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -74,6 +76,11 @@ public abstract class Player extends GameObject {
             e.printStackTrace();
         }
     }
+
+    public void updateDoubleJump() {
+        this.canDoubleJump = true;
+    }
+    
 
     private Level1 currentLevel; // assuming you have access to your current level in the Player class
 
@@ -234,15 +241,13 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // player JUMPING state logic
     protected void playerJumping() {
-        // if last frame player was on ground and this frame player is still on ground,
-        // the jump needs to be setup
-        if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-
+         if (previousAirGroundState == AirGroundState.GROUND) {
+            hasDoubleJumped = false; // Reset double jump when on ground
+    
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-
+    
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
@@ -253,11 +258,15 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
             }
-        }
-
-        // if player is in air (currently in a jump) and has more jumpForce, continue
-        // sending player upwards
-        else if (airGroundState == AirGroundState.AIR) {
+    
+        } else if (airGroundState == AirGroundState.AIR) {
+    
+            if (!hasDoubleJumped && canDoubleJump && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+                jumpForce = jumpHeight;
+                hasDoubleJumped = true;
+                keyLocker.lockKey(JUMP_KEY); // Lock the key after the double jump
+            }
+    
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -265,28 +274,28 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
             }
-
+    
             // allows you to move left and right while in the air
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
                 moveAmountX -= walkSpeed;
             } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed;
             }
-
+    
             // if player is falling, increases momentum as player falls so it falls faster
             // over time
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
         }
-
+    
         // if player last frame was in air and this frame is now on ground, player
         // enters STANDING state
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
-
+    
     // while player is in air, this is called, and will increase momentumY by a set
     // amount until player reaches terminal velocity
     protected void increaseMomentum() {
@@ -295,13 +304,13 @@ public abstract class Player extends GameObject {
             momentumY = terminalVelocityY;
         }
     }
-
+    
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
         }
     }
-
+    
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {

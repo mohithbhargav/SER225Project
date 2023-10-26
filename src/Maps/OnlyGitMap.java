@@ -3,7 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
-import EnhancedMapTiles.DoubleJump;
+import EnhancedMapTiles.DoubleJump1;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -107,9 +107,9 @@ public class OnlyGitMap extends Map {
         key2L1.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(key2L1);
 
-        DoubleJump key3L1 = new DoubleJump(getMapTile(14, 16).getLocation());
-        key2L1.setMapReference(this);  // Set the reference to this map
-        enhancedMapTiles.add(key2L1);
+        DoubleJump1 key3L1 = new DoubleJump1(getMapTile(14, 16).getLocation());
+        key3L1.setMapReference(this);  // Set the reference to this map
+        enhancedMapTiles.add(key3L1);
 
         
         return enhancedMapTiles;

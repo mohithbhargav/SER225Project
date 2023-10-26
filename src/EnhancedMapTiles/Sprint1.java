@@ -17,14 +17,14 @@ public class Sprint1 extends EnhancedMapTile {
     private boolean isKeyPickedUp = false;
 
     public Sprint1(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("key.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SprintingIcon.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
         if (!isKeyPickedUp && intersects(player)) {
-            System.out.println("Player picked up the sprint key!");
+            System.out.println("Player picked up the Sprint key!");
             isKeyPickedUp = true;
             activateSprintForPlayer(player);
         }
