@@ -1,7 +1,6 @@
 package Engine;
 
 import GameObject.Rectangle;
-import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
@@ -117,7 +116,7 @@ public class GamePanel extends JPanel {
 		screenManager.draw(graphicsHandler);
 
 		// if game is paused, draw pause gfx over Screen gfx
-		if (isGamePaused) {
+		if (isGamePaused) { 
 			pauseLabel.draw(graphicsHandler);
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 		}

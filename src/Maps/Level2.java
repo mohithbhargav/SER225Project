@@ -125,7 +125,7 @@ public class Level2 extends Map {
         // enhancedMapTiles.add(key3L1);
 
 
-        Keypad keypad = new Keypad(getMapTile(36, 12).getLocation());
+        Keypad keypad = new Keypad(getMapTile(36, 13).getLocation());
         keypad.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(keypad);
 
