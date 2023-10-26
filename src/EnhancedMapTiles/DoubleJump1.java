@@ -7,7 +7,7 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.Player;
-import Level.TileType;
+//import Level.TileType;
 import Utils.Point;
 
 import java.util.HashMap;
