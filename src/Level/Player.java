@@ -18,8 +18,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Player extends GameObject {
-    private static final Level1 Level1 = null;
-    private static final Level.Level1 Level2 = null;
+
 
     // values that affect player movement
     // these should be set in a subclass
@@ -108,7 +107,6 @@ public abstract class Player extends GameObject {
         currentLevel.getAudioManager().stopSound();
     }
 
-    private Level2 currentLevel2; // assuming you have access to your current level in the Player class
 
     public void pauseMusic2() {
         currentLevel.getAudioManager().stopSound();
