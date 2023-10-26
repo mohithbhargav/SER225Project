@@ -1,5 +1,6 @@
 package Screens;
 
+import Engine.GamePanel;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -7,6 +8,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.Level2;
 import Maps.OnlyGitMap;
 import Maps.TestMap;
 import Players.Cat;
@@ -28,6 +30,7 @@ import java.io.IOException;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
+    protected GamePanel pause; 
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
@@ -36,9 +39,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
-    static int secLog, minLog;
+    static int sec1Log, min1Log;
    // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
+    protected int currentMap = 1;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
@@ -54,10 +58,26 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void initialize() {
         // define/setup map
-        this.map = new OnlyGitMap();
+
+        if (currentMap == 1){
+         this.map = new OnlyGitMap();  //change this to set first map (should be OnlyGitMap() )
+
+        } else if (currentMap == 2){
+            this.map = new Level2();
+
+        } else 
+        map.reset();
+       
 
         // setup player
-        this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        if (currentMap == 1){
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+   
+           } else if (currentMap == 2){
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+   
+           }
+        
         this.player.setMap(map);
         this.player.addListener(this);
         Point playerStartPosition = map.getPlayerStartPosition();
@@ -90,13 +110,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         second = dec.format(seconds);
         isRunning = true;
 
-
+        if (currentMap == 2) { 
+        minutes += min1Log;
+        seconds += sec1Log;
+        if (seconds >= 60) {
+            minutes++;
+            seconds -= 60;
+        }
+    }
 
         Timer();
         timer.start();
-
-
-       // System.out.println("LEFT: " + this.secLog);
 
         
     }
@@ -119,18 +143,30 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 if (levelCompletedStateChangeStart) {
                     screenTimer = 130;
                     levelCompletedStateChangeStart = false;
+                    currentMap += 1;
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    initialize();
+
                 } else {
                     levelClearedScreen.update();
                     screenTimer--;
-                    if (screenTimer == 0) {
+                    if (screenTimer == 0 && currentMap == 2) {
                         goBackToMenu();
                     }
                 }
+                
+
                 break;
             // wait on level lose screen to make a decision (either resets level or sends
             // player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
+                
 
                 break;
         }
@@ -147,7 +183,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
                 isRunning = false;
-                System.out.println("Time Left: " + minLog + ":" + secLog );
+                System.out.println("Time Left: " + min1Log + ":" + sec1Log );
 
                 break;
             case LEVEL_LOSE:
@@ -178,25 +214,30 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
                     
 				}
-                if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED)
-            
+                if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED & currentMap == 1){
+
                    timer.stop();
                    isRunning = false;
-                    minLog = minutes;
-                    secLog = seconds;
-                  // System.out.println("Time Left: " + minLog + ":" + secLog );
+                    
+                }
 
-                   
-                   
+                if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED & currentMap == 2){
 
+                    timer.stop();
+                    isRunning = false;
+                     
+                 }
 
-                
 				
             }
+
+            
         });
     }
 
-   
+   public int getCurrentMap(){
+    return currentMap;
+   }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
@@ -207,7 +248,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
-            
+
+            if (currentMap == 1) {
+                min1Log = minutes;
+                sec1Log = seconds;
+            }
 
         }
     }
