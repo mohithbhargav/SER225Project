@@ -27,15 +27,15 @@ public class EndLevelBoxL2 extends EnhancedMapTile {
         player.completeLevel();
 
     }
-}
-    //     try {
-    //         Level2.resetMapToFile();  // Reset the map after the level is completed
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //         // Handle the exception, perhaps log an error or display a message to the player
-    //     }
-    // }
-    // }
+
+        try {
+            Level2.resetMapToFile();  // Reset the map after the level is completed
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception, perhaps log an error or display a message to the player
+        }
+    }
+    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

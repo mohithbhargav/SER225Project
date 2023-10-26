@@ -14,7 +14,6 @@ import Utils.Point;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
-import Engine.KeypadPanel;
 import Engine.ScreenManager;
 import GameObject.Rectangle;
 import SpriteFont.SpriteFont;
@@ -55,7 +54,6 @@ public class Keypad extends EnhancedMapTile {
 
 
     public JPanel keypadContainer;
-    private KeypadPanel keypadPanel;
     
     private Map mapReference;
     protected boolean isInteractable = false;
@@ -69,8 +67,7 @@ public class Keypad extends EnhancedMapTile {
 
     public Keypad(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Keypad.png"), 16, 16), TileType.PASSABLE);
-        keypadPanel = new KeypadPanel();
-        
+
 
         graphicsHandler = new GraphicsHandler();
 
@@ -78,7 +75,6 @@ public class Keypad extends EnhancedMapTile {
       
 
         keypadContainer = new JPanel();
-        keypadContainer.add(keypadPanel);
         keypadContainer.setVisible(false);
         keypadContainer.setLayout(new GridLayout(3,3));
         

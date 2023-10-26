@@ -60,12 +60,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // define/setup map
 
         if (currentMap == 1){
-         this.map = new Level2();  //change this to set first map (should be OnlyGitMap() )
+         this.map = new OnlyGitMap();  //change this to set first map (should be OnlyGitMap() )
 
         } else if (currentMap == 2){
             this.map = new Level2();
 
-        }
+        } else 
         map.reset();
        
 
