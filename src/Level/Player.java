@@ -18,6 +18,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Player extends GameObject {
+    private static final Level1 Level1 = null;
+    private static final Level.Level1 Level2 = null;
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
@@ -70,13 +72,23 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
-        String backgroundMusicPath2 = "Resources/1-03 Time Window.mp3";
+        String backgroundMusicPath2 = "TimeWindow.wav";
 
-        try {
-            backgroundMusic = new PlayMusic(backgroundMusicPath);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (currentLevel == Level1) {
+            int play = 0;
+            try {
+                backgroundMusic = new PlayMusic(backgroundMusicPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (currentLevel == Level2) {
+            try {
+                backgroundMusic = new PlayMusic(backgroundMusicPath2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void updateDoubleJump() {
@@ -97,6 +109,19 @@ public abstract class Player extends GameObject {
         currentLevel.getAudioManager().stopSound();
     }
 
+    private Level2 currentLevel2; // assuming you have access to your current level in the Player class
+
+    public void pauseMusic2() {
+        currentLevel.getAudioManager().stopSound();
+    }
+
+    public void resumeMusic2() {
+        currentLevel.getAudioManager().playSound();
+    }
+
+    public void stopMusic2() {
+        currentLevel.getAudioManager().stopSound();
+    }
     // ... Rest of your Player class methods ...
 
     public void update() {
@@ -414,7 +439,7 @@ public abstract class Player extends GameObject {
 
     private void fadeOutMusic() {
         if (backgroundMusic != null && backgroundMusic.getClip() != null) {
-            Clip clip = backgroundMusic.getClip();
+            Clip clip = (Clip) backgroundMusic.getClip();
             FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             float range = volumeControl.getMaximum() - volumeControl.getMinimum();
             float targetVolume = volumeControl.getMinimum();

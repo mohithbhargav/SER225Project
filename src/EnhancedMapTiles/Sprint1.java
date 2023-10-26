@@ -17,11 +17,8 @@ public class Sprint1 extends EnhancedMapTile {
     private boolean isKeyPickedUp = false;
 
     public Sprint1(Point location) {
-<<<<<<< HEAD
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SprintingIcon.png"), 16, 16), TileType.PASSABLE);
-=======
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sprinting.png"), 16, 16), TileType.PASSABLE);
->>>>>>> b93e7a3971ded200c9b8dd80c83091f2752ad1af
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SprintingIcon.png"), 16, 16),
+                TileType.PASSABLE);
     }
 
     @Override
@@ -41,13 +38,15 @@ public class Sprint1 extends EnhancedMapTile {
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
-                        .withScale(3)
-                        .build(),
-            });
-        }};
+        return new HashMap<String, Frame[]>() {
+            {
+                put("DEFAULT", new Frame[] {
+                        new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
+                                .withScale(3)
+                                .build(),
+                });
+            }
+        };
     }
 
     public Map getMapReference() {

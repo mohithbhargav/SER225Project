@@ -9,7 +9,7 @@ public class Level2 {
     }
 
     public void startLevel2() {
-        audioManager.loadSound("Resources/1-03_Time_Window.mp3");
+        audioManager.loadSound("Resources/TimeWindow.wav");
         audioManager.playSound();
     }
 
