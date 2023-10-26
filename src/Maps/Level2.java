@@ -3,6 +3,8 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.DoubleJump1;
+
 import EnhancedMapTiles.EndLevelBoxL2;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.Keypad;
