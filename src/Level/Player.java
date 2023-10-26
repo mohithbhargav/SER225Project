@@ -27,7 +27,7 @@ public abstract class Player extends GameObject {
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
     protected PlayMusic backgroundMusic;
-    protected float sprintSpeedMultiplier = 2.0f; 
+    protected float sprintSpeedMultiplier = 2.0f;
     protected boolean isSprinting = false;
     protected long sprintEndTime = 0;
     private boolean canDoubleJump = false; // indicates if the player has the ability to double jump
@@ -70,6 +70,8 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
+        String backgroundMusicPath2 = "Resources/1-03 Time Window.mp3";
+
         try {
             backgroundMusic = new PlayMusic(backgroundMusicPath);
         } catch (Exception e) {
@@ -80,7 +82,6 @@ public abstract class Player extends GameObject {
     public void updateDoubleJump() {
         this.canDoubleJump = true;
     }
-    
 
     private Level1 currentLevel; // assuming you have access to your current level in the Player class
 
@@ -100,7 +101,6 @@ public abstract class Player extends GameObject {
 
     public void update() {
 
-    
         moveAmountX = 0;
         moveAmountY = 0;
 
@@ -129,7 +129,6 @@ public abstract class Player extends GameObject {
             // update player's animation
             super.update();
 
-            
         }
 
         // if player has beaten level
@@ -194,13 +193,11 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX -= speed;
             facingDirection = Direction.LEFT;
-        }
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX += speed;
             facingDirection = Direction.RIGHT;
-        } 
+        }
 
-        
         // if walk right key is pressed, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX += walkSpeed;
@@ -225,7 +222,6 @@ public abstract class Player extends GameObject {
         isSprinting = true;
         sprintEndTime = System.currentTimeMillis() + duration;
     }
-    
 
     // player CROUCHING state logic
     protected void playerCrouching() {
@@ -242,12 +238,12 @@ public abstract class Player extends GameObject {
     }
 
     protected void playerJumping() {
-         if (previousAirGroundState == AirGroundState.GROUND) {
+        if (previousAirGroundState == AirGroundState.GROUND) {
             hasDoubleJumped = false; // Reset double jump when on ground
-    
+
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-    
+
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
@@ -258,15 +254,15 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
             }
-    
+
         } else if (airGroundState == AirGroundState.AIR) {
-    
+
             if (!hasDoubleJumped && canDoubleJump && Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
                 jumpForce = jumpHeight;
                 hasDoubleJumped = true;
                 keyLocker.lockKey(JUMP_KEY); // Lock the key after the double jump
             }
-    
+
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -274,28 +270,28 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
             }
-    
+
             // allows you to move left and right while in the air
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
                 moveAmountX -= walkSpeed;
             } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed;
             }
-    
+
             // if player is falling, increases momentum as player falls so it falls faster
             // over time
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
         }
-    
+
         // if player last frame was in air and this frame is now on ground, player
         // enters STANDING state
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
-    
+
     // while player is in air, this is called, and will increase momentumY by a set
     // amount until player reaches terminal velocity
     protected void increaseMomentum() {
@@ -304,13 +300,13 @@ public abstract class Player extends GameObject {
             momentumY = terminalVelocityY;
         }
     }
-    
+
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
         }
     }
-    
+
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {
@@ -382,7 +378,7 @@ public abstract class Player extends GameObject {
     // other entities can call this to tell the player they beat a level
     public void completeLevel() {
         levelState = LevelState.LEVEL_COMPLETED;
-        
+
     }
 
     // if player has beaten level, this will be the update cycle
