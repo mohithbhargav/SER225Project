@@ -73,20 +73,22 @@ public abstract class Player extends GameObject {
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
         String backgroundMusicPath2 = "TimeWindow.wav";
+        int level = 1;
+        if (level == 1) {
 
-        if (currentLevel == Level1) {
-            int play = 0;
             try {
                 backgroundMusic = new PlayMusic(backgroundMusicPath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (currentLevel == Level2) {
+            level++;
+        } else if (level == 2) {
             try {
                 backgroundMusic = new PlayMusic(backgroundMusicPath2);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            level--;
         }
 
     }
