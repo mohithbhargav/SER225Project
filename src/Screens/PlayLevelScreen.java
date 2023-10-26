@@ -47,6 +47,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    
     Font customFont;
    
     
@@ -71,10 +72,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         // setup player
         if (currentMap == 1){
-            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
    
            } else if (currentMap == 2){
-            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
    
            }
         

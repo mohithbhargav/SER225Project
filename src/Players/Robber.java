@@ -12,8 +12,8 @@ import java.awt.Color;
 import java.util.HashMap;
 
 public class Robber extends Player {
-    public Robber(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("Rob.png"), 24, 24), x, y, "STAND_RIGHT");
+    public Robber(float x, float y, int currentMap) {
+        super(new SpriteSheet(ImageLoader.load("Rob.png"), 24, 24), x, y, "STAND_RIGHT", currentMap);
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 14.5f;

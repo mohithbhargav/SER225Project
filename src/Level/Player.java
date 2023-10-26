@@ -20,6 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public abstract class Player extends GameObject {
     private static final Level1 Level1 = null;
     private static final Level.Level1 Level2 = null;
+
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
@@ -31,6 +32,7 @@ public abstract class Player extends GameObject {
     protected PlayMusic backgroundMusic;
     protected float sprintSpeedMultiplier = 2.0f;
     protected boolean isSprinting = false;
+    protected int currentMap;
     protected long sprintEndTime = 0;
     private boolean canDoubleJump = false; // indicates if the player has the ability to double jump
     private boolean hasDoubleJumped = false; // indicates if the player has already double jumped
@@ -62,8 +64,9 @@ public abstract class Player extends GameObject {
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
 
-    public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
+    public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, int currentMap) {
         super(spriteSheet, x, y, startingAnimationName);
+        this.currentMap = currentMap;
         facingDirection = Direction.RIGHT;
         airGroundState = AirGroundState.AIR;
         previousAirGroundState = airGroundState;
@@ -72,25 +75,19 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
-        String backgroundMusicPath2 = "TimeWindow.wav";
-        int level = 1;
-        if (level == 1) {
-
-            try {
-                backgroundMusic = new PlayMusic(backgroundMusicPath);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            level++;
-        } else if (level == 2) {
-            try {
-                backgroundMusic = new PlayMusic(backgroundMusicPath2);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            level--;
+        
+        if (this.currentMap == 1) {
+            backgroundMusicPath = "TheJourneyBegins.wav";
+        } else if (this.currentMap == 2) {
+            backgroundMusicPath = "TimeWindow.wav";
         }
-
+        
+        try {
+            backgroundMusic = new PlayMusic(backgroundMusicPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public void updateDoubleJump() {
