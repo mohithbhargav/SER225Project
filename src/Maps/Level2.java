@@ -6,6 +6,7 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.DoubleJump;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.KeyL1;
+import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
@@ -122,6 +123,12 @@ public class Level2 extends Map {
         // DoubleJump key3L1 = new DoubleJump(getMapTile(12, 17).getLocation());
         // key3L1.setMapReference(this);  // Set the reference to this map
         // enhancedMapTiles.add(key3L1);
+
+
+        Keypad keypad = new Keypad(getMapTile(36, 12).getLocation());
+        keypad.setMapReference(this);  // Set the reference to this map
+        enhancedMapTiles.add(keypad);
+
 
         
         return enhancedMapTiles;
