@@ -9,6 +9,7 @@ import javax.swing.*;
 public class GameWindow {
 	private JFrame gameWindow;
 	private GamePanel gamePanel;
+	
 
 	public GameWindow() {
 		gameWindow = new JFrame("Game");
