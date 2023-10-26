@@ -4,7 +4,8 @@ import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.DoubleJump;
-import EnhancedMapTiles.EndLevelBox;
+
+import EnhancedMapTiles.EndLevelBoxL2;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -69,8 +70,8 @@ public class Level2 extends Map {
 
     public static void resetMapToFile() throws IOException {
         // Path to the backup map
-        String backupPath = "MapFiles/Level2.txt";
-        String targetPath = "MapFiles/Level2backup.txt";
+        String backupPath = "MapFiles/Level2backup.txt";
+        String targetPath = "MapFiles/Level2.txt";
     
         // Read the backup map
         List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
@@ -109,8 +110,8 @@ public class Level2 extends Map {
         );
         enhancedMapTiles.add(hmp1);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(42, 12).getLocation());
-        enhancedMapTiles.add(endLevelBox);
+        EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42, 12).getLocation());
+        enhancedMapTiles.add(endLevelBoxL2);
 
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
         keyL1.setMapReference(this);  // Set the reference to this map

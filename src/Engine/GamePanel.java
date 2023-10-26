@@ -3,6 +3,7 @@ package Engine;
 import GameObject.Rectangle;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
+import EnhancedMapTiles.Keypad;
 
 
 import javax.swing.*;
@@ -25,6 +26,10 @@ public class GamePanel extends JPanel {
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.P;
 	private Thread gameLoopProcess;
+
+	
+	private final Key keypadKey = Key.SPACE;
+
 	
 
 	private Key showFPSKey = Key.G;
@@ -82,22 +87,29 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
+		
 
 		if (!isGamePaused) {
 			screenManager.update();
 		}
+
+
+
 	}
 
 	private void updatePauseState() {
 		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
 			isGamePaused = !isGamePaused;
 			keyLocker.lockKey(pauseKey);
+		//pauseKey.G
 		}
 
 		if (Keyboard.isKeyUp(pauseKey)) {
 			keyLocker.unlockKey(pauseKey);
 		}
 	}
+
+
 
 	private void updateShowFPSState() {
 		if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
@@ -124,6 +136,10 @@ public class GamePanel extends JPanel {
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
 		}
+
+		
+
+
 	}
 
 	@Override

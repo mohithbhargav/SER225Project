@@ -13,7 +13,7 @@ public class KeypadPanel extends JPanel {
 
     public KeypadPanel() {
         // Set the layout manager for the panel
-        setLayout(new GridLayout(4, 3));
+        setLayout(new GridLayout(3, 3));
 
         // Create and configure number buttons
         numberButtons = new JButton[9];
@@ -52,4 +52,10 @@ public class KeypadPanel extends JPanel {
             // You can handle the close action here
         }
     }
+
+    public void draw(GraphicsHandler graphicsHandler) {
+        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+    }
+
+    
 }
