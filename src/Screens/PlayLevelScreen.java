@@ -58,6 +58,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void initialize() {
+
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
         // define/setup map
 
         if (currentMap == 1){
@@ -68,6 +70,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         } else 
         map.reset();
+
+      
        
 
         // setup player
@@ -111,14 +115,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         second = dec.format(seconds);
         isRunning = true;
 
-        if (currentMap == 2) { 
-        minutes += min1Log;
-        seconds += sec1Log;
-        if (seconds >= 60) {
-            minutes++;
-            seconds -= 60;
-        }
+    // Adjust the timer based on the logged time for currentMap == 2
+    if (currentMap == 2) { 
+    minutes += min1Log;
+    seconds += sec1Log;
+    if (seconds >= 60) {
+        minutes++;
+        seconds -= 60;
     }
+}
+
 
         Timer();
         timer.start();
@@ -141,28 +147,26 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
-                if (levelCompletedStateChangeStart) {
-                    screenTimer = 130;
-                    levelCompletedStateChangeStart = false;
-                    currentMap += 1;
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    
-                    initialize();
-
-                } else {
-                    levelClearedScreen.update();
-                    screenTimer--;
-                    if (screenTimer == 0 && currentMap == 2) {
-                        goBackToMenu();
-                    }
+            if (levelCompletedStateChangeStart) {
+                screenTimer = 130;
+                levelCompletedStateChangeStart = false;
+                currentMap += 1;
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                
-
-                break;
+                            
+                initialize();
+            } else {
+                levelClearedScreen.update();
+                screenTimer--;
+                if (screenTimer == 0 && currentMap == 2) {
+                    goBackToMenu();
+                }
+            }
+            break;
+        
             // wait on level lose screen to make a decision (either resets level or sends
             // player back to main menu)
             case LEVEL_LOSE:
@@ -174,67 +178,40 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
-                graphicsHandler.drawString(minutes + ":" + second, 350, 50, customFont, Color.LIGHT_GRAY);
+                graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
-                isRunning = false;
-                System.out.println("Time Left: " + min1Log + ":" + sec1Log );
-
                 break;
             case LEVEL_LOSE:
                 levelLoseScreen.draw(graphicsHandler);
                 break;
         }
     }
+    
 
     public void Timer() {
-        
-    	timer = new Timer(1000, new ActionListener() {
-
+        timer = new Timer(1000, new ActionListener() {
             @Override
-			public void actionPerformed(ActionEvent e) {
-				seconds--;
-				second = dec.format(seconds);
-				tLabel.setText(minutes + ":" + second);
-				
-				if (seconds == -1) {
-					seconds = 59;
-					minutes--;
-					second = dec.format(seconds);
-					tLabel.setText(minutes + ":" + second);
-				}
-				if (minutes == 0 && seconds == 0) {
-					timer.stop();
-					isRunning = false;
-                    playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-                    
-				}
-                if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED & currentMap == 1){
-
-                   timer.stop();
-                   isRunning = false;
-                    
+            public void actionPerformed(ActionEvent e) {
+                seconds--;
+                if (seconds < 0) {
+                    minutes--;
+                    seconds = 59;
                 }
-
-                if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED & currentMap == 2){
-
+                tLabel.setText(minutes + ":" + dec.format(seconds));
+                if (minutes == 0 && seconds == 0) {
                     timer.stop();
-                    isRunning = false;
-                     
-                 }
-
-				
+                    playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+                }
             }
-
-            
         });
     }
+    
 
    public int getCurrentMap(){
     return currentMap;
@@ -248,15 +225,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-            levelCompletedStateChangeStart = true;
-
+            timer.stop();  // Stop the timer when the level is completed
+            
             if (currentMap == 1) {
                 min1Log = minutes;
                 sec1Log = seconds;
+                System.out.println("Time Left: " + min1Log + ":" + sec1Log);  // Log the time left
+                currentMap++;
+                initialize();
+            } else if (currentMap == 2) {
+                goBackToMenu();  // Go back to the menu after completing the second level
             }
-
         }
     }
+    
+    
 
     @Override
     public void onDeath() {
