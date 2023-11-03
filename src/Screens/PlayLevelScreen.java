@@ -125,6 +125,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 }
 
+    if (timer != null && isRunning) {
+    timer.stop();
+    }
 
         Timer();
         timer.start();

@@ -16,8 +16,8 @@ public class Config {
     public static final int GAME_WINDOW_HEIGHT = 605;
 
     // Game Window Size (enable this if big screen is needed)
-   // public static final int GAME_WINDOW_WIDTH = 1600;  
-   // public static final int GAME_WINDOW_HEIGHT = 1210;
+//    public static final int GAME_WINDOW_WIDTH = 1600;  
+//    public static final int GAME_WINDOW_HEIGHT = 1210;
 
     public static final Color TRANSPARENT_COLOR = Colors.MAGENTA;
 
