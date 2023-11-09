@@ -6,10 +6,13 @@ import java.awt.*;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+import java.awt.geom.Ellipse2D;
 
 
 public class GraphicsHandler {
     private Graphics2D g;
+    
 
     public Graphics2D getGraphics() {
         return g;
@@ -44,6 +47,7 @@ public class GraphicsHandler {
         }
     }
 
+
     public void drawRectangle(int x, int y, int width, int height, Color color) {
         Color oldColor = g.getColor();
 
@@ -73,6 +77,22 @@ public class GraphicsHandler {
 
         g.setColor(oldColor);
     }
+
+    public void drawFilledCircle(int x, int y, int radius, Color color) {
+        // Save the old color
+        Color oldColor = g.getColor();
+    
+        // Set the color for the circle
+        g.setColor(color);
+    
+        // Draw the filled circle (an ellipse with equal width and height becomes a circle)
+        g.fill(new Ellipse2D.Float(x - radius, y - radius, radius * 2, radius * 2));
+    
+        // Reset the color back to the original
+        g.setColor(oldColor);
+    }
+
+    
 
     public void drawFilledRectangleWithBorder(int x, int y, int width, int height, Color fillColor, Color borderColor, int borderThickness) {
         drawFilledRectangle(x, y, width, height, fillColor);

@@ -1,7 +1,6 @@
 package Maps;
 
 import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.BlankKey;
 import EnhancedMapTiles.DoubleJump1;
@@ -42,6 +41,8 @@ public class OnlyGitMap extends Map {
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
+
+
 
         /*
          * DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19,

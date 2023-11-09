@@ -18,6 +18,7 @@ public class MapEntity extends GameObject {
         super(spriteSheet, x, y, startingAnimation);
     }
 
+
     public MapEntity(float x, float y, HashMap<String, Frame[]> animations, String startingAnimation) {
         super(x, y, animations, startingAnimation);
     }

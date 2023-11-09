@@ -73,7 +73,9 @@ public class AnimatedSprite implements IntersectableRectangle {
 		updateCurrentFrame();
 	}
 
-	public void update() {
+	
+
+    public void update() {
 		// if animation name has been changed (previous no longer equals current), setup for the new animation and start using it
 		if (!previousAnimationName.equals(currentAnimationName)) {
 			currentFrameIndex = 0;

@@ -1,6 +1,7 @@
 package Maps;
 
 import Enemies.BugEnemy;
+import Enemies.Death;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.DoubleJump1;
@@ -40,12 +41,13 @@ public class Level2 extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        //BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
-        //enemies.add(bugEnemy);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy);
 
-        BugEnemy death = new BugEnemy(getMapTile(15, 19).getLocation(), null);
+    
+
+          Death death = new Death(getMapTile(15, 19).getLocation(), Direction.LEFT);
         enemies.add(death);
-
 
         return enemies;
     }
