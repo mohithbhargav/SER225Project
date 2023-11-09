@@ -10,6 +10,8 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
+import NPCs.EndElevator;
+
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
@@ -96,8 +98,9 @@ public class OnlyGitMap extends Map {
         );
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(42, 12).getLocation());
-        enhancedMapTiles.add(endLevelBox);
+        //EndLevelBox endLevelBox = new EndLevelBox(getMapTile(42, 12).getLocation());
+        //enhancedMapTiles.add(endLevelBox);
+
 
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
         keyL1.setMapReference(this);  // Set the reference to this map
@@ -124,6 +127,10 @@ public class OnlyGitMap extends Map {
 
         Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
         npcs.add(walrus);
+
+        EndElevator endElevator = new EndElevator(getMapTile(42, 12).getLocation());
+        npcs.add(endElevator);
+
 
         return npcs;
     }

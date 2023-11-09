@@ -95,7 +95,7 @@ public class Keypad extends EnhancedMapTile {
                 Level2 currentMap = (Level2) this.getMapReference();
                 currentMap.reloadMapFromFile();
             } else {
-                System.err.println("Error: Expected map of type Levele2 but encountered another type.");
+                System.err.println("Error: Expected map of type Level2 but encountered another type.");
             }
         } catch (IOException e) {
             e.printStackTrace();

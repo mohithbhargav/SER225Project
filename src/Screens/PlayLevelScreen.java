@@ -8,6 +8,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.Level3;
 import Maps.Level2;
 import Maps.OnlyGitMap;
 import Maps.TestMap;
@@ -39,7 +40,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
-    static int sec1Log, min1Log;
+    static int sec1Log, min1Log, sec2Log,min2Log;
    // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected int currentMap = 1;
@@ -68,7 +69,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         } else if (currentMap == 2){
             this.map = new Level2();
 
-        } else 
+        } else  if (currentMap == 3){
+            this.map = new Level3();
+        }
         map.reset();
 
       
@@ -81,6 +84,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
            } else if (currentMap == 2){
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
    
+           } else if (currentMap == 3){
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
            }
         
         this.player.setMap(map);
@@ -119,6 +124,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     if (currentMap == 2) { 
     minutes += min1Log;
     seconds += sec1Log;
+    if (seconds >= 60) {
+        minutes++;
+        seconds -= 60;
+    }
+} else if (currentMap == 3){
+    minutes += min2Log;
+    seconds += sec2Log;
     if (seconds >= 60) {
         minutes++;
         seconds -= 60;
@@ -164,7 +176,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             } else {
                 levelClearedScreen.update();
                 screenTimer--;
-                if (screenTimer == 0 && currentMap == 2) {
+                if (screenTimer == 0 && currentMap == 3) {
                     goBackToMenu();
                 }
             }
@@ -236,7 +248,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 System.out.println("Time Left: " + min1Log + ":" + sec1Log);  // Log the time left
                 currentMap++;
                 initialize();
-            } else if (currentMap == 2) {
+            } else if (currentMap == 2){
+                min2Log = minutes;
+                sec2Log = seconds;
+                System.out.println("Time Left: " + min2Log + ":" + sec2Log);  // Log the time left
+                currentMap++;
+                initialize();
+            }
+            
+           else if (currentMap == 3) {
                 goBackToMenu();  // Go back to the menu after completing the second level
             }
         }
