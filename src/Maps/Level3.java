@@ -13,8 +13,10 @@ import NPCs.StartElevator;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
+import Utils.Point;
 import EnhancedMapTiles.Sprint1;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.StartLevelBox2;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -134,11 +136,16 @@ public class Level3 extends Map {
         //EndLevelBoxL3 endLevelBoxL3 = new EndLevelBoxL3(getMapTile(42, 12).getLocation());
        // enhancedMapTiles.add(endLevelBoxL3);
 
-  
+        //StartLevelBox2 startLevelBox2 = StartLevelBox2(getMapTile(42, 12).getLocation());
+        //enhancedMapTiles.add(startLevelBox2);
 
         return enhancedMapTiles;
 
     }
+
+    //private StartLevelBox2 StartLevelBox2(Point location) {
+       // return null;
+   // }
 
     @Override
     public ArrayList<NPC> loadNPCs() {

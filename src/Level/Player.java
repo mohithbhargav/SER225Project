@@ -13,7 +13,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.List;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,7 +22,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Player extends GameObject {
-
 
     // values that affect player movement
     // these should be set in a subclass
@@ -70,7 +68,6 @@ public abstract class Player extends GameObject {
 
     private Inventory inventory;
 
-
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, int currentMap) {
         super(spriteSheet, x, y, startingAnimationName);
         this.currentMap = currentMap;
@@ -83,19 +80,19 @@ public abstract class Player extends GameObject {
         this.inventory = new Inventory(3);
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
-        
+
         if (this.currentMap == 1) {
             backgroundMusicPath = "TheJourneyBegins.wav";
         } else if (this.currentMap == 2) {
             backgroundMusicPath = "TimeWindow.wav";
         }
-        
+
         try {
             backgroundMusic = new PlayMusic(backgroundMusicPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public void updateDoubleJump() {
@@ -115,7 +112,6 @@ public abstract class Player extends GameObject {
     public void stopMusic() {
         currentLevel.getAudioManager().stopSound();
     }
-
 
     public void pauseMusic2() {
         currentLevel.getAudioManager().stopSound();
@@ -171,6 +167,14 @@ public abstract class Player extends GameObject {
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
         }
+
+        // if player has beaten level
+        else if (levelState == LevelState.PREVIOUSLEVEL) {
+            updatePREVIOUSLEVEL();
+        }
+    }
+
+    private void updatePREVIOUSLEVEL() {
     }
 
     // add gravity to player, which is a downward force
@@ -443,6 +447,42 @@ public abstract class Player extends GameObject {
         }
     }
 
+    public void previousLevel() {
+        levelState = LevelState.PREVIOUSLEVEL;
+
+    }
+
+    // if player has beaten level, this will be the update cycle
+    public void updatePreviousLevel() {
+        try {
+            // Stop the background music
+            backgroundMusic.stop();
+
+            // if player is not on ground, player should fall until it touches the ground
+            if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
+                currentAnimationName = "FALL_LEFT";
+                applyGravity();
+                increaseMomentum();
+                super.update();
+                moveYHandleCollision(moveAmountY);
+            }
+            // move player to the right until it walks off screen
+            else if (map.getCamera().containsDraw(this)) {
+                currentAnimationName = "WALK_LEFT";
+                super.update();
+                moveXHandleCollision(walkSpeed);
+            } else {
+                // tell all player listeners that the player has finished the level
+                for (PlayerListener listener : listeners) {
+                    listener.onPreviousLevel();
+                }
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            // Optionally, you can log the error or handle it in some other way.
+        }
+    }
+
     private void fadeOutMusic() {
         if (backgroundMusic != null && backgroundMusic.getClip() != null) {
             Clip clip = (Clip) backgroundMusic.getClip();
@@ -502,7 +542,6 @@ public abstract class Player extends GameObject {
         }
     }
 
-
     public void activateTemporaryPowerUp(String powerUpName) {
         if (addItemToInventory(powerUpName)) {
             switch (powerUpName) {
@@ -514,8 +553,9 @@ public abstract class Player extends GameObject {
                     this.walkSpeed *= this.sprintSpeedMultiplier; // Increase walking speed
                     break;
             }
-            
-            // Set a timer to remove the power-up from inventory and deactivate it after 15 seconds
+
+            // Set a timer to remove the power-up from inventory and deactivate it after 15
+            // seconds
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -526,23 +566,19 @@ public abstract class Player extends GameObject {
         }
     }
 
-
-
-private void deactivatePowerUp(String powerUpName) {
-    switch (powerUpName) {
-        case "DoubleJump":
-            this.canDoubleJump = false; // Disable double jump
-            System.out.println("Double jump deactivated.");
-            break;
-        case "Sprint":
-            this.isSprinting = false; // Disable sprint
-            this.walkSpeed /= this.sprintSpeedMultiplier; // Reset walking speed
-            System.out.println("Sprint deactivated.");
-            break;
+    private void deactivatePowerUp(String powerUpName) {
+        switch (powerUpName) {
+            case "DoubleJump":
+                this.canDoubleJump = false; // Disable double jump
+                System.out.println("Double jump deactivated.");
+                break;
+            case "Sprint":
+                this.isSprinting = false; // Disable sprint
+                this.walkSpeed /= this.sprintSpeedMultiplier; // Reset walking speed
+                System.out.println("Sprint deactivated.");
+                break;
+        }
     }
-}
-
-
 
     public PlayerState getPlayerState() {
         return playerState;
@@ -587,8 +623,13 @@ private void deactivatePowerUp(String powerUpName) {
         return inventory.removeItem(item);
     }
 
-    // Add a method to get the inventory items as a List (if needed for drawing or other purposes)
+    // Add a method to get the inventory items as a List (if needed for drawing or
+    // other purposes)
     public List<String> getInventoryItems() {
         return inventory.getItems();
+    }
+
+    public void PreviousLevel() {
+        return;
     }
 }

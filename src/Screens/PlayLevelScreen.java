@@ -339,6 +339,12 @@ public void drawInventory(GraphicsHandler graphicsHandler) {
     private enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
+
+    @Override
+    public void onPreviousLevel() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onPreviousLevel'");
+    }
 }
 
 
