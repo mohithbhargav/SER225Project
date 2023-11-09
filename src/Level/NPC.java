@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 // This class is a base class for all npcs in the game -- all npcs should extend from it
 public class NPC extends MapEntity {
+    protected boolean forWalrus = false;
     protected boolean isInteractable = false;
     protected boolean talkedTo = false;
     protected SpriteFont message;
@@ -62,6 +63,7 @@ public class NPC extends MapEntity {
                 timer = talkedToTime;
             }
         }
+        
 
         if (talkedTo && talkedToTime >= 0 && timer == 0) {
             talkedTo = false;
@@ -75,8 +77,9 @@ public class NPC extends MapEntity {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        if (talkedTo) {
+        if (talkedTo && forWalrus == true) {
             textbox.draw(graphicsHandler);
-        }
+        } 
     }
 }
+

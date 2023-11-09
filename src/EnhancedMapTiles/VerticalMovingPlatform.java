@@ -8,21 +8,21 @@ import Level.Player;
 import Level.TileType;
 import Utils.AirGroundState;
 import Utils.Direction;
-import Utils.Point;
+import Utils.Point; 
 
 import java.awt.image.BufferedImage;
 
 // This class is for a horizontal moving platform
 // the platform will move back and forth between its start location and end location
 // if the player is standing on top of it, the player will be moved the same amount as the platform is moving (so the platform will not slide out from under the player)
-public class HorizontalMovingPlatform extends EnhancedMapTile {
+public class VerticalMovingPlatform extends EnhancedMapTile {
     private Point startLocation;
     private Point endLocation;
     private float movementSpeed = 2f;
     private Direction startDirection;
     private Direction direction;
 
-    public HorizontalMovingPlatform(BufferedImage image, Point startLocation, Point endLocation, TileType tileType, float scale, Rectangle bounds, Direction startDirection) {
+    public VerticalMovingPlatform(BufferedImage image, Point startLocation, Point endLocation, TileType tileType, float scale, Rectangle bounds, Direction startDirection) {
         super(startLocation.x, startLocation.y, new FrameBuilder(image).withBounds(bounds).withScale(scale).build(), tileType);
         this.startLocation = startLocation;
         this.endLocation = endLocation;
@@ -38,48 +38,50 @@ public class HorizontalMovingPlatform extends EnhancedMapTile {
 
     @Override
     public void update(Player player) {
-        float startBound = startLocation.x;
-        float endBound = endLocation.x;
+        float startBound = startLocation.y;
+        float endBound = endLocation.y;
 
-        // move platform left or right based on its current direction
-        int moveAmountX = 0;
-        if (direction == Direction.RIGHT) {
-            moveAmountX += movementSpeed;
-        } else if (direction == Direction.LEFT) {
-            moveAmountX -= movementSpeed;
+        // move platform up or down based on its current direction
+        int moveAmountY = 0;
+        if (direction == Direction.DOWN) {
+            moveAmountY += movementSpeed;
+        } else if (direction == Direction.UP) {
+            moveAmountY -= movementSpeed;
         }
 
-        moveX(moveAmountX);
+        moveY(moveAmountY);
 
         // if platform reaches the start or end location, it turns around
         // platform may end up going a bit past the start or end location depending on movement speed
         // this calculates the difference and pushes the platform back a bit so it ends up right on the start or end location
-        if (getX1() + getWidth() >= endBound) {
-            float difference = endBound - (getX1() + getWidth());
-            moveX(-difference);
-            moveAmountX -= difference;
-            direction = Direction.LEFT;
-        } else if (getX1() <= startBound) {
-            float difference = startBound - getX1();
-            moveX(difference);
-            moveAmountX += difference;
-            direction = Direction.RIGHT;
+        if (getY1() + getHeight() >= endBound) {
+            float difference = endBound - (getY1() + getHeight());
+            moveY(-difference);
+            moveAmountY -= difference;
+            direction = Direction.UP;
+        } else if (getY1() <= startBound) {
+            float difference = startBound - getY1();
+            moveY(difference);
+            moveAmountY += difference;
+            direction = Direction.DOWN;
         }
 
-        // if tile type is NOT PASSABLE, if the platform is moving and hits into the player (x axis), it will push the player
+
+        // if tile type is NOT PASSABLE, if the platform is moving and hits into the player (Y axis), it will push the player
         if (tileType == TileType.NOT_PASSABLE) {
-            if (intersects(player) && moveAmountX >= 0 && player.getBoundsX1() <= getBoundsX2()) {
-                player.moveXHandleCollision(getBoundsX2() - player.getBoundsX1());
-            } else if (intersects(player) && moveAmountX <= 0 && player.getBoundsX2() >= getBoundsX1()) {
-                player.moveXHandleCollision(getBoundsX1() - player.getBoundsX2());
+            if (intersects(player) && moveAmountY >= 0 && player.getBoundsY1() <= getBoundsY2()) {
+                player.moveYHandleCollision(getBoundsY2() - player.getBoundsY1());
+            } else if (intersects(player) && moveAmountY <= 0 && player.getBoundsY2() >= getBoundsY1()) {
+                player.moveYHandleCollision(getBoundsY1() - player.getBoundsY2());
             }
         }
+
 
         // if player is on standing on top of platform, move player by the amount the platform is moving
         // this will cause the player to "ride" with the moving platform
         // without this code, the platform would slide right out from under the player
-        if (overlaps(player) && (player.getBoundsY2() + 1) == getBoundsY1() && player.getAirGroundState() == AirGroundState.GROUND) {
-            player.moveXHandleCollision(moveAmountX);
+        if (overlaps(player) && (player.getBoundsX2() + 1) == getBoundsX1() && player.getAirGroundState() == AirGroundState.GROUND) {
+            player.moveYHandleCollision(moveAmountY);
         }
 
         super.update(player);
@@ -88,5 +90,7 @@ public class HorizontalMovingPlatform extends EnhancedMapTile {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
     }
+
+   
 
 }

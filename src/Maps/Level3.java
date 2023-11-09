@@ -8,10 +8,13 @@ import EnhancedMapTiles.EndLevelBoxL3;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import NPCs.EndElevator;
+import NPCs.StartElevator;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
+import EnhancedMapTiles.VerticalMovingPlatform;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,8 +38,7 @@ public class Level3 extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
-        enemies.add(bugEnemy);
+        
 
         /*
          * DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19,
@@ -83,29 +85,54 @@ public class Level3 extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
+        HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(5, 9).getLocation(),
-                getMapTile(5,18).getLocation(),
+                getMapTile(19, 5).getLocation(),
+                getMapTile(23,5).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6, 16, 4),
-                Direction.UP);
+                Direction.LEFT);
 
-        enhancedMapTiles.add(hmp);
+        enhancedMapTiles.add(hmp1);
 
-        HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
+
+        HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(5, 9).getLocation(),
-                getMapTile(5, 18).getLocation(),
+                getMapTile(26, 5).getLocation(),
+                getMapTile(30,5).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6, 16, 4),
+                Direction.LEFT);
+
+        enhancedMapTiles.add(hmp2);
+
+        HorizontalMovingPlatform hmp3 = new HorizontalMovingPlatform(
+            ImageLoader.load("GreenPlatform.png"),
+            getMapTile(33, 5).getLocation(),
+            getMapTile(35,5).getLocation(),
+            TileType.JUMP_THROUGH_PLATFORM,
+            3,
+            new Rectangle(0, 6, 16, 4),
+            Direction.LEFT);
+
+    enhancedMapTiles.add(hmp3);
+
+
+
+        VerticalMovingPlatform vmp = new VerticalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(5, 8).getLocation(),
+                getMapTile(5, 19).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6, 16, 4),
                 Direction.DOWN);
-        enhancedMapTiles.add(hmp1);
+        enhancedMapTiles.add(vmp);
 
-        EndLevelBoxL3 endLevelBoxL3 = new EndLevelBoxL3(getMapTile(42, 12).getLocation());
-        enhancedMapTiles.add(endLevelBoxL3);
+        //EndLevelBoxL3 endLevelBoxL3 = new EndLevelBoxL3(getMapTile(42, 12).getLocation());
+       // enhancedMapTiles.add(endLevelBoxL3);
 
   
 
@@ -117,8 +144,11 @@ public class Level3 extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
-        npcs.add(walrus);
+        EndElevator endElevator = new EndElevator(getMapTile(40, 4).getLocation());
+        npcs.add(endElevator);
+
+        StartElevator startElevator = new StartElevator(getMapTile(1, 16).getLocation());
+        npcs.add(startElevator);
 
         return npcs;
     }

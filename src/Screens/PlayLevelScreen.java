@@ -32,6 +32,7 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 
 
 // This class is for when the platformer game is actually being played
@@ -54,6 +55,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    protected GraphicsHandler graphicsHandler;
+    BufferedImage darkCircle = ImageLoader.load("darkCircle.png");
     
     Font customFont;
    
@@ -165,6 +168,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 player.update();
                 map.update(player);
+
+            
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -192,7 +197,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
-                
 
                 break;
         }
@@ -205,6 +209,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 player.draw(graphicsHandler);
                 drawInventory(graphicsHandler); // Draw the inventory
                 graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
+
+                if (currentMap == 3) {
+                    // Calculate the top left corner position of the dark circle
+                    // so that the player is in the center of the circle
+                    int circleX = (int) (player.getCalibratedXLocation() - (darkCircle.getWidth() / 2) - (darkCircle.getWidth() / 2));
+                    int circleY = (int) (player.getCalibratedYLocation() - (darkCircle.getHeight() / 2) - (darkCircle.getHeight() / 2));
+    
+                    // Draw the dark circle image at the calculated position
+                    //graphicsHandler.drawImage(darkCircle, circleX, circleY, 10000, 10000);
+                }
+
+                if (currentMap == 3){
+
+                graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
+                }
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
@@ -321,3 +340,6 @@ public void drawInventory(GraphicsHandler graphicsHandler) {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 }
+
+
+

@@ -11,6 +11,8 @@ import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import NPCs.EndElevator;
+import NPCs.StartElevator;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
@@ -37,15 +39,12 @@ public class Level2 extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
-        enemies.add(bugEnemy);
+        //BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
+        //enemies.add(bugEnemy);
 
-        /*
-         * DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19,
-         * 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2),
-         * Direction.RIGHT);
-         * enemies.add(dinosaurEnemy);
-         */
+        BugEnemy death = new BugEnemy(getMapTile(15, 19).getLocation(), null);
+        enemies.add(death);
+
 
         return enemies;
     }
@@ -105,8 +104,8 @@ public class Level2 extends Map {
                 Direction.RIGHT);
         enhancedMapTiles.add(hmp1);
 
-        EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42, 12).getLocation());
-        enhancedMapTiles.add(endLevelBoxL2);
+       // EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42, 12).getLocation());
+       // enhancedMapTiles.add(endLevelBoxL2);
 
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
         keyL1.setMapReference(this); // Set the reference to this map
@@ -128,5 +127,19 @@ public class Level2 extends Map {
 
     }
 
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+
+        EndElevator endElevator = new EndElevator(getMapTile(42, 12).getLocation());
+        npcs.add(endElevator);
+
+        StartElevator startElevator = new StartElevator(getMapTile(1, 16).getLocation());
+        npcs.add(startElevator);
+
+        return npcs;
+    }
 
 }

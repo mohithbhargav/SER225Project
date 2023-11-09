@@ -30,11 +30,11 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class EndElevator extends NPC {
+public class StartElevator extends NPC {
     private Map mapReference;
 
-    public EndElevator(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("EndElevator.png"), 32, 32), "CLOSED");
+    public StartElevator(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("EndElevator.png"), 32, 32), "OPEN");
 
         isInteractable = true;
         talkedToTime = 200;
@@ -44,18 +44,11 @@ public class EndElevator extends NPC {
     public void update(Player player) {
         super.update(player);
         if (talkedTo) {
-            currentAnimationName = "OPEN";
+            currentAnimationName = "ClOSED";
             System.out.println("Player interacted with Elevator");
-            player.completeLevel();
-            try {
-                OnlyGitMap.resetMapToFile(); // Reset the map after the level is completed
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Handle the exception, perhaps log an error or display a message to the player
-
-            }
+            
         } else {
-            currentAnimationName = "CLOSED";
+            currentAnimationName = "OPEN";
         }
 
     }
