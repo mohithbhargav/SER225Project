@@ -82,5 +82,4 @@ public class StartElevator extends NPC {
         this.mapReference = mapReference;
     }
 
-    
 }
