@@ -1,6 +1,7 @@
 package Maps;
 
 import Enemies.BugEnemy;
+import Enemies.Death;
 import Engine.ImageLoader;
 import EnhancedMapTiles.DoubleJump1;
 
@@ -40,7 +41,37 @@ public class Level3 extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        
+        Death death1 = new Death(getMapTile(5, 19).getLocation(), Direction.LEFT);
+        enemies.add(death1);
+
+        Death death2 = new Death(getMapTile(8, 19).getLocation(), Direction.LEFT);
+        enemies.add(death2);
+
+        Death death3 = new Death(getMapTile(15, 19).getLocation(), Direction.LEFT);
+        enemies.add(death3);
+
+        Death death4 = new Death(getMapTile(19, 19).getLocation(), Direction.LEFT);
+        enemies.add(death4);
+
+        Death death5 = new Death(getMapTile(20, 19).getLocation(), Direction.LEFT);
+        enemies.add(death5);
+
+        Death death6 = new Death(getMapTile(21, 19).getLocation(), Direction.LEFT);
+        enemies.add(death6);
+
+        Death death7 = new Death(getMapTile(22, 19).getLocation(), Direction.LEFT);
+        enemies.add(death7);
+
+        Death death8 = new Death(getMapTile(27, 19).getLocation(), Direction.LEFT);
+        enemies.add(death8);
+
+        Death death9 = new Death(getMapTile(28, 19).getLocation(), Direction.LEFT);
+        enemies.add(death9);
+
+        Death death10 = new Death(getMapTile(29, 19).getLocation(), Direction.LEFT);
+        enemies.add(death10);
+
+      
 
         /*
          * DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19,
