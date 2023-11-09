@@ -1,11 +1,7 @@
 package Screens;
 
 import Engine.GamePanel;
-import javax.imageio.ImageIO;
-import java.awt.Image;
 import java.io.File;
-import Engine.ImageLoader;
-import java.awt.image.BufferedImage;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -13,10 +9,8 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.Level3;
 import Maps.Level2;
 import Maps.OnlyGitMap;
-import Maps.TestMap;
 import Players.Cat;
 import Utils.Point;
 import javax.swing.JLabel;
@@ -24,18 +18,14 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
-    private static boolean PreviousLevelStateChangeStart = false;
     protected ScreenCoordinator screenCoordinator;
     protected GamePanel pause;
     protected Map map;
@@ -171,6 +161,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelLoseScreen.update();
 
                 break;
+            default:
+                break;
         }
     }
 
@@ -188,7 +180,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case LEVEL_LOSE:
                 levelLoseScreen.draw(graphicsHandler);
                 break;
+            default:
+                break;
         }
+    }
+
+    private void drawInventory(GraphicsHandler graphicsHandler) {
     }
 
     public void Timer() {
@@ -253,5 +250,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, PREVIOUSLEVEL
+    }
+
+    @Override
+    public void onPreviousLevel() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onPreviousLevel'");
     }
 }
