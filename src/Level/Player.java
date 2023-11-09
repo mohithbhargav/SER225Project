@@ -630,6 +630,6 @@ public abstract class Player extends GameObject {
     }
 
     public void PreviousLevel() {
-
+        return;
     }
 }

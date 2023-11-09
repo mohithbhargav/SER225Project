@@ -26,6 +26,7 @@ import java.io.IOException;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
+    private static boolean PreviousLevelStateChangeStart = false;
     protected ScreenCoordinator screenCoordinator;
     protected GamePanel pause;
     protected Map map;
@@ -151,6 +152,27 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     screenTimer--;
                     if (screenTimer == 0 && currentMap == 2) {
                         goBackToMenu();
+                    }
+                }
+                break;
+
+            case PREVIOUSLEVEL:
+                if (PreviousLevelStateChangeStart) {
+                    screenTimer = 130;
+                    PreviousLevelStateChangeStart = false;
+                    currentMap -= 1;
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    initialize();
+                } else {
+                    levelClearedScreen.update();
+                    screenTimer--;
+                    if (screenTimer == 0 && currentMap == 1) {
+                        OnlyGitMap.java();
                     }
                 }
                 break;

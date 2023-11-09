@@ -11,7 +11,9 @@ import Level.*;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
+import Utils.Point;
 import EnhancedMapTiles.Sprint1;
+import EnhancedMapTiles.StartLevelBox2;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -86,7 +88,7 @@ public class Level3 extends Map {
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getMapTile(5, 9).getLocation(),
-                getMapTile(5,18).getLocation(),
+                getMapTile(5, 18).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6, 16, 4),
@@ -107,10 +109,15 @@ public class Level3 extends Map {
         EndLevelBoxL3 endLevelBoxL3 = new EndLevelBoxL3(getMapTile(42, 12).getLocation());
         enhancedMapTiles.add(endLevelBoxL3);
 
-  
+        StartLevelBox2 startLevelBox2 = StartLevelBox2(getMapTile(42, 12).getLocation());
+        enhancedMapTiles.add(startLevelBox2);
 
         return enhancedMapTiles;
 
+    }
+
+    private StartLevelBox2 StartLevelBox2(Point location) {
+        return null;
     }
 
     @Override
