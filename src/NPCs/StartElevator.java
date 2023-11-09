@@ -55,10 +55,6 @@ public class StartElevator extends NPC {
     }
 
 
-    public void backTrack(){
-
-        
-    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

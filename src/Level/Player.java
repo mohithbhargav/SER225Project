@@ -124,7 +124,6 @@ public abstract class Player extends GameObject {
     public void stopMusic2() {
         currentLevel.getAudioManager().stopSound();
     }
-    // ... Rest of your Player class methods ...
 
     public void update() {
 
