@@ -15,6 +15,7 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
+import EnhancedMapTiles.StartLevelBox;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -105,6 +106,9 @@ public class Level2 extends Map {
                 new Rectangle(0, 6, 16, 4),
                 Direction.RIGHT);
         enhancedMapTiles.add(hmp1);
+
+        StartLevelBox startLevelBox = new StartLevelBox(getMapTile(0, 14).getLocation());
+        enhancedMapTiles.add(startLevelBox);
 
         EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42, 12).getLocation());
         enhancedMapTiles.add(endLevelBoxL2);

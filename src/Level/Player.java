@@ -19,7 +19,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Player extends GameObject {
 
-
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
@@ -74,19 +73,19 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
-        
+
         if (this.currentMap == 1) {
             backgroundMusicPath = "TheJourneyBegins.wav";
         } else if (this.currentMap == 2) {
             backgroundMusicPath = "TimeWindow.wav";
         }
-        
+
         try {
             backgroundMusic = new PlayMusic(backgroundMusicPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public void updateDoubleJump() {
@@ -106,7 +105,6 @@ public abstract class Player extends GameObject {
     public void stopMusic() {
         currentLevel.getAudioManager().stopSound();
     }
-
 
     public void pauseMusic2() {
         currentLevel.getAudioManager().stopSound();
@@ -162,6 +160,14 @@ public abstract class Player extends GameObject {
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
         }
+
+        // if player has beaten level
+        else if (levelState == LevelState.PREVIOUSLEVEL) {
+            updatePREVIOUSLEVEL();
+        }
+    }
+
+    private void updatePREVIOUSLEVEL() {
     }
 
     // add gravity to player, which is a downward force
@@ -434,6 +440,42 @@ public abstract class Player extends GameObject {
         }
     }
 
+    public void previousLevel() {
+        levelState = LevelState.PREVIOUSLEVEL;
+
+    }
+
+    // if player has beaten level, this will be the update cycle
+    public void updatePreviousLevel() {
+        try {
+            // Stop the background music
+            backgroundMusic.stop();
+
+            // if player is not on ground, player should fall until it touches the ground
+            if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
+                currentAnimationName = "FALL_LEFT";
+                applyGravity();
+                increaseMomentum();
+                super.update();
+                moveYHandleCollision(moveAmountY);
+            }
+            // move player to the right until it walks off screen
+            else if (map.getCamera().containsDraw(this)) {
+                currentAnimationName = "WALK_LEFT";
+                super.update();
+                moveXHandleCollision(walkSpeed);
+            } else {
+                // tell all player listeners that the player has finished the level
+                for (PlayerListener listener : listeners) {
+                    listener.onPreviousLevel();
+                }
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            // Optionally, you can log the error or handle it in some other way.
+        }
+    }
+
     private void fadeOutMusic() {
         if (backgroundMusic != null && backgroundMusic.getClip() != null) {
             Clip clip = (Clip) backgroundMusic.getClip();
@@ -519,5 +561,9 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+
+    public void PreviousLevel() {
+
     }
 }

@@ -13,7 +13,7 @@ import Maps.OnlyGitMap;
 import Maps.TestMap;
 import Players.Cat;
 import Utils.Point;
-import javax.swing.JLabel;  
+import javax.swing.JLabel;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,11 +26,11 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 
-
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
+    private static boolean PreviousLevelStateChangeStart = false;
     protected ScreenCoordinator screenCoordinator;
-    protected GamePanel pause; 
+    protected GamePanel pause;
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
@@ -40,18 +40,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected boolean isRunning;
     protected int minutes, seconds;
     static int sec1Log, min1Log;
-   // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
+    // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected int currentMap = 1;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
-    
+
     Font customFont;
-   
-    
-    
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -62,27 +59,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         // define/setup map
 
-        if (currentMap == 1){
-         this.map = new OnlyGitMap();  //change this to set first map (should be OnlyGitMap() )
+        if (currentMap == 1) {
+            this.map = new OnlyGitMap(); // change this to set first map (should be OnlyGitMap() )
 
-        } else if (currentMap == 2){
+        } else if (currentMap == 2) {
             this.map = new Level2();
 
-        } else 
-        map.reset();
-
-      
-       
+        } else
+            map.reset();
 
         // setup player
-        if (currentMap == 1){
+        if (currentMap == 1) {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
-   
-           } else if (currentMap == 2){
+
+        } else if (currentMap == 2) {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
-   
-           }
-        
+
+        }
+
         this.player.setMap(map);
         this.player.addListener(this);
         Point playerStartPosition = map.getPlayerStartPosition();
@@ -93,7 +87,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        
         try {
             String fontFilePath = "Resources/DePixelBreit.otf";
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(55f);
@@ -101,43 +94,38 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-            customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font loading fails
+            customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font
+                                                                      // loading fails
         }
 
         this.tLabel = new JLabel("");
         this.tLabel.setHorizontalAlignment(JLabel.CENTER);
         this.tLabel.setFont(customFont);
 
-        
         tLabel.setText("0:00");
         seconds = 0;
         minutes = 1;
         second = dec.format(seconds);
         isRunning = true;
 
-    // Adjust the timer based on the logged time for currentMap == 2
-    if (currentMap == 2) { 
-    minutes += min1Log;
-    seconds += sec1Log;
-    if (seconds >= 60) {
-        minutes++;
-        seconds -= 60;
-    }
-}
+        // Adjust the timer based on the logged time for currentMap == 2
+        if (currentMap == 2) {
+            minutes += min1Log;
+            seconds += sec1Log;
+            if (seconds >= 60) {
+                minutes++;
+                seconds -= 60;
+            }
+        }
 
-    if (timer != null && isRunning) {
-    timer.stop();
-    }
+        if (timer != null && isRunning) {
+            timer.stop();
+        }
 
         Timer();
         timer.start();
 
-        
     }
-
-   
-
-    
 
     public void update() {
         // based on screen state, perform specific actions
@@ -150,31 +138,52 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
-            if (levelCompletedStateChangeStart) {
-                screenTimer = 130;
-                levelCompletedStateChangeStart = false;
-                currentMap += 1;
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (levelCompletedStateChangeStart) {
+                    screenTimer = 130;
+                    levelCompletedStateChangeStart = false;
+                    currentMap += 1;
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    initialize();
+                } else {
+                    levelClearedScreen.update();
+                    screenTimer--;
+                    if (screenTimer == 0 && currentMap == 2) {
+                        goBackToMenu();
+                    }
                 }
-                            
-                initialize();
-            } else {
-                levelClearedScreen.update();
-                screenTimer--;
-                if (screenTimer == 0 && currentMap == 2) {
-                    goBackToMenu();
+                break;
+
+            // if level has been completed, bring up level cleared screen
+            case PREVIOUSLEVEL:
+                if (PreviousLevelStateChangeStart) {
+                    screenTimer = 130;
+                    PreviousLevelStateChangeStart = false;
+                    currentMap -= 1;
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    initialize();
+                } else {
+                    levelClearedScreen.update();
+                    screenTimer--;
+                    if (screenTimer == 0 && currentMap == 2) {
+                        goBackToMenu();
+                    }
                 }
-            }
-            break;
-        
+                break;
+
             // wait on level lose screen to make a decision (either resets level or sends
             // player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
-                
 
                 break;
         }
@@ -195,7 +204,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
         }
     }
-    
 
     public void Timer() {
         timer = new Timer(1000, new ActionListener() {
@@ -214,11 +222,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             }
         });
     }
-    
 
-   public int getCurrentMap(){
-    return currentMap;
-   }
+    public int getCurrentMap() {
+        return currentMap;
+    }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
@@ -228,21 +235,37 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-            timer.stop();  // Stop the timer when the level is completed
-            
+            timer.stop(); // Stop the timer when the level is completed
+
             if (currentMap == 1) {
                 min1Log = minutes;
                 sec1Log = seconds;
-                System.out.println("Time Left: " + min1Log + ":" + sec1Log);  // Log the time left
+                System.out.println("Time Left: " + min1Log + ":" + sec1Log); // Log the time left
                 currentMap++;
                 initialize();
             } else if (currentMap == 2) {
-                goBackToMenu();  // Go back to the menu after completing the second level
+                goBackToMenu(); // Go back to the menu after completing the second level
             }
         }
     }
-    
-    
+
+    @Override
+    public void onPreviousLevel() {
+        if (playLevelScreenState != PlayLevelScreenState.PREVIOUSLEVEL) {
+            playLevelScreenState = PlayLevelScreenState.PREVIOUSLEVEL;
+            timer.stop(); // Stop the timer when the level is completed
+
+            if (currentMap == 1) {
+                min1Log = minutes;
+                sec1Log = seconds;
+                System.out.println("Time Left: " + min1Log + ":" + sec1Log); // Log the time left
+                currentMap--;
+                initialize();
+            } else if (currentMap == 2) {
+                goBackToMenu(); // Go back to the menu after completing the second level
+            }
+        }
+    }
 
     @Override
     public void onDeath() {
@@ -261,6 +284,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
+        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, PREVIOUSLEVEL
     }
 }
