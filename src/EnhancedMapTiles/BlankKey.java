@@ -9,18 +9,16 @@ import Level.Map;
 import Level.MapEntityStatus;
 import Level.Player;
 import Level.TileType;
-import Maps.OnlyGitMap;
 import Utils.Point;
 
-import java.io.IOException;
 import java.util.HashMap;
 
-public class KeyL1 extends EnhancedMapTile {
+public class BlankKey extends EnhancedMapTile {
 
     private Map mapReference;
     private boolean isKeyPickedUp = false;
 
-    public KeyL1(Point location) {
+    public BlankKey(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("keyl1.png"), 16, 16), TileType.PASSABLE);
     }
 
@@ -33,7 +31,7 @@ public class KeyL1 extends EnhancedMapTile {
             if (wasAdded) {
                 System.out.println("Key added to the inventory");
                 isKeyPickedUp = true;
-                replaceWallWithPassableTile();
+                // replaceWallWithPassableTile();
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
             } else {
                 System.out.println("Inventory is full, cannot pick up the key!");
@@ -43,22 +41,22 @@ public class KeyL1 extends EnhancedMapTile {
 
 
 
-    private void replaceWallWithPassableTile() {
-        try {
-            OnlyGitMap.replaceAllWallTilesInFile();
+    // private void replaceWallWithPassableTile() {
+    //     try {
+    //         OnlyGitMap.replaceAllWallTilesInFile();
             
-            if (this.getMapReference() instanceof OnlyGitMap) {
-                OnlyGitMap currentMap = (OnlyGitMap) this.getMapReference();
-                currentMap.reloadMapFromFile();
-            } else {
-                System.err.println("Error: Expected map of type OnlyGitMap but encountered another type.");
-            }
+    //         if (this.getMapReference() instanceof OnlyGitMap) {
+    //             OnlyGitMap currentMap = (OnlyGitMap) this.getMapReference();
+    //             currentMap.reloadMapFromFile();
+    //         } else {
+    //             System.err.println("Error: Expected map of type OnlyGitMap but encountered another type.");
+    //         }
             
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception
-        }
-    }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //         // Handle the exception
+    //     }
+    // }
 
     
 

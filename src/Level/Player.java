@@ -8,6 +8,11 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Level.Inventory;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.List;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +68,9 @@ public abstract class Player extends GameObject {
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
 
+    private Inventory inventory;
+
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, int currentMap) {
         super(spriteSheet, x, y, startingAnimationName);
         this.currentMap = currentMap;
@@ -72,6 +80,7 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+        this.inventory = new Inventory(3);
 
         String backgroundMusicPath = "TheJourneyBegins.wav"; // Replace with your actual music file path
         
@@ -493,6 +502,48 @@ public abstract class Player extends GameObject {
         }
     }
 
+
+    public void activateTemporaryPowerUp(String powerUpName) {
+        if (addItemToInventory(powerUpName)) {
+            switch (powerUpName) {
+                case "DoubleJump":
+                    this.canDoubleJump = true; // Enable double jump
+                    break;
+                case "Sprint":
+                    this.isSprinting = true; // Enable sprint
+                    this.walkSpeed *= this.sprintSpeedMultiplier; // Increase walking speed
+                    break;
+            }
+            
+            // Set a timer to remove the power-up from inventory and deactivate it after 15 seconds
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    removeItemFromInventory(powerUpName);
+                    deactivatePowerUp(powerUpName);
+                }
+            }, 15000); // 15000 milliseconds = 15 seconds
+        }
+    }
+
+
+
+private void deactivatePowerUp(String powerUpName) {
+    switch (powerUpName) {
+        case "DoubleJump":
+            this.canDoubleJump = false; // Disable double jump
+            System.out.println("Double jump deactivated.");
+            break;
+        case "Sprint":
+            this.isSprinting = false; // Disable sprint
+            this.walkSpeed /= this.sprintSpeedMultiplier; // Reset walking speed
+            System.out.println("Sprint deactivated.");
+            break;
+    }
+}
+
+
+
     public PlayerState getPlayerState() {
         return playerState;
     }
@@ -519,5 +570,25 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+
+    // Add a method to add an item to the inventory
+    public boolean addItemToInventory(String item) {
+        return inventory.addItem(item);
+    }
+
+    // Add a method to check if the inventory contains an item
+    public boolean hasItemInInventory(String item) {
+        return inventory.hasItem(item);
+    }
+
+    // Add a method to remove an item from the inventory
+    public boolean removeItemFromInventory(String item) {
+        return inventory.removeItem(item);
+    }
+
+    // Add a method to get the inventory items as a List (if needed for drawing or other purposes)
+    public List<String> getInventoryItems() {
+        return inventory.getItems();
     }
 }
