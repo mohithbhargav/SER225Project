@@ -45,31 +45,38 @@ public class StartElevator extends NPC {
     public void update(Player player) {
         super.update(player);
         if (talkedTo) {
-            currentAnimationName = "ClOSED";
+            currentAnimationName = "CLOSED"; // Fix the typo here
             System.out.println("Player interacted with Elevator");
-            
+            player.previousLevel();
+            try {
+                OnlyGitMap.resetMapToFile(); // Reset the map after the level is completed
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle the exception, perhaps log an error or display a message to the player
+            }
         } else {
             currentAnimationName = "OPEN";
         }
-
     }
 
 
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
-           put("CLOSED", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(3)
-                           .build()
-           });
-            put("OPEN", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(3)
-                            .build()
-            });
-        }};
+        return new HashMap<String, Frame[]>() {
+            {
+                put("CLOSED", new Frame[] {
+                        new FrameBuilder(spriteSheet.getSprite(0, 0))
+                                .withScale(3)
+                                .build()
+                });
+                put("OPEN", new Frame[] {
+                        new FrameBuilder(spriteSheet.getSprite(1, 0))
+                                .withScale(3)
+                                .build()
+                });
+            }
+        };
     }
 
     @Override

@@ -18,7 +18,7 @@ public class PlayMusic {
     String filePath; // Now an instance variable instead of static
 
     // Constructor now accepts the audio file path as a parameter
-    public PlayMusic(String audioFilePath) 
+    public PlayMusic(String audioFilePath)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.filePath = audioFilePath;
 
@@ -114,12 +114,16 @@ public class PlayMusic {
 
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(new File(Config.RESOURCES_PATH + filePath).getAbsoluteFile());
+        audioInputStream = AudioSystem
+                .getAudioInputStream(new File(Config.RESOURCES_PATH + filePath).getAbsoluteFile());
         clip.open(audioInputStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-	public Object getClip() {
-		return null;
-	}
+    public Object getClip() {
+        return null;
+    }
+
+    public void playLoop() {
+    }
 }

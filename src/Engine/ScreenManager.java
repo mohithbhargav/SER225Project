@@ -1,6 +1,5 @@
 package Engine;
 
-
 import GameObject.Rectangle;
 
 /*
@@ -17,7 +16,8 @@ public class ScreenManager {
         setCurrentScreen(new DefaultScreen());
     }
 
-    // attach an external Screen class here for the ScreenManager to start calling its update/draw cycles
+    // attach an external Screen class here for the ScreenManager to start calling
+    // its update/draw cycles
     public void setCurrentScreen(Screen screen) {
         screen.initialize();
         this.currentScreen = screen;
@@ -28,14 +28,12 @@ public class ScreenManager {
             currentScreen.update();
         }
     }
-    
 
     public void draw(GraphicsHandler graphicsHandler) {
         if (currentScreen != null) {
             currentScreen.draw(graphicsHandler);
         }
     }
-    
 
     // gets width of currentScreen -- can be called from anywhere in an application
     public static int getScreenWidth() {
@@ -50,5 +48,12 @@ public class ScreenManager {
     // gets bounds of currentScreen -- can be called from anywhere in an application
     public static Rectangle getScreenBounds() {
         return screenBounds;
+    }
+
+    public static Object getInstance() {
+        return null;
+    }
+
+    public static void switchToPreviousLevel() {
     }
 }

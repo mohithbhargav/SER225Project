@@ -4,6 +4,7 @@ import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.PlayMusic;
+import Engine.ScreenManager;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
@@ -11,6 +12,7 @@ import Utils.Direction;
 import Level.Inventory;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
 import java.util.List;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Player extends GameObject {
 
+    private static final Level1 Level1 = null;
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
@@ -174,6 +177,7 @@ public abstract class Player extends GameObject {
     }
 
     private void updatePREVIOUSLEVEL() {
+
     }
 
     // add gravity to player, which is a downward force
@@ -446,9 +450,49 @@ public abstract class Player extends GameObject {
         }
     }
 
-    public void previousLevel() {
-        levelState = LevelState.PREVIOUSLEVEL;
+    // Other fields...
 
+    private int currentLevelIndex;
+
+    // Other methods...
+
+    public void previousLevel() {
+        // Assuming you have access to the current level index in the Player class
+        if (currentLevelIndex > 0) {
+            // Pause the music for the current level
+            pauseMusic();
+
+            // Reset player state or any other necessary logic for transitioning to the
+            // previous level
+            resetPlayerState();
+
+            // Load the previous level by decrementing the current level index
+            currentLevelIndex--;
+
+            // Load the level based on the current index (you need to implement this method)
+            loadLevel(levelState.get(currentLevelIndex));
+
+            // Optionally, resume music for the previous level
+            resumeMusic();
+        }
+    }
+
+    // Other methods...
+
+    // Additional method for loading a level, adjust as needed
+    private void loadLevel(Level level) {
+        // Implement logic to load the specified level
+        // This might involve setting up the map, enemies, NPCs, etc.
+        // Adjust the method based on your game's level-loading requirements
+        // You might want to have a method in your Level class to perform these tasks
+        // Example: level.loadLevel();
+        // Implement logic to load the specified level
+        // This might involve setting up the map, enemies, NPCs, etc.
+
+        currentLevel = (Level1); // Change Level1 to the actual class of your level
+
+        // Start the background music for the new level
+        backgroundMusic.playLoop();
     }
 
     // if player has beaten level, this will be the update cycle
@@ -502,6 +546,30 @@ public abstract class Player extends GameObject {
                 clip.stop();
             }).start();
         }
+    }
+
+    private void resetPlayerState() {
+        // Reset any player-specific state, such as health, power-ups, etc.
+        // You may also want to reset the player's position or other relevant parameters
+        setAirGroundState(AirGroundState.GROUND); // Assuming this method exists in your Player class
+        setPlayerState(PlayerState.STANDING);
+        setFacingDirection(Direction.RIGHT); // Set the default direction
+        setJumpForce(0); // Reset jump force
+        setMomentumY(0); // Reset momentum
+        setHasDoubleJumped(false); // Reset double jump state
+        // Reset any other player-specific state variables
+    }
+
+    private void setMomentumY(int i) {
+    }
+
+    private void setHasDoubleJumped(boolean b) {
+    }
+
+    private void setAirGroundState(AirGroundState ground) {
+    }
+
+    private void setJumpForce(int i) {
     }
 
     public void updatePlayerDead() {
@@ -630,5 +698,9 @@ public abstract class Player extends GameObject {
 
     public void PreviousLevel() {
         return;
+    }
+
+    public Object getMap() {
+        return null;
     }
 }
