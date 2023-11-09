@@ -60,9 +60,9 @@ public class BugEnemy extends Enemy {
             }
         }
 
-        // move bug
-        moveYHandleCollision(moveAmountY);
-        moveXHandleCollision(moveAmountX);
+        // // move bug
+        // moveYHandleCollision(moveAmountY);
+        // moveXHandleCollision(moveAmountX);
 
         super.update(player);
     }
