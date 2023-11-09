@@ -6,6 +6,7 @@ import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Map;
+import Level.MapEntityStatus;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
@@ -17,22 +18,19 @@ public class DoubleJump1 extends EnhancedMapTile {
     private boolean isKeyPickedUp = false;
 
     public DoubleJump1(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpingIcon.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("DoubleJump.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
         if (!isKeyPickedUp && intersects(player)) {
-            System.out.println("Player picked up the Double Jump key!");
+            System.out.println("Player picked up the Double Jump power-up!");
             isKeyPickedUp = true;
-            activateDoubleJumpForPlayer(player);
+            // Activate the temporary power-up through the Player class
+            player.activateTemporaryPowerUp("DoubleJump");
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
-    }
-
-    private void activateDoubleJumpForPlayer(Player player) {
-        // Assuming you have a method in the Player class to activate double jumping
-        player.updateDoubleJump();
     }
 
     @Override

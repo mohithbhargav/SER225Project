@@ -6,6 +6,7 @@ import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Map;
+import Level.MapEntityStatus;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
@@ -17,7 +18,7 @@ public class Sprint1 extends EnhancedMapTile {
     private boolean isKeyPickedUp = false;
 
     public Sprint1(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SprintingIcon.png"), 16, 16),
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sprint.png"), 16, 16),
                 TileType.PASSABLE);
     }
 
@@ -25,15 +26,12 @@ public class Sprint1 extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
         if (!isKeyPickedUp && intersects(player)) {
-            System.out.println("Player picked up the Sprint key!");
+            System.out.println("Player picked up the Sprint power-up!");
             isKeyPickedUp = true;
-            activateSprintForPlayer(player);
+            // Activate the temporary power-up through the Player class
+            player.activateTemporaryPowerUp("Sprint");
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
-    }
-
-    private void activateSprintForPlayer(Player player) {
-        // Assuming you have a method in the Player class to activate sprinting
-        player.activateSprint(15000); // 15000ms or 15 seconds
     }
 
     @Override

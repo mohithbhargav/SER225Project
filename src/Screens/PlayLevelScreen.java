@@ -1,6 +1,11 @@
 package Screens;
 
 import Engine.GamePanel;
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import java.io.File;
+import Engine.ImageLoader;
+import java.awt.image.BufferedImage;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -8,6 +13,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.Level3;
 import Maps.Level2;
 import Maps.OnlyGitMap;
 import Maps.TestMap;
@@ -18,6 +24,7 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Font;
@@ -39,7 +46,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
-    static int sec1Log, min1Log;
+    static int sec1Log, min1Log, sec2Log, min2Log;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected int currentMap = 1;
@@ -158,28 +165,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 }
                 break;
 
-            // if level has been completed, bring up level cleared screen
-            case PREVIOUSLEVEL:
-                if (PreviousLevelStateChangeStart) {
-                    screenTimer = 130;
-                    PreviousLevelStateChangeStart = false;
-                    currentMap -= 1;
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    initialize();
-                } else {
-                    levelClearedScreen.update();
-                    screenTimer--;
-                    if (screenTimer == 0 && currentMap == 2) {
-                        goBackToMenu();
-                    }
-                }
-                break;
-
             // wait on level lose screen to make a decision (either resets level or sends
             // player back to main menu)
             case LEVEL_LOSE:
@@ -194,6 +179,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+                drawInventory(graphicsHandler); // Draw the inventory
                 graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
                 break;
             case LEVEL_COMPLETED:
@@ -242,24 +228,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 sec1Log = seconds;
                 System.out.println("Time Left: " + min1Log + ":" + sec1Log); // Log the time left
                 currentMap++;
-                initialize();
-            } else if (currentMap == 2) {
-                goBackToMenu(); // Go back to the menu after completing the second level
-            }
-        }
-    }
-
-    @Override
-    public void onPreviousLevel() {
-        if (playLevelScreenState != PlayLevelScreenState.PREVIOUSLEVEL) {
-            playLevelScreenState = PlayLevelScreenState.PREVIOUSLEVEL;
-            timer.stop(); // Stop the timer when the level is completed
-
-            if (currentMap == 1) {
-                min1Log = minutes;
-                sec1Log = seconds;
-                System.out.println("Time Left: " + min1Log + ":" + sec1Log); // Log the time left
-                currentMap--;
                 initialize();
             } else if (currentMap == 2) {
                 goBackToMenu(); // Go back to the menu after completing the second level

@@ -11,7 +11,6 @@ import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
-import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
@@ -133,13 +132,5 @@ public class Level2 extends Map {
 
     }
 
-    @Override
-    public ArrayList<NPC> loadNPCs() {
-        ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
-        npcs.add(walrus);
-
-        return npcs;
-    }
 }

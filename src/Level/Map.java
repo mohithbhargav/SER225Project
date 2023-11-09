@@ -352,6 +352,8 @@ public abstract class Map {
                 float cameraDifference = camera.getEndBoundX() - endBoundX;
                 camera.moveX(-cameraDifference);
             }
+
+            
         }
         // if player goes past center screen (on the left side) and there is more map to show on the left side, push player back to center and move camera backwards
         else if (player.getCalibratedXLocation() < xMidPoint && camera.getX() > startBoundX) {
