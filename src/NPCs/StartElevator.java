@@ -40,6 +40,7 @@ public class StartElevator extends NPC {
         talkedToTime = 200;
     }
 
+
     @Override
     public void update(Player player) {
         super.update(player);
@@ -51,6 +52,12 @@ public class StartElevator extends NPC {
             currentAnimationName = "OPEN";
         }
 
+    }
+
+
+    public void backTrack(){
+
+        
     }
 
     @Override

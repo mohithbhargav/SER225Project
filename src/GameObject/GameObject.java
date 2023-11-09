@@ -75,6 +75,7 @@ public class GameObject extends AnimatedSprite {
         this.previousY = y;
     }
 
+
     @Override
     public void update() {
         // update previous position to be the current position
