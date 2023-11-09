@@ -1,6 +1,11 @@
 package Screens;
 
 import Engine.GamePanel;
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import java.io.File;
+import Engine.ImageLoader;
+import java.awt.image.BufferedImage;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -18,6 +23,7 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Font;
@@ -185,6 +191,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+                drawInventory(graphicsHandler); // Draw the inventory
                 graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
                 break;
             case LEVEL_COMPLETED:
@@ -241,7 +248,37 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             }
         }
     }
-    
+
+   // Method to draw the inventory on the screen
+public void drawInventory(GraphicsHandler graphicsHandler) {
+    // Get the list of inventory items from the player
+    List<String> inventoryItems = player.getInventoryItems();
+
+    // Set starting position for the inventory display
+    int x = 50; // X coordinate on the screen for the inventory
+    int y = 50; // Y coordinate on the screen for the inventory, adjust as needed
+    int itemSize = 45; // Size of the inventory item sprite, adjust as needed
+
+    // Iterate over the inventory items and draw their sprites
+    for (String item : inventoryItems) {
+        // Based on the item identifier, select the appropriate sprite
+        String spritePath = item + ".png"; // No need to add "Resources/" here
+        try {
+            // Load the sprite image from the resources using the ImageLoader
+            BufferedImage itemSprite = ImageLoader.load(spritePath);
+
+            // Draw the sprite on the screen
+            // The GraphicsHandler's drawImage method might expect a BufferedImage
+            graphicsHandler.drawImage(itemSprite, x, y, itemSize, itemSize);
+
+            // Adjust the y coordinate for the next item
+            y += itemSize + 10; // Adding 10 for padding, adjust as needed
+        } catch (Exception e) {
+            e.printStackTrace(); // Print the stack trace if an exception occurs
+        }
+    }
+}
+
     
 
     @Override

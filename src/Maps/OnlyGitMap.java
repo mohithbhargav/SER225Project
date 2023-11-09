@@ -3,6 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.BlankKey;
 import EnhancedMapTiles.DoubleJump1;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.KeyL1;
@@ -13,6 +14,7 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
+import EnhancedMapTiles.BlankKey;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -102,6 +104,10 @@ public class OnlyGitMap extends Map {
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
         keyL1.setMapReference(this);  // Set the reference to this map
         enhancedMapTiles.add(keyL1);
+
+        BlankKey bkey = new BlankKey(getMapTile(4, 5).getLocation());
+        bkey.setMapReference(this);  // Set the reference to this map
+        enhancedMapTiles.add(bkey);
 
         Sprint1 key2L1 = new Sprint1(getMapTile(27, 13).getLocation());
         key2L1.setMapReference(this);  // Set the reference to this map

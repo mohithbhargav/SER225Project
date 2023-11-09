@@ -1,7 +1,6 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
@@ -13,10 +12,8 @@ import Maps.Level2;
 import Utils.Point;
 import Engine.Key;
 import Engine.Keyboard;
-import Engine.ScreenManager;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -34,38 +31,39 @@ public class Keypad extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
         checkInteractedWith(player);
-        passKey();
+        if (isInteractedWith && !correctPassKey) {
+            passKey();
+        }
     }
 
     public void checkInteractedWith(Player player) {
-        if (intersects(player) && Keyboard.isKeyDown(keyPadKey)) {
+        if (intersects(player) && Keyboard.isKeyDown(keyPadKey) && !isInteractedWith) {
             isInteractedWith = true;
             System.out.println("Player interacted with keypad");
-        } else {
-            isInteractedWith = false;
         }
     }
 
     public void passKey() {
-        if (isInteractedWith) {
-            while (!correctPassKey) {
-                String passCodeString = JOptionPane.showInputDialog(null, "Enter a 4-digit Passkey:", "Passkey Input", JOptionPane.QUESTION_MESSAGE);
+        String passCodeString = JOptionPane.showInputDialog(null, "Enter a 4-digit Passkey:", "Passkey Input", JOptionPane.QUESTION_MESSAGE);
+        
+        // If user cancels the input dialog, exit the method to allow returning to the game
+        if (passCodeString == null) {
+            isInteractedWith = false; // Reset flag to allow reactivation later if needed
+            return;
+        }
 
-                if (passCodeString == null) return;
-
-                try {
-                    int passCode = Integer.parseInt(passCodeString);
-                    if (passCode == 4269) {
-                        replaceWallWithPassableTile();
-                        JOptionPane.showMessageDialog(null, "Correct passcode entered. Access granted!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        correctPassKey = true;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Incorrect passcode. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid 4-digit passcode.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                }
+        try {
+            int passCode = Integer.parseInt(passCodeString);
+            if (passCode == 4269) {
+                replaceWallWithPassableTile();
+                JOptionPane.showMessageDialog(null, "Correct passcode entered. Access granted!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                correctPassKey = true; // Correct passkey, no further action needed
+                isInteractedWith = false; // Reset flag after successful interaction
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect passcode. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid 4-digit passcode.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -95,7 +93,7 @@ public class Keypad extends EnhancedMapTile {
                 Level2 currentMap = (Level2) this.getMapReference();
                 currentMap.reloadMapFromFile();
             } else {
-                System.err.println("Error: Expected map of type Levele2 but encountered another type.");
+                System.err.println("Error: Expected map of type Level2 but encountered another type.");
             }
         } catch (IOException e) {
             e.printStackTrace();
