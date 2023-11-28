@@ -59,6 +59,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
     protected GraphicsHandler graphicsHandler;
+<<<<<<< Updated upstream
+=======
+    protected Timer totalGameTimeTimer;
+    protected int totalGameMinutes, totalGameSeconds;
+
+    
+>>>>>>> Stashed changes
 
     Font customFont;
 
@@ -81,6 +88,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.map = new Level3();
         }
         map.reset();
+        
 
         // setup player
         if (currentMap == 1) {
@@ -280,6 +288,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
+    
     // Method to draw the inventory on the screen
     public void drawInventory(GraphicsHandler graphicsHandler) {
         // Get the list of inventory items from the player
@@ -360,3 +369,5 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 }
+
+

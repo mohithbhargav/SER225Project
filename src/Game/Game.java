@@ -1,7 +1,12 @@
 package Game;
 
+import javax.swing.JOptionPane;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import Engine.GameWindow;
 import Engine.ScreenManager;
+
 
 /*
  * The game starts here
@@ -11,6 +16,10 @@ import Engine.ScreenManager;
 public class Game {
 
     public static void main(String[] args) {
+        String playerName = getPlayerName();
+        if (playerName != null && !playerName.trim().isEmpty()) {
+            savePlayerNameToFile(playerName);
+        }
         new Game();
     }
 
@@ -19,6 +28,17 @@ public class Game {
         ScreenManager screenManager = gameWindow.getScreenManager();
         screenManager.setCurrentScreen(new ScreenCoordinator());
         gameWindow.startGame();
+    }
+
+     private static String getPlayerName() {
+        return JOptionPane.showInputDialog("Enter Your Name:");
+    }
+    private static void savePlayerNameToFile(String playerName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("playerNames.txt", true))) {
+            writer.write(playerName + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
  
