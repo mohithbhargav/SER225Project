@@ -40,13 +40,12 @@ public class StartElevator extends NPC {
         talkedToTime = 200;
     }
 
-
     @Override
     public void update(Player player) {
         super.update(player);
         if (talkedTo) {
             currentAnimationName = "CLOSED"; // Fix the typo here
-            System.out.println("Player interacted with Elevator");
+            System.out.println("Player interact with startelevartor");
             player.previousLevel();
             try {
                 OnlyGitMap.resetMapToFile(); // Reset the map after the level is completed
@@ -58,8 +57,6 @@ public class StartElevator extends NPC {
             currentAnimationName = "OPEN";
         }
     }
-
-
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

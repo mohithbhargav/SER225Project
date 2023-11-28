@@ -68,7 +68,7 @@ public abstract class Player extends GameObject {
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
-
+    private int currentLevelIndex;
     private Inventory inventory;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, int currentMap) {
@@ -102,7 +102,7 @@ public abstract class Player extends GameObject {
         this.canDoubleJump = true;
     }
 
-    private Level1 currentLevel; // assuming you have access to your current level in the Player class
+    private Level currentLevel; // assuming you have access to your current level in the Player class
 
     public void pauseMusic() {
         currentLevel.getAudioManager().stopSound();
@@ -416,7 +416,7 @@ public abstract class Player extends GameObject {
     // other entities can call this to tell the player they beat a level
     public void completeLevel() {
         levelState = LevelState.LEVEL_COMPLETED;
-
+        // currentLevelIndex++;
     }
 
     // if player has beaten level, this will be the update cycle
@@ -452,29 +452,34 @@ public abstract class Player extends GameObject {
 
     // Other fields...
 
-    private int currentLevelIndex;
-
     // Other methods...
 
     public void previousLevel() {
-        // Assuming you have access to the current level index in the Player class
-        if (currentLevelIndex > 0) {
-            // Pause the music for the current level
-            pauseMusic();
 
-            // Reset player state or any other necessary logic for transitioning to the
-            // previous level
-            resetPlayerState();
-
-            // Load the previous level by decrementing the current level index
-            currentLevelIndex--;
-
-            // Load the level based on the current index (you need to implement this method)
-            loadLevel(levelState.get(currentLevelIndex));
-
-            // Optionally, resume music for the previous level
-            resumeMusic();
+        levelState = LevelState.PREVIOUSLEVEL;
+        for (PlayerListener listener : listeners) {
+            listener.onPreviousLevel();
         }
+        // // Assuming you have access to the current level index in the Player class
+        // System.err.println("CurrentLevelIndex: " + currentLevelIndex);
+        // if (currentLevelIndex > 0) {
+        // // Pause the music for the current level
+        // pauseMusic();
+        // System.err.println("Are we here?");
+        // // Reset player state or any other necessary logic for transitioning to the
+        // // previous level
+        // resetPlayerState();
+
+        // // Load the previous level by decrementing the current level index
+        // currentLevelIndex--;
+
+        // // Load the level based on the current index (you need to implement this
+        // // method)
+        // loadLevel(levelState.get(currentLevelIndex));
+
+        // // Optionally, resume music for the previous level
+        // resumeMusic();
+        // }
     }
 
     // Other methods...
@@ -489,7 +494,7 @@ public abstract class Player extends GameObject {
         // Implement logic to load the specified level
         // This might involve setting up the map, enemies, NPCs, etc.
 
-        currentLevel = (Level1); // Change Level1 to the actual class of your level
+        currentLevel = (level); // Change Level1 to the actual class of your level
 
         // Start the background music for the new level
         backgroundMusic.playLoop();
@@ -694,10 +699,6 @@ public abstract class Player extends GameObject {
     // other purposes)
     public List<String> getInventoryItems() {
         return inventory.getItems();
-    }
-
-    public void PreviousLevel() {
-        return;
     }
 
     public Object getMap() {
