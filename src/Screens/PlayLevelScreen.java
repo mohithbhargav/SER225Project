@@ -327,13 +327,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
+        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, PREVIOUSLEVEL
     }
 
     @Override
     public void onPreviousLevel() {
-        if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+        if (playLevelScreenState != PlayLevelScreenState.PREVIOUSLEVEL) {
+            playLevelScreenState = PlayLevelScreenState.PREVIOUSLEVEL;
             timer.stop(); // Stop the timer when the level is completed
 
             if (currentMap == 1) {

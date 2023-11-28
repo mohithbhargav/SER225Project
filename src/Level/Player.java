@@ -460,26 +460,26 @@ public abstract class Player extends GameObject {
         for (PlayerListener listener : listeners) {
             listener.onPreviousLevel();
         }
-        // // Assuming you have access to the current level index in the Player class
-        // System.err.println("CurrentLevelIndex: " + currentLevelIndex);
-        // if (currentLevelIndex > 0) {
-        // // Pause the music for the current level
-        // pauseMusic();
-        // System.err.println("Are we here?");
-        // // Reset player state or any other necessary logic for transitioning to the
-        // // previous level
-        // resetPlayerState();
+        // Assuming you have access to the current level index in the Player class
+        System.err.println("CurrentLevelIndex: " + currentLevelIndex);
+        if (currentLevelIndex > 0) {
+            // Pause the music for the current level
+            pauseMusic();
+            System.err.println("Are we here?");
+            // Reset player state or any other necessary logic for transitioning to the
+            // previous level
+            resetPlayerState();
 
-        // // Load the previous level by decrementing the current level index
-        // currentLevelIndex--;
+            // Load the previous level by decrementing the current level index
+            currentLevelIndex--;
 
-        // // Load the level based on the current index (you need to implement this
-        // // method)
-        // loadLevel(levelState.get(currentLevelIndex));
+            // Load the level based on the current index (you need to implement this
+            // method)
+            loadLevel(levelState.get(currentLevelIndex));
 
-        // // Optionally, resume music for the previous level
-        // resumeMusic();
-        // }
+            // Optionally, resume music for the previous level
+            resumeMusic();
+        }
     }
 
     // Other methods...
