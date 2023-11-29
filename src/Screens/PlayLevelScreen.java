@@ -21,8 +21,6 @@ import Maps.OnlyGitMap;
 import Maps.TestMap;
 import Players.Cat;
 import Utils.Point;
-import javafx.scene.shape.Circle;
-
 import javax.swing.JLabel;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
@@ -64,9 +62,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer totalGameTimeTimer;
     protected int totalGameMinutes, totalGameSeconds;
 
-    
->>>>>>> Stashed changes
-
     Font customFont;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -99,8 +94,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         } else if (currentMap == 3) {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
         }
-
-        
 
         this.player.setMap(map);
         this.player.addListener(this);
