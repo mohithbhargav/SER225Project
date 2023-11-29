@@ -8,6 +8,7 @@ import Engine.ImageLoader;
 import java.awt.image.BufferedImage;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Game.Game;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Engine.ScreenManager;
@@ -51,6 +52,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected boolean isRunning;
     protected int minutes, seconds;
     static int sec1Log, min1Log, sec2Log, min2Log;
+    protected long gameStartTime;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     protected int currentMap = 1;
@@ -59,13 +61,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
     protected GraphicsHandler graphicsHandler;
-<<<<<<< Updated upstream
-=======
     protected Timer totalGameTimeTimer;
     protected int totalGameMinutes, totalGameSeconds;
 
     
->>>>>>> Stashed changes
 
     Font customFont;
 
@@ -100,6 +99,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         } else if (currentMap == 3) {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
         }
+
+        
 
         this.player.setMap(map);
         this.player.addListener(this);
@@ -284,6 +285,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
             else if (currentMap == 3) {
                 goBackToMenu(); // Go back to the menu after completing the second level
+                Game.totalGameTimeTimerStop();
             }
         }
     }
