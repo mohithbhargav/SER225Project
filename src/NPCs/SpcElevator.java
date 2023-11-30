@@ -46,7 +46,7 @@ public class SpcElevator extends NPC {
         if (talkedTo) {
             currentAnimationName = "OPEN";
             System.out.println("Player interacted with Elevator");
-            player.completeLevel();
+            player.SpcLevel();
 
         } else {
             currentAnimationName = "CLOSED";
