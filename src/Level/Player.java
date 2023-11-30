@@ -28,46 +28,46 @@ public abstract class Player extends GameObject {
     private static final Level1 Level1 = null;
     // values that affect player movement
     // these should be set in a subclass
-    protected float walkSpeed = 0;
-    protected float gravity = 0;
-    protected float jumpHeight = 0;
-    protected float jumpDegrade = 0;
-    protected float terminalVelocityY = 0;
-    protected float momentumYIncrease = 0;
-    protected PlayMusic backgroundMusic;
-    protected float sprintSpeedMultiplier = 2.0f;
-    protected boolean isSprinting = false;
-    protected int currentMap;
-    protected long sprintEndTime = 0;
+    public float walkSpeed = 0;
+    public float gravity = 0;
+   public float jumpHeight = 0;
+    public float jumpDegrade = 0;
+    public float terminalVelocityY = 0;
+    public float momentumYIncrease = 0;
+    public PlayMusic backgroundMusic;
+    public float sprintSpeedMultiplier = 2.0f;
+    public boolean isSprinting = false;
+    public int currentMap;
+    public long sprintEndTime = 0;
     private boolean canDoubleJump = false; // indicates if the player has the ability to double jump
     private boolean hasDoubleJumped = false; // indicates if the player has already double jumped
 
     // values used to handle player movement
-    protected float jumpForce = 0;
-    protected float momentumY = 0;
-    protected float moveAmountX, moveAmountY;
-    protected float lastAmountMovedX, lastAmountMovedY;
+    public float jumpForce = 0;
+    public float momentumY = 0;
+    public float moveAmountX, moveAmountY;
+    public float lastAmountMovedX, lastAmountMovedY;
 
     // values used to keep track of player's current state
-    protected PlayerState playerState;
-    protected PlayerState previousPlayerState;
-    protected Direction facingDirection;
-    protected AirGroundState airGroundState;
-    protected AirGroundState previousAirGroundState;
-    protected LevelState levelState;
+    public PlayerState playerState;
+    public PlayerState previousPlayerState;
+    public Direction facingDirection;
+    public AirGroundState airGroundState;
+    public AirGroundState previousAirGroundState;
+    public LevelState levelState;
 
     // classes that listen to player events can be added to this list
-    protected ArrayList<PlayerListener> listeners = new ArrayList<>();
+    public ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     // define keys
-    protected KeyLocker keyLocker = new KeyLocker();
-    protected Key JUMP_KEY = Key.UP;
-    protected Key MOVE_LEFT_KEY = Key.LEFT;
-    protected Key MOVE_RIGHT_KEY = Key.RIGHT;
-    protected Key CROUCH_KEY = Key.DOWN;
+    public KeyLocker keyLocker = new KeyLocker();
+    public Key JUMP_KEY = Key.UP;
+    public Key MOVE_LEFT_KEY = Key.LEFT;
+    public Key MOVE_RIGHT_KEY = Key.RIGHT;
+    public Key CROUCH_KEY = Key.DOWN;
 
     // flags
-    protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    public boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
 
     private Inventory inventory;
 
@@ -181,13 +181,13 @@ public abstract class Player extends GameObject {
     }
 
     // add gravity to player, which is a downward force
-    protected void applyGravity() {
+    public void applyGravity() {
         moveAmountY += gravity + momentumY;
     }
 
     // based on player's current state, call appropriate player state handling
     // method
-    protected void handlePlayerState() {
+    public void handlePlayerState() {
         switch (playerState) {
             case STANDING:
                 playerStanding();
@@ -205,7 +205,7 @@ public abstract class Player extends GameObject {
     }
 
     // player STANDING state logic
-    protected void playerStanding() {
+    public void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.WALKING;
@@ -224,7 +224,7 @@ public abstract class Player extends GameObject {
     }
 
     // player WALKING state logic
-    protected void playerWalking() {
+    public void playerWalking() {
         // if walk left key is pressed, move player to the left
         float speed = isSprinting ? walkSpeed * sprintSpeedMultiplier : walkSpeed;
 
@@ -262,7 +262,7 @@ public abstract class Player extends GameObject {
     }
 
     // player CROUCHING state logic
-    protected void playerCrouching() {
+    public void playerCrouching() {
         // if crouch key is released, player enters STANDING state
         if (Keyboard.isKeyUp(CROUCH_KEY)) {
             playerState = PlayerState.STANDING;
@@ -275,7 +275,7 @@ public abstract class Player extends GameObject {
         }
     }
 
-    protected void playerJumping() {
+    public void playerJumping() {
         if (previousAirGroundState == AirGroundState.GROUND) {
             hasDoubleJumped = false; // Reset double jump when on ground
 
@@ -332,21 +332,21 @@ public abstract class Player extends GameObject {
 
     // while player is in air, this is called, and will increase momentumY by a set
     // amount until player reaches terminal velocity
-    protected void increaseMomentum() {
+    public void increaseMomentum() {
         momentumY += momentumYIncrease;
         if (momentumY > terminalVelocityY) {
             momentumY = terminalVelocityY;
         }
     }
 
-    protected void updateLockedKeys() {
+    public void updateLockedKeys() {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
         }
     }
 
     // anything extra the player should do based on interactions can be handled here
-    protected void handlePlayerAnimation() {
+    public void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {
             // sets animation to a STAND animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
@@ -434,11 +434,12 @@ public abstract class Player extends GameObject {
                 moveYHandleCollision(moveAmountY);
             }
             // move player to the right until it walks off screen
-            else if (map.getCamera().containsDraw(this)) {
-                currentAnimationName = "WALK_RIGHT";
-                super.update();
-                moveXHandleCollision(walkSpeed);
-            } else {
+            //else if (map.getCamera().containsDraw(this)) {
+                //currentAnimationName = "WALK_RIGHT";
+              //  super.update();
+                //moveXHandleCollision(walkSpeed);
+            //} 
+            else {
                 // tell all player listeners that the player has finished the level
                 for (PlayerListener listener : listeners) {
                     listener.onLevelCompleted();

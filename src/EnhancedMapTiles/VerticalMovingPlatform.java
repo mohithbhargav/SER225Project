@@ -12,7 +12,7 @@ import Utils.Point;
 
 import java.awt.image.BufferedImage;
 
-// This class is for a horizontal moving platform
+// This class is for a vertical moving platform
 // the platform will move back and forth between its start location and end location
 // if the player is standing on top of it, the player will be moved the same amount as the platform is moving (so the platform will not slide out from under the player)
 public class VerticalMovingPlatform extends EnhancedMapTile {

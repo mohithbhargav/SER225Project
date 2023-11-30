@@ -15,6 +15,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.Level3;
+import Maps.Level4;
 import Maps.Level2;
 import Maps.OnlyGitMap;
 import Maps.TestMap;
@@ -39,6 +40,7 @@ import java.nio.Buffer;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
+
     protected ScreenCoordinator screenCoordinator;
     protected ScreenManager screenManager;
     protected GamePanel pause;
@@ -50,10 +52,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
-    static int sec1Log, min1Log, sec2Log, min2Log;
+    static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log ;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
-    protected int currentMap = 1;
+    public static int currentMap = 1;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
@@ -80,6 +82,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         } else if (currentMap == 3) {
             this.map = new Level3();
+
+        } else if (currentMap == 4) {
+            this.map = new Level4();
         }
         map.reset();
 
@@ -91,6 +96,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
 
         } else if (currentMap == 3) {
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
+
+        } else if (currentMap == 4) {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
         }
 
@@ -136,6 +144,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         } else if (currentMap == 3) {
             minutes += min2Log;
             seconds += sec2Log;
+            if (seconds >= 60) {
+                minutes++;
+                seconds -= 60;
+            }
+        } else if (currentMap == 4) {
+            minutes += min3Log;
+            seconds += sec3Log;
             if (seconds >= 60) {
                 minutes++;
                 seconds -= 60;
@@ -202,10 +217,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
                 if (currentMap == 3) {
 
-
-                  
                     graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
-                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 220));
+                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 150));
 
                     int playerX = (int) player.getCalibratedXLocation(); // The X coordinate of the player's location
                     int playerY = (int) player.getCalibratedYLocation(); // The Y coordinate of the player's location
@@ -219,6 +232,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
                     graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont,
                             Color.LIGHT_GRAY);
+                }
+
+                if (currentMap == 4){
+
+                    long currentTime = System.currentTimeMillis(); // Get the current time
+                    long flashDuration = 500; // Duration for each flash in milliseconds (e.g., 500ms on, 500ms off)
+                
+                    if ((currentTime / flashDuration) % 2 == 0) {
+                        
+                        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
+                                                            ScreenManager.getScreenHeight(), new Color(255, 0, 0, 50));
+                    } else {
+                        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
+                                                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 0));
+                    }
                 }
                 break;
             case LEVEL_COMPLETED:
@@ -274,9 +302,19 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 System.out.println("Time Left: " + min2Log + ":" + sec2Log); // Log the time left
                 currentMap++;
                 initialize();
+            } else if (currentMap == 3) {
+                min3Log = minutes;
+                sec3Log = seconds;
+                System.out.println("Time Left: " + min3Log + ":" + sec3Log); // Log the time left
+                currentMap++;
+                initialize();
             }
-
-            else if (currentMap == 3) {
+            else if (currentMap == 4) {
+                min4Log = minutes;
+                sec4Log = seconds;
+                System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
+                currentMap++;
+                initialize();
                 goBackToMenu(); // Go back to the menu after completing the second level
             }
         }
@@ -337,4 +375,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onPreviousLevel'");
     }
+
+
+   
+   
 }

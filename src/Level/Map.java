@@ -53,6 +53,7 @@ public abstract class Map {
 
     // lists to hold map entities that are a part of the map
     protected ArrayList<Enemy> enemies;
+   
     protected ArrayList<EnhancedMapTile> enhancedMapTiles;
     protected ArrayList<NPC> npcs;
 
@@ -84,7 +85,7 @@ public abstract class Map {
         this.animatedMapTiles = new ArrayList<>();
 
         loadMapFile();
-
+        
         this.enemies = loadEnemies();
         for (Enemy enemy: this.enemies) {
             enemy.setMap(this);
@@ -102,6 +103,7 @@ public abstract class Map {
 
         this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
     }
+
 
     // reads in a map file to create the map's tilemap
     protected void loadMapFile() {
@@ -211,7 +213,7 @@ public abstract class Map {
     }
 
     // get specific map tile from tile map
-    public MapTile getMapTile(int x, int y) {
+    public MapTile getMapTile(double x, double y) {
         if (isInBounds(x, y)) {
             return mapTiles[getConvertedIndex(x, y)];
         } else {
@@ -251,20 +253,22 @@ public abstract class Map {
     }
 
     // checks if map tile being requested is in bounds of the tile map array
-    private boolean isInBounds(int x, int y) {
+    private boolean isInBounds(double x, double y) {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
 
     // since tile map array is a standard (1D) array and not a 2D,
     // instead of doing [y][x] to get a value, instead the same can be achieved with x + width * y
-    private int getConvertedIndex(int x, int y) {
-        return x + width * y;
+    private int getConvertedIndex(double x, double y) {
+        return (int) (x + width * y);
     }
 
     // list of enemies defined to be a part of the map, should be overridden in a subclass
     protected ArrayList<Enemy> loadEnemies() {
         return new ArrayList<>();
     }
+
+
 
     // list of enhanced map tiles defined to be a part of the map, should be overridden in a subclass
     protected ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {

@@ -21,7 +21,7 @@ public class Fireball extends Enemy {
     private int existenceFrames;
 
     public Fireball(Point location, float movementSpeed, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("bullet.png"), 17, 9), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
@@ -67,6 +67,19 @@ public class Fireball extends Enemy {
                             .withScale(3)
                             .withBounds(1, 1, 5, 5)
                             .build()
+                            // new FrameBuilder(spriteSheet.getSprite(0, 1))
+                            // .withScale(3)
+                            // .withBounds(1, 1, 5, 5)
+                            // .build(),
+                            // new FrameBuilder(spriteSheet.getSprite(0, 2))
+                            // .withScale(3)
+                            // .withBounds(1, 1, 5, 5)
+                            // .build(),
+                            // new FrameBuilder(spriteSheet.getSprite(0, 3))
+                            // .withScale(3)
+                            // .withBounds(1, 1, 5, 5)
+                            // .build()
+                            
             });
         }};
     }
