@@ -7,6 +7,7 @@ import Maps.OnlyGitMap;
 import Maps.EasterEggLevel;
 import Maps.Level2;
 import Maps.Level3;
+import Maps.Level4;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class EditorMaps {
                 add("OnlyGitMap");
                 add("Level2");
                 add("Level3");
+                add("Level4");
                 add("EasterEggLevel");
             }
         };
@@ -36,6 +38,8 @@ public class EditorMaps {
                 return new Level2();
             case "Level3":
                 return new Level3();
+            case "Level4":
+                return new Level4();    
             case "EasterEggLevel":
                 return new EasterEggLevel();
             default:

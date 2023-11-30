@@ -22,12 +22,12 @@ public class LaserL2 extends EnhancedMapTile {
 
     public LaserL2(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("laser.png"), 16, 16), TileType.NOT_PASSABLE);
-        this.keyTile = null; // Initialize with null for scenarios without a linked key
+        this.keyTile = null; 
     }
 
     public LaserL2(Point location, KeyL1 keyTile) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("laser.png"), 16, 16), TileType.NOT_PASSABLE);
-        this.keyTile = keyTile; // Initialize with KeyL1 object for scenarios with a linked key
+        this.keyTile = keyTile; 
     }
 
     @Override
