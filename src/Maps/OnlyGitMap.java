@@ -5,6 +5,7 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.BlankKey;
 import EnhancedMapTiles.DoubleJump1;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.GemL1;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
@@ -41,8 +42,6 @@ public class OnlyGitMap extends Map {
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
-
-
 
         /*
          * DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19,
@@ -106,6 +105,10 @@ public class OnlyGitMap extends Map {
         keyL1.setMapReference(this); // Set the reference to this map
         enhancedMapTiles.add(keyL1);
 
+        GemL1 geml1 = new GemL1(getMapTile(28, 12).getLocation());
+        geml1.setMapReference(this);
+        enhancedMapTiles.add(geml1);
+
         BlankKey bkey = new BlankKey(getMapTile(4, 5).getLocation());
         bkey.setMapReference(this); // Set the reference to this map
         enhancedMapTiles.add(bkey);
@@ -134,9 +137,6 @@ public class OnlyGitMap extends Map {
 
         return npcs;
     }
-    
-
-
 
     public static void java() {
     }

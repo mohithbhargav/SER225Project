@@ -7,6 +7,8 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.DoubleJump1;
 
 import EnhancedMapTiles.EndLevelBoxL2;
+import EnhancedMapTiles.GemL1;
+import EnhancedMapTiles.GemL2;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -44,9 +46,7 @@ public class Level2 extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
-    
-
-          Death death = new Death(getMapTile(15, 19).getLocation(), Direction.LEFT);
+        Death death = new Death(getMapTile(15, 19).getLocation(), Direction.LEFT);
         enemies.add(death);
 
         return enemies;
@@ -107,11 +107,13 @@ public class Level2 extends Map {
                 Direction.RIGHT);
         enhancedMapTiles.add(hmp1);
 
-        //StartLevelBox startLevelBox = new StartLevelBox(getMapTile(0, 14).getLocation());
-        //enhancedMapTiles.add(startLevelBox);
+        // StartLevelBox startLevelBox = new StartLevelBox(getMapTile(0,
+        // 14).getLocation());
+        // enhancedMapTiles.add(startLevelBox);
 
-       // EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42, 12).getLocation());
-       // enhancedMapTiles.add(endLevelBoxL2);
+        // EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42,
+        // 12).getLocation());
+        // enhancedMapTiles.add(endLevelBoxL2);
 
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
         keyL1.setMapReference(this); // Set the reference to this map
@@ -120,6 +122,10 @@ public class Level2 extends Map {
         Sprint1 key2L1 = new Sprint1(getMapTile(12, 17).getLocation());
         key2L1.setMapReference(this); // Set the reference to this map
         enhancedMapTiles.add(key2L1);
+
+        GemL2 geml2 = new GemL2(getMapTile(37, 4).getLocation());
+        geml2.setMapReference(this);
+        enhancedMapTiles.add(geml2);
 
         // DoubleJump key3L1 = new DoubleJump(getMapTile(12, 17).getLocation());
         // key3L1.setMapReference(this); // Set the reference to this map
@@ -133,11 +139,9 @@ public class Level2 extends Map {
 
     }
 
-
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
-
 
         EndElevator endElevator = new EndElevator(getMapTile(42, 12).getLocation());
         npcs.add(endElevator);
