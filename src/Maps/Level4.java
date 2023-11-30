@@ -12,8 +12,11 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.EndElevator;
+import NPCs.Lock;
 import NPCs.StartElevator;
 import NPCs.Switch;
+import NPCs.Walrus;
+import Screens.PlayLevelScreen;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
@@ -30,8 +33,12 @@ import java.util.List;
 // Represents a test map to be used in a level
 public class Level4 extends Map {
 
-    public Level4() {
+    private PlayLevelScreen playLevelScreen;
+
+
+    public Level4(PlayLevelScreen playLevelScreen) {
         super("Level4.txt", new CommonTileset());
+        this.playLevelScreen = playLevelScreen;
         this.playerStartPosition = getMapTile(2, 11).getLocation();
     }
 
@@ -87,6 +94,9 @@ public class Level4 extends Map {
             getMapTile(34, 6).getLocation(),
             Direction.LEFT);
             enemiesGuard.add(guardb4);
+
+
+
 
 
 
@@ -167,7 +177,10 @@ public class Level4 extends Map {
         StartElevator startElevator = new StartElevator(getMapTile(1, 16).getLocation());
         npcs.add(startElevator); 
 
-    
+        Switch switchNPC = new Switch(getMapTile(12, 7).getLocation(), this.playLevelScreen);
+        npcs.add(switchNPC);
+
+
         return npcs;
     }
 }

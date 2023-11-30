@@ -23,7 +23,7 @@ public class Switch extends NPC {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Switch.png"), 16, 16), "DEFAULT");
         this.playLevelScreen = playLevelScreen;
         forWalrus = true;
-        isInteractable = false;
+        isInteractable = true;
         talkedToTime = 200;
         textbox.setText("GO BACK TO LEVEL 3! FIND THE SECRET ENTRACE");
         textboxOffsetX = -4;
@@ -37,10 +37,14 @@ public class Switch extends NPC {
             //playLevelScreen.setOverlayAlpha(0);
 
             playLevelScreen.lightsOff = false;
+
+            //this.playLevelScreen.setAlphaValue(0);
             textbox.setText("GO BACK TO LEVEL 3! FIND THE SECRET ENTRANCE");
         }
         super.update(player);
     }
+
+    
     
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

@@ -11,6 +11,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
+import NPCs.CookCook;
 import NPCs.EndElevator;
 import NPCs.Lock;
 
@@ -134,6 +135,9 @@ public class OnlyGitMap extends Map {
 
         Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
         npcs.add(walrus);
+
+        CookCook cookcook = new CookCook(getMapTile(16, 17).getLocation().subtractY(13));
+        npcs.add(cookcook);
 
         Lock lock = new Lock(getMapTile(1, 6).getLocation());
         npcs.add(lock);

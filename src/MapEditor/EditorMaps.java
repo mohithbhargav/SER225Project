@@ -39,7 +39,7 @@ public class EditorMaps {
             case "Level3":
                 return new Level3();
             case "Level4":
-                return new Level4();    
+                return new Level4(null);    
             case "EasterEggLevel":
                 return new EasterEggLevel();
             default:
