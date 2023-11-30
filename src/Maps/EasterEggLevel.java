@@ -137,8 +137,8 @@ public class EasterEggLevel extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        // EndElevator endElevator = new EndElevator(getMapTile(42, 35).getLocation());
-        // npcs.add(endElevator);
+        EndElevator endElevator = new EndElevator(getMapTile(42, 16).getLocation());
+        npcs.add(endElevator);
 
         // StartElevator startElevator = new StartElevator(getMapTile(1,
         // 16).getLocation());
