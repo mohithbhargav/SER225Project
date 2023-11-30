@@ -53,6 +53,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected boolean isRunning;
     protected int minutes, seconds;
     static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log ;
+  
     protected long gameStartTime;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
@@ -124,6 +125,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font
             // loading fails
         }
+
 
         this.tLabel = new JLabel("");
         this.tLabel.setHorizontalAlignment(JLabel.CENTER);
