@@ -290,40 +290,46 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void onLevelCompleted() {
+        // Check if the current state is not already LEVEL_COMPLETED
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             timer.stop(); // Stop the timer when the level is completed
-
-            if (currentMap == 1) {
-                min1Log = minutes;
-                sec1Log = seconds;
-                System.out.println("Time Left: " + min1Log + ":" + sec1Log); // Log the time left
-                currentMap++;
-                initialize();
-            } else if (currentMap == 2) {
-                min2Log = minutes;
-                sec2Log = seconds;
-                System.out.println("Time Left: " + min2Log + ":" + sec2Log); // Log the time left
-                currentMap++;
-                initialize();
-            } else if (currentMap == 3) {
-                min3Log = minutes;
-                sec3Log = seconds;
-                System.out.println("Time Left: " + min3Log + ":" + sec3Log); // Log the time left
-                currentMap++;
-                initialize();
-            }
-            else if (currentMap == 4) {
-                min4Log = minutes;
-                sec4Log = seconds;
-                System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
-                currentMap++;
-                initialize();
-                goBackToMenu(); // Go back to the menu after completing the second level
-                Game.totalGameTimeTimerStop();
+    
+            // Log the time left for each level
+            switch(currentMap) {
+                case 1:
+                    min1Log = minutes;
+                    sec1Log = seconds;
+                    System.out.println("Time Left: " + min1Log + ":" + sec1Log);
+                    currentMap++;
+                    initialize();
+                    break;
+                case 2:
+                    min2Log = minutes;
+                    sec2Log = seconds;
+                    System.out.println("Time Left: " + min2Log + ":" + sec2Log);
+                    currentMap++;
+                    initialize();
+                    break;
+                case 3:
+                    min3Log = minutes;
+                    sec3Log = seconds;
+                    System.out.println("Time Left: " + min3Log + ":" + sec3Log);
+                    currentMap++;
+                    initialize();
+                    break;
+                case 4:
+                    min4Log = minutes;
+                    sec4Log = seconds;
+                    System.out.println("Time Left: " + min4Log + ":" + sec4Log);
+                    // Instead of incrementing currentMap, go back to the menu
+                    goBackToMenu();
+                    Game.totalGameTimeTimerStop();
+                    break;
             }
         }
     }
+    
 
     // Method to draw the inventory on the screen
     public void drawInventory(GraphicsHandler graphicsHandler) {
