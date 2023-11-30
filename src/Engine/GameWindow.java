@@ -13,7 +13,7 @@ public class GameWindow {
 	
 
 	public GameWindow() {
-		gameWindow = new JFrame("Circuit Escape: Run for Freedom​");
+		gameWindow = new JFrame("Sneaky Systems: Run for Freedom​");
 		gamePanel = new GamePanel();
 		gamePanel.setFocusable(true);
 		gamePanel.requestFocusInWindow();
