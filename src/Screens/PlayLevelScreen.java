@@ -241,7 +241,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 drawInventory(graphicsHandler); // Draw the inventory
                 graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 570, 50, customFont, Color.LIGHT_GRAY);
 
-                if (currentMap == 3) {
+                if (currentMap == 3 && lightsOff) {
                     graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
                     ScreenManager.getScreenHeight(), new Color(0, 0, 0, alphaValue));
 

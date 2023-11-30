@@ -8,3 +8,5 @@ haig
 haig
  's game time: 2 minutes and 51 seconds
 haig
+haiig
+haiig's game time: 1 minutes and 30 seconds
