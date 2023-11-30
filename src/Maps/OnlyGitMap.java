@@ -2,11 +2,14 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Engine.ImageLoader;
-import EnhancedMapTiles.BlankKey;
 import EnhancedMapTiles.DoubleJump1;
+<<<<<<< Updated upstream
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.GemL1;
+=======
+>>>>>>> Stashed changes
 import EnhancedMapTiles.KeyL1;
+import EnhancedMapTiles.Laser;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
@@ -16,13 +19,8 @@ import NPCs.EndElevator;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
-import EnhancedMapTiles.BlankKey;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
+
 
 // Represents a test map to be used in a level
 public class OnlyGitMap extends Map {
@@ -53,36 +51,36 @@ public class OnlyGitMap extends Map {
         return enemies;
     }
 
-    public static void replaceAllWallTilesInFile() throws IOException {
-        // path
-        String path = "MapFiles/only_git_map.txt";
+    // public static void replaceAllWallTilesInFile() throws IOException {
+    //     // path
+    //     String path = "MapFiles/only_git_map.txt";
 
-        // Read the map file using the updated path
-        List<String> lines = Files.readAllLines(Paths.get(path));
+    //     // Read the map file using the updated path
+    //     List<String> lines = Files.readAllLines(Paths.get(path));
 
-        // Modify the lines by replacing all 17 tiles with 7
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
-            lines.set(i, line);
-        }
+    //     // Modify the lines by replacing all 17 tiles with 7
+    //     for (int i = 0; i < lines.size(); i++) {
+    //         String line = lines.get(i);
+    //         line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
+    //         lines.set(i, line);
+    //     }
 
-        // Write the modified map back to the file
-        Files.write(Paths.get(path), lines);
+    //     // Write the modified map back to the file
+    //     Files.write(Paths.get(path), lines);
 
-    }
+    // }
 
-    public static void resetMapToFile() throws IOException {
-        // Path to the backup map
-        String backupPath = "MapFiles/only_git_map_backup.txt";
-        String targetPath = "MapFiles/only_git_map.txt";
+    // public static void resetMapToFile() throws IOException {
+    //     // Path to the backup map
+    //     String backupPath = "MapFiles/only_git_map_backup.txt";
+    //     String targetPath = "MapFiles/only_git_map.txt";
 
-        // Read the backup map
-        List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
+    //     // Read the backup map
+    //     List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
 
-        // Overwrite the target map with the backup map's content
-        Files.write(Paths.get(targetPath), backupLines);
-    }
+    //     // Overwrite the target map with the backup map's content
+    //     Files.write(Paths.get(targetPath), backupLines);
+    // }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -102,9 +100,10 @@ public class OnlyGitMap extends Map {
         // enhancedMapTiles.add(endLevelBox);
 
         KeyL1 keyL1 = new KeyL1(getMapTile(2, 5).getLocation());
-        keyL1.setMapReference(this); // Set the reference to this map
+        keyL1.setMapReference(this);
         enhancedMapTiles.add(keyL1);
 
+<<<<<<< Updated upstream
         GemL1 geml1 = new GemL1(getMapTile(28, 12).getLocation());
         geml1.setMapReference(this);
         enhancedMapTiles.add(geml1);
@@ -112,6 +111,11 @@ public class OnlyGitMap extends Map {
         BlankKey bkey = new BlankKey(getMapTile(4, 5).getLocation());
         bkey.setMapReference(this); // Set the reference to this map
         enhancedMapTiles.add(bkey);
+=======
+        // BlankKey bkey = new BlankKey(getMapTile(4, 5).getLocation());
+        // bkey.setMapReference(this); // Set the reference to this map
+        // enhancedMapTiles.add(bkey);
+>>>>>>> Stashed changes
 
         Sprint1 key2L1 = new Sprint1(getMapTile(27, 13).getLocation());
         key2L1.setMapReference(this); // Set the reference to this map
@@ -121,13 +125,25 @@ public class OnlyGitMap extends Map {
         key3L1.setMapReference(this); // Set the reference to this map
         enhancedMapTiles.add(key3L1);
 
+        // Laser las1 = new Laser(getMapTile(38, 13).getLocation(), keyL1); // Linking Laser with KeyL1
+        // las1.setMapReference(this);
+        // enhancedMapTiles.add(las1);
+
+        for (int y = 13; y >= 5; y--) { 
+            Laser las1 = new Laser(getMapTile(38, y).getLocation(), keyL1);
+            las1.setMapReference(this);
+            las1.setListenToKey(true); // Set the laser to listen to the key
+            enhancedMapTiles.add(las1);
+        }
+    
+        
         return enhancedMapTiles;
 
     }
 
     @Override
     public ArrayList<NPC> loadNPCs() {
-        ArrayList<NPC> npcs = new ArrayList<>();
+        ArrayList<NPC> npcs = new ArrayList<>(); 
 
         Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
         npcs.add(walrus);

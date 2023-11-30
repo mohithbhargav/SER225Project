@@ -47,13 +47,7 @@ public class EndElevator extends NPC {
             currentAnimationName = "OPEN";
             System.out.println("Player interacted with Elevator");
             player.completeLevel();
-            try {
-                OnlyGitMap.resetMapToFile(); // Reset the map after the level is completed
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Handle the exception, perhaps log an error or display a message to the player
-
-            }
+            
         } else {
             currentAnimationName = "CLOSED";
         }

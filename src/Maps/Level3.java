@@ -1,31 +1,25 @@
 package Maps;
 
-import Enemies.BugEnemy;
 import Enemies.Death;
 import Engine.ImageLoader;
-import EnhancedMapTiles.DoubleJump1;
 
+<<<<<<< Updated upstream
 import EnhancedMapTiles.EndLevelBoxL3;
 import EnhancedMapTiles.GemL1;
 import EnhancedMapTiles.GemL3;
+=======
+>>>>>>> Stashed changes
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.EndElevator;
 import NPCs.StartElevator;
-import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
-import Utils.Point;
-import EnhancedMapTiles.Sprint1;
 import EnhancedMapTiles.VerticalMovingPlatform;
-import EnhancedMapTiles.StartLevelBox2;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.util.ArrayList;
-import java.util.List;
 
 // Represents a test map to be used in a level
 public class Level3 extends Map {
@@ -83,36 +77,36 @@ public class Level3 extends Map {
         return enemies;
     }
 
-    public static void replaceAllWallTilesInFile() throws IOException {
-        // path
-        String path = "MapFiles/Level3.txt";
+    // public static void replaceAllWallTilesInFile() throws IOException {
+    //     // path
+    //     String path = "MapFiles/Level3.txt";
 
-        // Read the map file using the updated path
-        List<String> lines = Files.readAllLines(Paths.get(path));
+    //     // Read the map file using the updated path
+    //     List<String> lines = Files.readAllLines(Paths.get(path));
 
-        // Modify the lines by replacing all 17 tiles with 7
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
-            lines.set(i, line);
-        }
+    //     // Modify the lines by replacing all 17 tiles with 7
+    //     for (int i = 0; i < lines.size(); i++) {
+    //         String line = lines.get(i);
+    //         line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
+    //         lines.set(i, line);
+    //     }
 
-        // Write the modified map back to the file
-        Files.write(Paths.get(path), lines);
+    //     // Write the modified map back to the file
+    //     Files.write(Paths.get(path), lines);
 
-    }
+    // }
 
-    public static void resetMapToFile() throws IOException {
-        // Path to the backup map
-        String backupPath = "MapFiles/Level3backup.txt";
-        String targetPath = "MapFiles/Level3.txt";
+    // public static void resetMapToFile() throws IOException {
+    //     // Path to the backup map
+    //     String backupPath = "MapFiles/Level3backup.txt";
+    //     String targetPath = "MapFiles/Level3.txt";
 
-        // Read the backup map
-        List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
+    //     // Read the backup map
+    //     List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
 
-        // Overwrite the target map with the backup map's content
-        Files.write(Paths.get(targetPath), backupLines);
-    }
+    //     // Overwrite the target map with the backup map's content
+    //     Files.write(Paths.get(targetPath), backupLines);
+    // }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {

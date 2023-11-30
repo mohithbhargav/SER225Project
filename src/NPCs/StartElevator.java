@@ -47,12 +47,7 @@ public class StartElevator extends NPC {
             currentAnimationName = "CLOSED"; // Fix the typo here
             System.out.println("Player interact with startelevartor");
             player.previousLevel();
-            try {
-                OnlyGitMap.resetMapToFile(); // Reset the map after the level is completed
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Handle the exception, perhaps log an error or display a message to the player
-            }
+            
         } else {
             currentAnimationName = "OPEN";
         }

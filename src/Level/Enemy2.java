@@ -1,7 +1,6 @@
 package Level;
 
 import GameObject.Frame;
-import GameObject.SpriteSheet;
 
 import java.util.HashMap;
 
