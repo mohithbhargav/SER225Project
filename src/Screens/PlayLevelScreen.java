@@ -16,6 +16,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.Level3;
+import Maps.EasterEggLevel;
 import Maps.Level2;
 import Maps.OnlyGitMap;
 import Maps.TestMap;
@@ -193,7 +194,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-public void draw(GraphicsHandler graphicsHandler) {
+    public void draw(GraphicsHandler graphicsHandler) {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(graphicsHandler);
@@ -204,7 +205,7 @@ public void draw(GraphicsHandler graphicsHandler) {
                 if (currentMap == 3) {
 
                     graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
-                    ScreenManager.getScreenHeight(), new Color(0, 0, 0, 150));
+                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 150));
 
                     int playerX = (int) player.getCalibratedXLocation(); // The X coordinate of the player's location
                     int playerY = (int) player.getCalibratedYLocation(); // The Y coordinate of the player's location

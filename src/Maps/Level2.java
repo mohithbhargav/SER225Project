@@ -4,13 +4,10 @@ import Enemies.BugEnemy;
 import Enemies.Death;
 import Engine.ImageLoader;
 
-<<<<<<< Updated upstream
 import EnhancedMapTiles.EndLevelBoxL2;
 import EnhancedMapTiles.GemL1;
 import EnhancedMapTiles.GemL2;
 import EnhancedMapTiles.KeyL1;
-=======
->>>>>>> Stashed changes
 import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.LaserL2;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -21,7 +18,6 @@ import NPCs.StartElevator;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.Sprint1;
-
 
 import java.util.ArrayList;
 
@@ -51,34 +47,34 @@ public class Level2 extends Map {
     }
 
     // public static void replaceAllWallTilesInFile() throws IOException {
-    //     // path
-    //     String path = "MapFiles/Level2.txt";
+    // // path
+    // String path = "MapFiles/Level2.txt";
 
-    //     // Read the map file using the updated path
-    //     List<String> lines = Files.readAllLines(Paths.get(path));
+    // // Read the map file using the updated path
+    // List<String> lines = Files.readAllLines(Paths.get(path));
 
-    //     // Modify the lines by replacing all 17 tiles with 7
-    //     for (int i = 0; i < lines.size(); i++) {
-    //         String line = lines.get(i);
-    //         line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
-    //         lines.set(i, line);
-    //     }
+    // // Modify the lines by replacing all 17 tiles with 7
+    // for (int i = 0; i < lines.size(); i++) {
+    // String line = lines.get(i);
+    // line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
+    // lines.set(i, line);
+    // }
 
-    //     // Write the modified map back to the file
-    //     Files.write(Paths.get(path), lines);
+    // // Write the modified map back to the file
+    // Files.write(Paths.get(path), lines);
 
     // }
 
     // public static void resetMapToFile() throws IOException {
-    //     // Path to the backup map
-    //     String backupPath = "MapFiles/Level2backup.txt";
-    //     String targetPath = "MapFiles/Level2.txt";
+    // // Path to the backup map
+    // String backupPath = "MapFiles/Level2backup.txt";
+    // String targetPath = "MapFiles/Level2.txt";
 
-    //     // Read the backup map
-    //     List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
+    // // Read the backup map
+    // List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
 
-    //     // Overwrite the target map with the backup map's content
-    //     Files.write(Paths.get(targetPath), backupLines);
+    // // Overwrite the target map with the backup map's content
+    // Files.write(Paths.get(targetPath), backupLines);
     // }
 
     @Override
@@ -128,7 +124,6 @@ public class Level2 extends Map {
         Keypad keypad = new Keypad(getMapTile(36, 13).getLocation());
         keypad.setMapReference(this);
 
-
         for (int y = 13; y >= 1; y--) {
             LaserL2 laser = new LaserL2(getMapTile(38, y).getLocation());
             laser.setMapReference(this);
@@ -136,8 +131,7 @@ public class Level2 extends Map {
             enhancedMapTiles.add(laser);
         }
 
-        enhancedMapTiles.add(keypad); 
-
+        enhancedMapTiles.add(keypad);
 
         return enhancedMapTiles;
 

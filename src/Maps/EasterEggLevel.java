@@ -9,6 +9,7 @@ import EnhancedMapTiles.DoubleJump1;
 import EnhancedMapTiles.EndLevelBoxL2;
 import EnhancedMapTiles.GemL1;
 import EnhancedMapTiles.GemL2;
+import EnhancedMapTiles.GemL4;
 import EnhancedMapTiles.KeyL1;
 import EnhancedMapTiles.Keypad;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -115,6 +116,10 @@ public class EasterEggLevel extends Map {
         // EndLevelBoxL2 endLevelBoxL2 = new EndLevelBoxL2(getMapTile(42,
         // 12).getLocation());
         // enhancedMapTiles.add(endLevelBoxL2);
+
+        GemL4 geml4 = new GemL4(getMapTile(39, 7).getLocation());
+        geml4.setMapReference(this);
+        enhancedMapTiles.add(geml4);
 
         // Sprint1 key2L1 = new Sprint1(getMapTile(1, 35).getLocation());
         // key2L1.setMapReference(this); // Set the reference to this map

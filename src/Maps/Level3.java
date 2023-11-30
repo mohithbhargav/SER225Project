@@ -3,12 +3,9 @@ package Maps;
 import Enemies.Death;
 import Engine.ImageLoader;
 
-<<<<<<< Updated upstream
 import EnhancedMapTiles.EndLevelBoxL3;
 import EnhancedMapTiles.GemL1;
 import EnhancedMapTiles.GemL3;
-=======
->>>>>>> Stashed changes
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
@@ -17,7 +14,6 @@ import NPCs.StartElevator;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import EnhancedMapTiles.VerticalMovingPlatform;
-
 
 import java.util.ArrayList;
 
@@ -78,34 +74,34 @@ public class Level3 extends Map {
     }
 
     // public static void replaceAllWallTilesInFile() throws IOException {
-    //     // path
-    //     String path = "MapFiles/Level3.txt";
+    // // path
+    // String path = "MapFiles/Level3.txt";
 
-    //     // Read the map file using the updated path
-    //     List<String> lines = Files.readAllLines(Paths.get(path));
+    // // Read the map file using the updated path
+    // List<String> lines = Files.readAllLines(Paths.get(path));
 
-    //     // Modify the lines by replacing all 17 tiles with 7
-    //     for (int i = 0; i < lines.size(); i++) {
-    //         String line = lines.get(i);
-    //         line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
-    //         lines.set(i, line);
-    //     }
+    // // Modify the lines by replacing all 17 tiles with 7
+    // for (int i = 0; i < lines.size(); i++) {
+    // String line = lines.get(i);
+    // line = line.replaceAll(" 54 ", " 7 "); // Replace all 54 tiles with 7
+    // lines.set(i, line);
+    // }
 
-    //     // Write the modified map back to the file
-    //     Files.write(Paths.get(path), lines);
+    // // Write the modified map back to the file
+    // Files.write(Paths.get(path), lines);
 
     // }
 
     // public static void resetMapToFile() throws IOException {
-    //     // Path to the backup map
-    //     String backupPath = "MapFiles/Level3backup.txt";
-    //     String targetPath = "MapFiles/Level3.txt";
+    // // Path to the backup map
+    // String backupPath = "MapFiles/Level3backup.txt";
+    // String targetPath = "MapFiles/Level3.txt";
 
-    //     // Read the backup map
-    //     List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
+    // // Read the backup map
+    // List<String> backupLines = Files.readAllLines(Paths.get(backupPath));
 
-    //     // Overwrite the target map with the backup map's content
-    //     Files.write(Paths.get(targetPath), backupLines);
+    // // Overwrite the target map with the backup map's content
+    // Files.write(Paths.get(targetPath), backupLines);
     // }
 
     @Override

@@ -34,6 +34,7 @@ public class GemL3 extends EnhancedMapTile {
             boolean wasAdded = player.addItemToInventory("GG");
             if (wasAdded) {
                 System.out.println("Gem added to the inventory");
+                System.out.println("Edward Low is considered one of the worst pirates of all times.");
                 isGemPickedUp = true;
                 // replaceWallWithPassableTile();
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
