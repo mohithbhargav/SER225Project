@@ -10,6 +10,7 @@ import Level.MapEntityStatus;
 import Level.Player;
 import Level.TileType;
 import Maps.OnlyGitMap;
+import EnhancedMapTiles.Laser;
 import Utils.Point;
 
 import java.io.IOException;
@@ -33,8 +34,9 @@ public class KeyL1 extends EnhancedMapTile {
             if (wasAdded) {
                 System.out.println("Key added to the inventory");
                 isKeyPickedUp = true;
-                replaceWallWithPassableTile();
+                // replaceWallWithPassableTile();
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
+
             } else {
                 System.out.println("Inventory is full, cannot pick up the key!");
             }
@@ -43,22 +45,22 @@ public class KeyL1 extends EnhancedMapTile {
 
 
 
-    private void replaceWallWithPassableTile() {
-        try {
-            OnlyGitMap.replaceAllWallTilesInFile();
+    // private void replaceWallWithPassableTile() {
+    //     try {
+    //         OnlyGitMap.replaceAllWallTilesInFile();
             
-            if (this.getMapReference() instanceof OnlyGitMap) {
-                OnlyGitMap currentMap = (OnlyGitMap) this.getMapReference();
-                currentMap.reloadMapFromFile();
-            } else {
-                System.err.println("Error: Expected map of type OnlyGitMap but encountered another type.");
-            }
+    //         if (this.getMapReference() instanceof OnlyGitMap) {
+    //             OnlyGitMap currentMap = (OnlyGitMap) this.getMapReference();
+    //             currentMap.reloadMapFromFile();
+    //         } else {
+    //             System.err.println("Error: Expected map of type OnlyGitMap but encountered another type.");
+    //         }
             
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception
-        }
-    }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //         // Handle the exception
+    //     }
+    // }
 
     
 
@@ -72,6 +74,11 @@ public class KeyL1 extends EnhancedMapTile {
             });
         }};
     }
+
+    // In KeyL1 class
+    public boolean isKeyPickedUp() {
+    return this.isKeyPickedUp;
+}
 
     public Map getMapReference() {
         return mapReference;

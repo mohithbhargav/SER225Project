@@ -22,4 +22,10 @@ public class Level2 {
     public AudioManager getAudioManager() {
         return audioManager;
     }
+
+    public static void replaceAllWallTilesInFile() {
+    }
+
+    public void reloadMapFromFile() {
+    }
 }

@@ -8,6 +8,7 @@ import Engine.ImageLoader;
 import java.awt.image.BufferedImage;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Game.Game;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Engine.ScreenManager;
@@ -15,14 +16,13 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.Level3;
-import Maps.Level4;
+import Maps.EasterEggLevel;
 import Maps.Level2;
+import Maps.Level4;
 import Maps.OnlyGitMap;
 import Maps.TestMap;
 import Players.Cat;
 import Utils.Point;
-import javafx.scene.shape.Circle;
-
 import javax.swing.JLabel;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
@@ -53,6 +53,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected boolean isRunning;
     protected int minutes, seconds;
     static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log ;
+    protected long gameStartTime;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
     public static int currentMap = 1;
@@ -61,7 +62,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
     protected GraphicsHandler graphicsHandler;
-    
+    protected Timer totalGameTimeTimer;
+    protected int totalGameMinutes, totalGameSeconds;
 
     Font customFont;
 
@@ -120,7 +122,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
             customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font
-                                                                      // loading fails
+            // loading fails
         }
 
         this.tLabel = new JLabel("");
@@ -222,7 +224,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
                     int playerX = (int) player.getCalibratedXLocation(); // The X coordinate of the player's location
                     int playerY = (int) player.getCalibratedYLocation(); // The Y coordinate of the player's location
-                    int lightRadius = player.getWidth() + 50 ; // Assuming you want the radius to be half the player's width
+                    int lightRadius = player.getWidth() + 50; // Assuming you want the radius to be half the player's
+                                                              // width
 
                     // Draw the filled circle of light around the player
                     graphicsHandler.drawFilledCircle(playerX + 30, playerY, lightRadius, new Color(255, 255, 255, 100));
@@ -316,6 +319,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 currentMap++;
                 initialize();
                 goBackToMenu(); // Go back to the menu after completing the second level
+                Game.totalGameTimeTimerStop();
             }
         }
     }
@@ -367,13 +371,45 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
+        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, PREVIOUSLEVEL
     }
 
     @Override
     public void onPreviousLevel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onPreviousLevel'");
+        if (playLevelScreenState != PlayLevelScreenState.PREVIOUSLEVEL) {
+            playLevelScreenState = PlayLevelScreenState.PREVIOUSLEVEL;
+            timer.stop(); // Stop the timer when the level is completed
+
+            if (currentMap == 1) {
+                min1Log = minutes;
+                sec1Log = seconds;
+                System.out.println("Time Left: " + min1Log + ":" + sec1Log); // Log the time left
+                currentMap--;
+                initialize();
+            } else if (currentMap == 2) {
+                min2Log = minutes;
+                sec2Log = seconds;
+                System.out.println("Time Left: " + min2Log + ":" + sec2Log); // Log the time left
+                currentMap--;
+                initialize();
+            }
+
+            else if (currentMap == 3) {
+                min3Log = minutes;
+                sec3Log = seconds;
+                System.out.println("Time Left: " + min3Log + ":" + sec3Log); // Log the time left
+                currentMap--;
+                initialize();
+            }
+
+            else if (currentMap == 4) {
+                min4Log = minutes;
+                sec4Log = seconds;
+                System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
+                currentMap--;
+                initialize();
+            }
+        }
     }
 
 

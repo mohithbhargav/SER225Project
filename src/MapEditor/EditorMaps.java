@@ -4,6 +4,7 @@ import Level.Map;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
 import Maps.OnlyGitMap;
+import Maps.EasterEggLevel;
 import Maps.Level2;
 import Maps.Level3;
 import Maps.Level4;
@@ -20,6 +21,7 @@ public class EditorMaps {
                 add("Level2");
                 add("Level3");
                 add("Level4");
+                add("EasterEggLevel");
             }
         };
     }
@@ -38,6 +40,8 @@ public class EditorMaps {
                 return new Level3();
             case "Level4":
                 return new Level4();    
+            case "EasterEggLevel":
+                return new EasterEggLevel();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

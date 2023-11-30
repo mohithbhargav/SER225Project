@@ -12,20 +12,32 @@ import Maps.Level2;
 import Utils.Point;
 import Engine.Key;
 import Engine.Keyboard;
+import EnhancedMapTiles.LaserL2;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class Keypad extends EnhancedMapTile {
+    public class Keypad extends EnhancedMapTile {
     private final Key keyPadKey = Key.SPACE;
     private boolean isInteractedWith = false;
     private boolean correctPassKey = false;
     private Map mapReference;
+    private List<LaserL2> linkedLasers = new ArrayList<>(); // List of linked lasers
+
+
+
+    public void addLinkedLaser(LaserL2 laser) {
+        linkedLasers.add(laser);
+    }
 
     public Keypad(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Keypad.png"), 16, 16), TileType.PASSABLE);
     }
+
+
 
     @Override
     public void update(Player player) {
@@ -45,20 +57,20 @@ public class Keypad extends EnhancedMapTile {
 
     public void passKey() {
         String passCodeString = JOptionPane.showInputDialog(null, "Enter a 4-digit Passkey:", "Passkey Input", JOptionPane.QUESTION_MESSAGE);
-        
-        // If user cancels the input dialog, exit the method to allow returning to the game
         if (passCodeString == null) {
-            isInteractedWith = false; // Reset flag to allow reactivation later if needed
+            isInteractedWith = false;
             return;
         }
 
         try {
             int passCode = Integer.parseInt(passCodeString);
             if (passCode == 4269) {
-                replaceWallWithPassableTile();
+                for (LaserL2 laser : linkedLasers) {
+                    laser.deactivate(); // Deactivate each linked laser
+                }
                 JOptionPane.showMessageDialog(null, "Correct passcode entered. Access granted!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                correctPassKey = true; // Correct passkey, no further action needed
-                isInteractedWith = false; // Reset flag after successful interaction
+                correctPassKey = true;
+                isInteractedWith = false;
             } else {
                 JOptionPane.showMessageDialog(null, "Incorrect passcode. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -82,21 +94,12 @@ public class Keypad extends EnhancedMapTile {
         return mapReference;
     }
 
+    
+
     public void setMapReference(Map mapReference) {
         this.mapReference = mapReference;
     }
 
-    private void replaceWallWithPassableTile() {
-        try {
-            Level2.replaceAllWallTilesInFile();
-            if (this.getMapReference() instanceof Level2) {
-                Level2 currentMap = (Level2) this.getMapReference();
-                currentMap.reloadMapFromFile();
-            } else {
-                System.err.println("Error: Expected map of type Level2 but encountered another type.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+    
 }

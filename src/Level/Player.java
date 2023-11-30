@@ -68,7 +68,7 @@ public abstract class Player extends GameObject {
 
     // flags
     public boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
-
+    private int currentLevelIndex;
     private Inventory inventory;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, int currentMap) {
@@ -102,7 +102,7 @@ public abstract class Player extends GameObject {
         this.canDoubleJump = true;
     }
 
-    private Level1 currentLevel; // assuming you have access to your current level in the Player class
+    private Level currentLevel; // assuming you have access to your current level in the Player class
 
     public void pauseMusic() {
         currentLevel.getAudioManager().stopSound();
@@ -403,7 +403,6 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
@@ -413,10 +412,9 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // other entities can call this to tell the player they beat a level
     public void completeLevel() {
         levelState = LevelState.LEVEL_COMPLETED;
-
+        // currentLevelIndex++;
     }
 
     // if player has beaten level, this will be the update cycle
@@ -447,22 +445,22 @@ public abstract class Player extends GameObject {
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
-            // Optionally, you can log the error or handle it in some other way.
+
         }
     }
 
-    // Other fields...
-
-    private int currentLevelIndex;
-
-    // Other methods...
-
     public void previousLevel() {
+
+        levelState = LevelState.PREVIOUSLEVEL;
+        for (PlayerListener listener : listeners) {
+            listener.onPreviousLevel();
+        }
         // Assuming you have access to the current level index in the Player class
+        System.err.println("CurrentLevelIndex: " + currentLevelIndex);
         if (currentLevelIndex > 0) {
             // Pause the music for the current level
             pauseMusic();
-
+            System.err.println("Are we here?");
             // Reset player state or any other necessary logic for transitioning to the
             // previous level
             resetPlayerState();
@@ -470,27 +468,18 @@ public abstract class Player extends GameObject {
             // Load the previous level by decrementing the current level index
             currentLevelIndex--;
 
-            // Load the level based on the current index (you need to implement this method)
+            // Load the level based on the current index (you need to implement this
+            // method)
             loadLevel(levelState.get(currentLevelIndex));
 
-            // Optionally, resume music for the previous level
             resumeMusic();
         }
     }
 
-    // Other methods...
-
     // Additional method for loading a level, adjust as needed
     private void loadLevel(Level level) {
-        // Implement logic to load the specified level
-        // This might involve setting up the map, enemies, NPCs, etc.
-        // Adjust the method based on your game's level-loading requirements
-        // You might want to have a method in your Level class to perform these tasks
-        // Example: level.loadLevel();
-        // Implement logic to load the specified level
-        // This might involve setting up the map, enemies, NPCs, etc.
 
-        currentLevel = (Level1); // Change Level1 to the actual class of your level
+        currentLevel = (level); // Change Level1 to the actual class of your level
 
         // Start the background music for the new level
         backgroundMusic.playLoop();
@@ -523,7 +512,6 @@ public abstract class Player extends GameObject {
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
-            // Optionally, you can log the error or handle it in some other way.
         }
     }
 
@@ -550,8 +538,6 @@ public abstract class Player extends GameObject {
     }
 
     private void resetPlayerState() {
-        // Reset any player-specific state, such as health, power-ups, etc.
-        // You may also want to reset the player's position or other relevant parameters
         setAirGroundState(AirGroundState.GROUND); // Assuming this method exists in your Player class
         setPlayerState(PlayerState.STANDING);
         setFacingDirection(Direction.RIGHT); // Set the default direction
@@ -606,7 +592,6 @@ public abstract class Player extends GameObject {
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
-            // Optionally, you can log the error or handle it in some other way.
         }
     }
 
@@ -691,14 +676,8 @@ public abstract class Player extends GameObject {
         return inventory.removeItem(item);
     }
 
-    // Add a method to get the inventory items as a List (if needed for drawing or
-    // other purposes)
     public List<String> getInventoryItems() {
         return inventory.getItems();
-    }
-
-    public void PreviousLevel() {
-        return;
     }
 
     public Object getMap() {
