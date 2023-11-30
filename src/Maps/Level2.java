@@ -83,8 +83,8 @@ public class Level2 extends Map {
 
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(30, 10).getLocation(),
-                getMapTile(27, 10).getLocation(),
+                getMapTile(23, 10).getLocation(),
+                getMapTile(27, 4).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6, 16, 4),
@@ -93,7 +93,7 @@ public class Level2 extends Map {
 
         HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(25, 4).getLocation(),
+                getMapTile(23, 4).getLocation(),
                 getMapTile(27, 4).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,

@@ -34,7 +34,6 @@ public class KeyL1 extends EnhancedMapTile {
             if (wasAdded) {
                 System.out.println("Key added to the inventory");
                 isKeyPickedUp = true;
-                // replaceWallWithPassableTile();
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
 
             } else {

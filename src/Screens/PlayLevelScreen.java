@@ -52,8 +52,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
+<<<<<<< HEAD
     static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log ;
   
+=======
+    static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log;
+>>>>>>> 0244088a800eb4d35e351eba55ab25ac33bda4a8
     protected long gameStartTime;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
@@ -88,6 +92,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         } else if (currentMap == 4) {
             this.map = new Level4();
+
+        } else if (currentMap == 5) {
+            this.map = new EasterEggLevel();
         }
         map.reset();
 
@@ -102,6 +109,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
 
         } else if (currentMap == 4) {
+            this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
+
+        } else if (currentMap == 5) {
             this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, currentMap);
         }
 
@@ -159,6 +169,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 minutes++;
                 seconds -= 60;
             }
+        } else if (currentMap == 5) {
+            minutes += min3Log;
+            seconds += sec3Log;
+            if (seconds >= 60) {
+                minutes++;
+                seconds -= 60;
+            }
         }
 
         if (timer != null && isRunning) {
@@ -180,6 +197,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 map.update(player);
 
                 break;
+
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 if (levelCompletedStateChangeStart) {
@@ -196,7 +214,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 } else {
                     levelClearedScreen.update();
                     screenTimer--;
-                    if (screenTimer == 0 && currentMap == 3) {
+                    if (screenTimer == 0 && currentMap == 4) {
                         goBackToMenu();
                     }
                 }
@@ -239,18 +257,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                             Color.LIGHT_GRAY);
                 }
 
-                if (currentMap == 4){
+                if (currentMap == 4) {
 
                     long currentTime = System.currentTimeMillis(); // Get the current time
                     long flashDuration = 500; // Duration for each flash in milliseconds (e.g., 500ms on, 500ms off)
-                
+
                     if ((currentTime / flashDuration) % 2 == 0) {
-                        
+
                         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
-                                                            ScreenManager.getScreenHeight(), new Color(255, 0, 0, 50));
+                                ScreenManager.getScreenHeight(), new Color(255, 0, 0, 50));
                     } else {
                         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
-                                                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 0));
+                                ScreenManager.getScreenHeight(), new Color(0, 0, 0, 0));
                     }
                 }
                 break;
@@ -291,6 +309,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void onLevelCompleted() {
+        // Check if the current state is not already LEVEL_COMPLETED
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             timer.stop(); // Stop the timer when the level is completed
@@ -313,8 +332,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 System.out.println("Time Left: " + min3Log + ":" + sec3Log); // Log the time left
                 currentMap++;
                 initialize();
-            }
-            else if (currentMap == 4) {
+            } else if (currentMap == 4) {
                 min4Log = minutes;
                 sec4Log = seconds;
                 System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
@@ -373,7 +391,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, PREVIOUSLEVEL
+        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE, PREVIOUSLEVEL, SPCLEVEL
     }
 
     @Override
@@ -410,11 +428,33 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
                 currentMap--;
                 initialize();
+
+            } else if (currentMap == 5) {
+                min4Log = minutes;
+                sec4Log = seconds;
+                System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
+                currentMap--;
+                initialize();
             }
         }
     }
 
+    @Override
+    public void onSpcLevel() {
+        if (playLevelScreenState != PlayLevelScreenState.SPCLEVEL) {
+            playLevelScreenState = PlayLevelScreenState.SPCLEVEL;
+            timer.stop(); // Stop the timer when the level is completed
 
-   
-   
+            if (currentMap == 3) {
+                min3Log = minutes;
+                sec3Log = seconds;
+                System.out.println("Time Left: " + min3Log + ":" + sec3Log); // Log the time left
+                currentMap++;
+                currentMap++;
+                initialize();
+            }
+        }
+        // throw new UnsupportedOperationException("Unimplemented method 'onSpcLevel'");
+    }
+
 }

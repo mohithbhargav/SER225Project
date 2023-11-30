@@ -12,6 +12,7 @@ import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
 import NPCs.EndElevator;
+import NPCs.Lock;
 
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -133,6 +134,9 @@ public class OnlyGitMap extends Map {
 
         Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
         npcs.add(walrus);
+
+        Lock lock = new Lock(getMapTile(1, 6).getLocation());
+        npcs.add(lock);
 
         EndElevator endElevator = new EndElevator(getMapTile(42, 12).getLocation());
         npcs.add(endElevator);

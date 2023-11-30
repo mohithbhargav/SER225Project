@@ -30,7 +30,7 @@ public abstract class Player extends GameObject {
     // these should be set in a subclass
     public float walkSpeed = 0;
     public float gravity = 0;
-   public float jumpHeight = 0;
+    public float jumpHeight = 0;
     public float jumpDegrade = 0;
     public float terminalVelocityY = 0;
     public float momentumYIncrease = 0;
@@ -173,7 +173,13 @@ public abstract class Player extends GameObject {
         // if player has beaten level
         else if (levelState == LevelState.PREVIOUSLEVEL) {
             updatePREVIOUSLEVEL();
+
+        } else if (levelState == LevelState.SPCLEVEL) {
+            updateSPCLEVEL();
         }
+    }
+
+    private void updateSPCLEVEL() {
     }
 
     private void updatePREVIOUSLEVEL() {
@@ -432,11 +438,11 @@ public abstract class Player extends GameObject {
                 moveYHandleCollision(moveAmountY);
             }
             // move player to the right until it walks off screen
-            //else if (map.getCamera().containsDraw(this)) {
-                //currentAnimationName = "WALK_RIGHT";
-              //  super.update();
-                //moveXHandleCollision(walkSpeed);
-            //} 
+            // else if (map.getCamera().containsDraw(this)) {
+            // currentAnimationName = "WALK_RIGHT";
+            // super.update();
+            // moveXHandleCollision(walkSpeed);
+            // }
             else {
                 // tell all player listeners that the player has finished the level
                 for (PlayerListener listener : listeners) {
@@ -508,6 +514,63 @@ public abstract class Player extends GameObject {
                 // tell all player listeners that the player has finished the level
                 for (PlayerListener listener : listeners) {
                     listener.onPreviousLevel();
+                }
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void SpcLevel() {
+
+        levelState = LevelState.SPCLEVEL;
+        for (PlayerListener listener : listeners) {
+            listener.onSpcLevel();
+        }
+        // Assuming you have access to the current level index in the Player class
+        System.err.println("CurrentLevelIndex: " + currentLevelIndex);
+        if (currentLevelIndex > 0) {
+            // Pause the music for the current level
+            pauseMusic();
+            System.err.println("Are we here?");
+            // Reset player state or any other necessary logic for transitioning to the
+            // previous level
+            resetPlayerState();
+
+            // Load the previous level by decrementing the current level index
+            currentLevelIndex++;
+            currentLevelIndex++;
+
+            // Load the level based on the current index (you need to implement this
+            // method)
+            loadLevel(levelState.get(currentLevelIndex));
+
+            resumeMusic();
+        }
+    }
+
+    public void UpdateSpcLevel() {
+        try {
+            // Stop the background music
+            backgroundMusic.stop();
+
+            // if player is not on ground, player should fall until it touches the ground
+            if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
+                currentAnimationName = "FALL_RIGHT";
+                applyGravity();
+                increaseMomentum();
+                super.update();
+                moveYHandleCollision(moveAmountY);
+            }
+            // move player to the right until it walks off screen
+            else if (map.getCamera().containsDraw(this)) {
+                currentAnimationName = "WALK_LEFT";
+                super.update();
+                moveXHandleCollision(walkSpeed);
+            } else {
+                // tell all player listeners that the player has finished the level
+                for (PlayerListener listener : listeners) {
+                    listener.onSpcLevel();
                 }
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {

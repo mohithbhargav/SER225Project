@@ -7,4 +7,6 @@ public interface PlayerListener {
     void onDeath();
 
     void onPreviousLevel();
+
+    void onSpcLevel();
 }

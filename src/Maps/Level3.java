@@ -10,6 +10,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.EndElevator;
+import NPCs.SpcElevator;
 import NPCs.StartElevator;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -178,8 +179,11 @@ public class Level3 extends Map {
         EndElevator endElevator = new EndElevator(getMapTile(40, 4).getLocation());
         npcs.add(endElevator);
 
-        StartElevator startElevator = new StartElevator(getMapTile(1, 16).getLocation());
+        StartElevator startElevator = new StartElevator(getMapTile(9, 16).getLocation());
         npcs.add(startElevator);
+
+        SpcElevator spcElevator = new SpcElevator(getMapTile(41, 16).getLocation());
+        npcs.add(spcElevator);
 
         return npcs;
     }
