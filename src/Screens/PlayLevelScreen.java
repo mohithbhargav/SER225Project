@@ -64,6 +64,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected GraphicsHandler graphicsHandler;
     protected Timer totalGameTimeTimer;
     protected int totalGameMinutes, totalGameSeconds;
+    private int alphaValue = 150;
+
+
+    public void setAlphaValue(int alpha) {
+        this.alphaValue = alpha;
+    }
 
     Font customFont;
 
@@ -86,7 +92,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.map = new Level3();
 
         } else if (currentMap == 4) {
-            this.map = new Level4();
+            this.map = new Level4(this);
 
         } else if (currentMap == 5) {
             this.map = new EasterEggLevel();
@@ -232,9 +238,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
 
                 if (currentMap == 3) {
-
                     graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
-                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 150));
+                    ScreenManager.getScreenHeight(), new Color(0, 0, 0, alphaValue));
 
                     int playerX = (int) player.getCalibratedXLocation(); // The X coordinate of the player's location
                     int playerY = (int) player.getCalibratedYLocation(); // The Y coordinate of the player's location
@@ -330,9 +335,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 min4Log = minutes;
                 sec4Log = seconds;
                 System.out.println("Time Left: " + min4Log + ":" + sec4Log); // Log the time left
-                currentMap++;
+                currentMap--;
                 initialize();
-                goBackToMenu(); // Go back to the menu after completing the second level
+                // goBackToMenu(); // Go back to the menu after completing the second level
                 Game.totalGameTimeTimerStop();
             }
         }
