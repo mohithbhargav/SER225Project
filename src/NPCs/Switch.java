@@ -16,7 +16,7 @@ import java.util.HashMap;
 // This class is for the walrus NPC
 public class Switch extends NPC {
 
-        private PlayLevelScreen playLevelScreen;
+        public PlayLevelScreen playLevelScreen;
 
 
      public Switch(Point location, PlayLevelScreen playLevelScreen) {
@@ -34,8 +34,9 @@ public class Switch extends NPC {
     public void update(Player player) {
         if (talkedTo) {
             // Change the overlay alpha value in PlayLevelScreen
-            playLevelScreen.setOverlayAlpha(0);
+            //playLevelScreen.setOverlayAlpha(0);
 
+            playLevelScreen.lightsOff = false;
             textbox.setText("GO BACK TO LEVEL 3! FIND THE SECRET ENTRANCE");
         }
         super.update(player);

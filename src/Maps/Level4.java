@@ -13,7 +13,7 @@ import GameObject.Rectangle;
 import Level.*;
 import NPCs.EndElevator;
 import NPCs.StartElevator;
-import NPCs.Walrus;
+import NPCs.Switch;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
@@ -165,8 +165,9 @@ public class Level4 extends Map {
         npcs.add(endElevator);
 
         StartElevator startElevator = new StartElevator(getMapTile(1, 16).getLocation());
-        npcs.add(startElevator);
+        npcs.add(startElevator); 
 
+    
         return npcs;
     }
 }

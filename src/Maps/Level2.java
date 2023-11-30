@@ -147,7 +147,7 @@ public class Level2 extends Map {
         StartElevator startElevator = new StartElevator(getMapTile(1, 16).getLocation());
         npcs.add(startElevator);
 
-        return npcs;
+        return npcs; 
     }
 
 }

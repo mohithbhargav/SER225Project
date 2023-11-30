@@ -52,15 +52,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected Timer timer;
     protected boolean isRunning;
     protected int minutes, seconds;
-<<<<<<< HEAD
-    static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log ;
-  
-=======
     static int sec1Log, min1Log, sec2Log, min2Log, sec3Log, min3Log, sec4Log, min4Log;
->>>>>>> 0244088a800eb4d35e351eba55ab25ac33bda4a8
     protected long gameStartTime;
     // protected Font font = new Font("Black Letter", Font.PLAIN, 50);
     protected String minute, second;
+    public boolean lightsOff = true;
     public static int currentMap = 1;
     protected DecimalFormat dec = new DecimalFormat("00");
     protected LevelClearedScreen levelClearedScreen;
@@ -235,9 +231,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
                 drawInventory(graphicsHandler); // Draw the inventory
-                graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 350, 50, customFont, Color.LIGHT_GRAY);
+                graphicsHandler.drawString(minutes + ":" + dec.format(seconds), 570, 50, customFont, Color.LIGHT_GRAY);
 
-                if (currentMap == 3) {
+                if (currentMap == 3 && lightsOff) {
 
                     graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
                             ScreenManager.getScreenHeight(), new Color(0, 0, 0, 150));
@@ -257,7 +253,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                             Color.LIGHT_GRAY);
                 }
 
-                if (currentMap == 4) {
+                if (currentMap == 4 && lightsOff) {
 
                     long currentTime = System.currentTimeMillis(); // Get the current time
                     long flashDuration = 500; // Duration for each flash in milliseconds (e.g., 500ms on, 500ms off)
