@@ -35,7 +35,7 @@ public class GemL3 extends EnhancedMapTile {
             if (wasAdded) {
                 System.out.println("Gem added to the inventory");
                 isGemPickedUp = true;
-                replaceWallWithPassableTile();
+                // replaceWallWithPassableTile();
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
             } else {
                 System.out.println("Inventory is full, cannot pick up the Gem!");
@@ -43,22 +43,23 @@ public class GemL3 extends EnhancedMapTile {
         }
     }
 
-    private void replaceWallWithPassableTile() {
-        try {
-            Level3.replaceAllWallTilesInFile();
+    // private void replaceWallWithPassableTile() {
+    // try {
+    // Level3.replaceAllWallTilesInFile();
 
-            if (this.getMapReference() instanceof Level3) {
-                Level3 currentMap = (Level3) this.getMapReference();
-                currentMap.reloadMapFromFile();
-            } else {
-                System.err.println("Error: Expected map of type Level3 but encountered another type.");
-            }
+    // if (this.getMapReference() instanceof Level3) {
+    // Level3 currentMap = (Level3) this.getMapReference();
+    // currentMap.reloadMapFromFile();
+    // } else {
+    // System.err.println("Error: Expected map of type Level3 but encountered
+    // another type.");
+    // }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception
-        }
-    }
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // // Handle the exception
+    // }
+    // }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
