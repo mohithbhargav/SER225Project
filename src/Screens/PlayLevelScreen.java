@@ -113,7 +113,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
             customFont = new Font("Times New Roman", Font.PLAIN, 30); // fallback to Times New Roman if custom font
-                                                                      // loading fails
+            // loading fails
         }
 
         this.tLabel = new JLabel("");
@@ -193,7 +193,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-    public void draw(GraphicsHandler graphicsHandler) {
+public void draw(GraphicsHandler graphicsHandler) {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(graphicsHandler);
@@ -204,7 +204,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 if (currentMap == 3) {
 
                     graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(),
-                            ScreenManager.getScreenHeight(), new Color(0, 0, 0, 220));
+                    ScreenManager.getScreenHeight(), new Color(0, 0, 0, 150));
 
                     int playerX = (int) player.getCalibratedXLocation(); // The X coordinate of the player's location
                     int playerY = (int) player.getCalibratedYLocation(); // The Y coordinate of the player's location

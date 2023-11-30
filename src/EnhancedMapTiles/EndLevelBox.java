@@ -25,15 +25,10 @@ public class EndLevelBox extends EnhancedMapTile {
     super.update(player);
     if (intersects(player)) {
         player.completeLevel();
-        try {
-            OnlyGitMap.resetMapToFile();  // Reset the map after the level is completed
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception, perhaps log an error or display a message to the player
-        }
-    }
+
     }
 
+}
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{

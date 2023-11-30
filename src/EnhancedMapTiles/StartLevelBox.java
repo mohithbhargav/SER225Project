@@ -25,12 +25,7 @@ public class StartLevelBox extends EnhancedMapTile {
         super.update(player);
         if (intersects(player)) {
             player.PreviousLevel();
-            try {
-                OnlyGitMap.resetMapToFile(); // Reset the map after the level is completed
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Handle the exception, perhaps log an error or display a message to the player
-            }
+            
         }
     }
 
