@@ -32,6 +32,7 @@ public class GemL1 extends EnhancedMapTile {
             boolean wasAdded = player.addItemToInventory("RG");
             if (wasAdded) {
                 System.out.println("Gem added to the inventory");
+                System.out.println("One of the most famous jewelry thief's was a woman by the name of Doris Payne!");
                 isGemPickedUp = true;
                 // replaceWallWithPassableTile();
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
