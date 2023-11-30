@@ -50,11 +50,11 @@ public class Level4 extends Map {
 
 
 
-        
-            GuardW guardw = new GuardW(getMapTile(5, 16).getLocation(), 
-            getMapTile(20, 16).getLocation(),
-            Direction.RIGHT);
-            enemiesGuard.add(guardw);
+
+          GuardW guardw = new GuardW(getMapTile(5, 16).getLocation(), 
+          getMapTile(20, 16).getLocation(),
+          Direction.RIGHT);
+          enemiesGuard.add(guardw);
 
             GuardB guardb = new GuardB(getMapTile(6, 6).getLocation(), 
             getMapTile(17, 6).getLocation(),
@@ -79,6 +79,8 @@ public class Level4 extends Map {
             getMapTile(29, 6).getLocation(),
             Direction.LEFT);
             enemiesGuard.add(guardb3);
+
+
 
 
             GuardB guardb4 = new GuardB(getMapTile(27, 6).getLocation(), 
