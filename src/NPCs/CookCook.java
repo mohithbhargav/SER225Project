@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class CookCook extends NPC {
 
     public CookCook(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PROF.png"), 34, 33), "TAIL_DOWN");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PROF.png"), 34, 33), "DEFAULT");
         boolean forCookCook = true;
         isInteractable = true;
         talkedToTime = 200;
@@ -27,11 +27,7 @@ public class CookCook extends NPC {
 
     public void update(Player player) {
         // while npc is being talked to, it raises its tail up (in excitement?)
-        if (talkedTo) {
-            currentAnimationName = "TAIL_UP";
-        } else {
-            currentAnimationName = "TAIL_DOWN";
-        }
+
 
         super.update(player);
     }
@@ -40,17 +36,10 @@ public class CookCook extends NPC {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {
             {
-                put("TAIL_DOWN", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(0, 0))
+                put("DEFAULT", new Frame[] {
+                        new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                                 .withScale(3)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .build()
-                });
-                put("TAIL_UP", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(1, 0))
-                                .withScale(3)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .build()
+                                .build(),
                 });
             }
         };

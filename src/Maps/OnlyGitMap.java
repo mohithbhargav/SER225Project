@@ -69,7 +69,7 @@ public class OnlyGitMap extends Map {
     // }
 
     // public static void resetMapToFile() throws IOException {
-    // // Path to the backup map
+    // // Path to the backup macookp
     // String backupPath = "MapFiles/only_git_map_backup.txt";
     // String targetPath = "MapFiles/only_git_map.txt";
 
@@ -136,8 +136,8 @@ public class OnlyGitMap extends Map {
         Walrus walrus = new Walrus(getMapTile(20, 17).getLocation().subtractY(13));
         npcs.add(walrus);
 
-        CookCook cookcook = new CookCook(getMapTile(16, 17).getLocation().subtractY(13));
-        npcs.add(cookcook);
+        // CookCook cookcook = new CookCook(getMapTile(16, 17).getLocation().subtractY(13));
+        // npcs.add(cookcook);
 
         Lock lock = new Lock(getMapTile(1, 6).getLocation());
         npcs.add(lock);
