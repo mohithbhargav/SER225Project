@@ -1,4 +1,5 @@
 # SER225 Platformer Game
+# Sneaky Systems: Run for Freedom
 
 ## What is this?
 This is a game created for Quinnipiac's SER225 Agile Development class.
@@ -19,4 +20,11 @@ It can be accessed at [https://a-r-t.github.io/SER-225-Game-Platformer/](https:/
 Changes to content in the `docs` folder will not show up on the website unless they are pushed to the `master` branch.
 
 ## Credits
-**Alex Thimineur**: Programmed the game, made the art.
+**TEAM ONLYGIT**
+**Manager: 
+William Siri (Billy)**
+**Developers:
+Cameron Anthony
+Carmine Andranovich
+Mohith Donthu
+Haig Mesrobian**
