@@ -19,12 +19,15 @@ It can be accessed at [https://a-r-t.github.io/SER-225-Game-Platformer/](https:/
 
 Changes to content in the `docs` folder will not show up on the website unless they are pushed to the `master` branch.
 
-## Credits
-**TEAM ONLYGIT**
+## Credits: TEAM ONLYGIT
+
 **Manager: 
 William Siri (Billy)**
-**Developers:
-Cameron Anthony
-Carmine Andranovich
-Mohith Donthu
-Haig Mesrobian**
+# Developers:
+[Cameron Anthony](https://github.com/cmanthony1)
+
+[Carmine Andranovich](https://github.com/candranovich)
+
+[Mohith Donthu](https://github.com/dbhargavQU)
+
+[Haig Mesrobian](https://github.com/haig419)
